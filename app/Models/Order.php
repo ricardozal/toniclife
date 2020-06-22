@@ -6,6 +6,47 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Order
+ *
+ * @property int $id
+ * @property float $total_price
+ * @property float $total_taxes
+ * @property float $total_accumulated_points
+ * @property float $shipping_price
+ * @property int $bill_required
+ * @property int $fk_id_distributor
+ * @property int $fk_id_order_status
+ * @property int|null $fk_id_shipping_address
+ * @property int $fk_id_branch
+ * @property int $fk_id_payment_method
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Branch $branch
+ * @property-read \App\Models\Distributor $distributor
+ * @property-read \App\Models\PaymentMethod $paymentMethod
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
+ * @property-read int|null $products_count
+ * @property-read \App\Models\Address|null $shippingAddress
+ * @property-read \App\Models\OrderStatus $status
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereBillRequired($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFkIdBranch($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFkIdDistributor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFkIdOrderStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFkIdPaymentMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFkIdShippingAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereShippingPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereTotalAccumulatedPoints($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereTotalPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereTotalTaxes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Order extends Model
 {
     protected $table = 'order';

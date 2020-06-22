@@ -6,6 +6,44 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Distributor
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $tonic_life_id
+ * @property string $email
+ * @property string $password
+ * @property float $accumulated_points
+ * @property int $active
+ * @property int|null $fk_id_distributor
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Distributor[] $distributors
+ * @property-read int|null $distributors_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Address[] $products
+ * @property-read int|null $products_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Promotion[] $promotions
+ * @property-read int|null $promotions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ReorderRequest[] $reorderRequests
+ * @property-read int|null $reorder_requests_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereAccumulatedPoints($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereFkIdDistributor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereTonicLifeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Distributor extends Model
 {
     protected $table = 'distributor';

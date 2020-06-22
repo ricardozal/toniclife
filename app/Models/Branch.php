@@ -6,6 +6,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Branch
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $active
+ * @property int $fk_id_address
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Address $address
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
+ * @property-read int|null $products_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch whereFkIdAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Branch extends Model
 {
     protected $table = 'branch';
