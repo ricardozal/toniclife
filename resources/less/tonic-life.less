@@ -1,6 +1,65 @@
-@color-pink: #F8E;
+@color-background: #F7F7F7;
+@color-primary: #0C5394;
+@color-white: #FFFFFF;
 
-.test-title{
-    color: @color-pink !important;
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: @color-background;
+}
 
+.main-card{
+    border-radius: 30px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    height: 90vh;
+}
+
+/********************************
+ ********   Footer   *************
+ ********************************/
+
+.footer{
+    height: 3rem;
+    text-align: center;
+    color: @color-primary;
+    align-items: center;
+}
+
+/********************************
+ ********  Sidebar   *************
+ ********************************/
+
+.nav{
+    background: @color-primary;
+    min-height: 100%;
+    padding: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    .nav-link{
+        color: @color-white;
+        text-decoration: none;
+        padding: 0;
+        margin-bottom: 3rem;
+        &.active{
+            span:first-child{
+                background-color: rgba(@color-white, .3);
+                border-top-right-radius: 2rem;
+                border-bottom-right-radius: 2rem;
+            }
+        }
+        span:first-child{
+            padding: 1rem 0;
+            padding-left: 1rem;
+            padding-right: 6px;
+        }
+        &:last-child{
+            margin-bottom: 0;
+            margin-top: auto;
+        }
+    }
+    .sidebar-text{
+        margin-left: 4px;
+    }
 }
