@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Request\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -40,5 +43,35 @@ class LoginController extends Controller
 
     public function login(){
         return view('auth.login');
+    }
+
+    public function authenticate(LoginRequest $request)
+    {
+        $dataLogin = [
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'active' => 1
+        ];
+        $remember = false;
+
+        if (Auth::attempt($dataLogin, $remember)) {
+            if (Auth::user()->hasRole('Administrador')) {
+                return redirect(route('admin_home'));
+            } elseif (Auth::user()->hasRole('Sucursal')) {
+                return redirect(route('branch_home'));
+            }
+        }
+
+        return redirect()->route('login')->withErrors([
+            'email' => 'Usuario o contraseña incorrectos.'
+        ])->withInput($request->all());
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
+        return redirect('/login');
     }
 }
