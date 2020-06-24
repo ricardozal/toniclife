@@ -24,6 +24,9 @@ class Role extends Model
 {
     protected $table = 'role';
 
+    const ADMIN = 1;
+    const BRANCH = 2;
+
     public function users()
     {
         return $this->hasMany(
@@ -31,6 +34,12 @@ class Role extends Model
             'fk_id_role',
             'id'
         );
+    }
+
+
+    public static function asMap()
+    {
+        return self::pluck('name', 'id');
     }
 
 }
