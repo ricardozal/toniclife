@@ -52,4 +52,9 @@ class Branch extends Model
         );
     }
 
+    public static function asMap()
+    {
+        return self::pluck('name', 'id');
+    }
+
 }

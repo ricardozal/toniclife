@@ -26,7 +26,7 @@
                             <th>Nombre</th>
                             <th>Correo electrónico</th>
                             <th>Role</th>
-                            <th>Editar</th>
+                            <th>Opciones</th>
                             <th>Activar/Desactivar</th>
                         </tr>
                         </thead>
@@ -42,6 +42,8 @@
            value="{{route('admin_user_active',['userId' => 'FAKE_ID'])}}">
     <input id="inp-url-update" type="hidden"
            value="{{route('admin_user_update',['userId' => 'FAKE_ID'])}}">
+    <input id="inp-url-delete" type="hidden"
+           value="{{route('admin_user_delete',['userId' => 'FAKE_ID'])}}">
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">

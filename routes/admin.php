@@ -42,3 +42,7 @@ Route::post('/user/{userId}/update',
 Route::get('/user/{userId}/active',
     'UserController@active')
     ->name('admin_user_active');
+
+Route::get('/user/{userId}/delete',
+    'UserController@delete')
+    ->name('admin_user_delete');

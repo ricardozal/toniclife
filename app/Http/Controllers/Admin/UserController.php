@@ -106,4 +106,19 @@ class UserController extends Controller
             'success' => true,
         ]);
     }
+
+    public function delete($userId)
+    {
+        $user = User::find($userId);
+
+        if (!$user->delete()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'no se puede modificar el estatus en este momento'
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+        ]);
+    }
 }
