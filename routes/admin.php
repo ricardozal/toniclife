@@ -10,3 +10,35 @@ Route::get('/',
 Route::get('/home',
     'HomeController@index')
     ->name('admin_home');
+
+/***********************************
+ * *******   User *************
+ **********************************/
+
+Route::get('/user',
+    'UserController@index')
+    ->name('admin_user_index');
+
+Route::get('/user-content',
+    'UserController@indexContent')
+    ->name('admin_user_index_content');
+
+Route::get('/user/create',
+    'UserController@create')
+    ->name('admin_user_create');
+
+Route::post('/user/create',
+    'UserController@createPost')
+    ->name('admin_user_create_post');
+
+Route::get('/user/{userId}/update',
+    'UserController@update')
+    ->name('admin_user_update');
+
+Route::post('/user/{userId}/update',
+    'UserController@updatePost')
+    ->name('admin_user_update_post');
+
+Route::get('/user/{userId}/active',
+    'UserController@active')
+    ->name('admin_user_active');

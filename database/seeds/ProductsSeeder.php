@@ -865,15 +865,5 @@ class ProductsSeeder extends Seeder
             ]
         ]);
 
-
-
-
-
-
-
-
-
-
-
     }
 }

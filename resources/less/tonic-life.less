@@ -1,6 +1,31 @@
 @color-background: #F7F7F7;
 @color-primary: #0C5394;
 @color-white: #FFFFFF;
+@color-primary-button-hover: #4585F4;
+
+/********************************
+ ********   Colors   *************
+ ********************************/
+
+.text-color-primary{
+    color: @color-primary;
+}
+
+/********************************
+ ********   Buttons   *************
+ ********************************/
+
+.btn-primary{
+    background-color: @color-primary;
+    border-color: @color-primary;
+    border-radius: 30px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.btn-primary:hover{
+    background-color: @color-primary-button-hover;
+    border-color: @color-primary-button-hover;
+}
 
 body{
     font-family: 'Montserrat', sans-serif;
@@ -62,4 +87,18 @@ body{
     .sidebar-text{
         margin-left: 4px;
     }
+}
+
+/********************************
+ ********   Modal   *************
+ ********************************/
+
+.modal-content {
+    border-radius: 1.5rem;
+}
+
+.text-header {
+    color: @color-primary;
+    font-weight: 500;
+
 }

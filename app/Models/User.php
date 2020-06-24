@@ -38,6 +38,12 @@ class User extends Authenticatable
 {
     protected $table = "user";
 
+    protected $fillable = [
+        'name',
+        'email',
+        'fk_id_role'
+    ];
+
     public function role()
     {
         return $this->belongsTo(
