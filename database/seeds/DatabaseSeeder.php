@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(CountrySeeder::class);
         $this->call(ProductsMexSeeder::class);
+        $this->call(ProductsSeeder::class);
     }
 
     public function truncateTables(array $tables)

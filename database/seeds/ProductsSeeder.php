@@ -455,7 +455,7 @@ class ProductsSeeder extends Seeder
                 'code'=>'KBM01',
                 'name'=>'KIT DE INSCRIPCIÓN - BASICO -',
                 'image_url'=>'products/KBM01.jpg',
-                'distributor_price'=>1,100.00,
+                'distributor_price'=>1100.00,
                 'points'=>0,
                 'fk_id_country' => 1,
 
@@ -481,7 +481,7 @@ class ProductsSeeder extends Seeder
                 'code'=>'KPM01',
                 'name'=>'KIT DE INSCRIPCIÓN - PREMIUM -',
                 'image_url'=>'products/KPM01.jpg',
-                'distributor_price'=>5,500.00,
+                'distributor_price'=>5500.00,
                 'points'=>0,
                 'fk_id_country' => 1,
 
@@ -495,7 +495,7 @@ class ProductsSeeder extends Seeder
                 'code'=>'KPM01',
                 'name'=>'KIT DE INSCRIPCIÓN - D-TOX -',
                 'image_url'=>'products/KPM01.jpg',
-                'distributor_price'=>1,100.00,
+                'distributor_price'=>1100.00,
                 'points'=>0,
                 'fk_id_country' => 1,
 
