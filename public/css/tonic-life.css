@@ -1,3 +1,22 @@
+/********************************
+ ********   Colors   *************
+ ********************************/
+.text-color-primary {
+  color: #0C5394;
+}
+/********************************
+ ********   Buttons   *************
+ ********************************/
+.btn-primary {
+  background-color: #0C5394;
+  border-color: #0C5394;
+  border-radius: 30px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.btn-primary:hover {
+  background-color: #4585F4;
+  border-color: #4585F4;
+}
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: #F7F7F7;
@@ -51,4 +70,14 @@ body {
 }
 .nav .sidebar-text {
   margin-left: 4px;
+}
+/********************************
+ ********   Modal   *************
+ ********************************/
+.modal-content {
+  border-radius: 1.5rem;
+}
+.text-header {
+  color: #0C5394;
+  font-weight: 500;
 }

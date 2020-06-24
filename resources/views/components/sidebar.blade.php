@@ -10,8 +10,8 @@
             <img src="{{asset('img/logos/tonic-white.png')}}" style="width: 50%">
         </div>
     </div>
-    <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-       href="#">
+    <a class="nav-link {{$routeName == 'admin_user_index' ? 'active' : ''}}"
+       href="{{route('admin_user_index')}}">
         <span>
             <i class="fas fa-user"></i>
         </span>
