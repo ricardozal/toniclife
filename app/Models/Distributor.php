@@ -48,6 +48,12 @@ class Distributor extends Model
 {
     protected $table = 'distributor';
 
+    protected $fillable = [
+        'name',
+        'tonic_life_id',
+        'email',
+    ];
+
     public function products()
     {
         return $this->belongsToMany(
@@ -61,6 +67,15 @@ class Distributor extends Model
     public function distributors()
     {
         return $this->hasMany(
+            Distributor::class,
+            'fk_id_distributor',
+            'id'
+        );
+    }
+
+    public function distributor()
+    {
+        return $this->belongsTo(
             Distributor::class,
             'fk_id_distributor',
             'id'
