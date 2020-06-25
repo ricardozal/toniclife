@@ -33,6 +33,11 @@ class Branch extends Model
 {
     protected $table = 'branch';
 
+    protected $fillable = [
+        'name',
+        'fk_id_address'
+    ];
+
     public function products()
     {
         return $this->belongsToMany(

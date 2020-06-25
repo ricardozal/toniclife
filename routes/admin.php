@@ -46,3 +46,40 @@ Route::get('/user/{userId}/active',
 Route::get('/user/{userId}/delete',
     'UserController@delete')
     ->name('admin_user_delete');
+
+
+/***********************************
+ * *******   Branch *************
+ **********************************/
+
+Route::get('/branch',
+    'BranchController@index')
+    ->name('admin_branch_index');
+
+Route::get('/branch-content',
+    'BranchController@indexContent')
+    ->name('admin_branch_index_content');
+
+Route::get('/branch/create',
+    'BranchController@create')
+    ->name('admin_branch_create');
+
+Route::post('/branch/create',
+    'BranchController@createPost')
+    ->name('admin_branch_create_post');
+
+Route::get('/branch/{branchId}/update',
+    'BranchController@update')
+    ->name('admin_branch_update');
+
+Route::post('/branch/{branchId}/update',
+    'BranchController@updatePost')
+    ->name('admin_branch_update_post');
+
+Route::get('/branch/{branchId}/active',
+    'BranchController@active')
+    ->name('admin_branch_active');
+
+Route::get('/branch/{branchId}/delete',
+    'BranchController@delete')
+    ->name('admin_branch_delete');

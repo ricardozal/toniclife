@@ -43,4 +43,15 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     protected $table = 'address';
+
+    protected $fillable = [
+            'street','zip_code','ext_num','int_num','colony','city','state','country'
+        ];
+
+    protected  $appends = ['FullAddress'];
+
+    public function getFullAddressAttribute()
+    {
+        return $this->street.', '.$this->zip_code.', '.$this->ext_num.', '.$this->colony.', '.$this->city.', '.$this->state.', '.$this->country.'.';
+    }
 }

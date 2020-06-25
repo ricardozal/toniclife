@@ -17,6 +17,13 @@
         </span>
         <span class="sidebar-text">Usuarios</span>
     </a>
+    <a class="nav-link {{$routeName == 'admin_branch_index' ? 'active' : ''}}"
+       href="{{route('admin_branch_index')}}">
+        <span>
+            <i class="fas fa-building"></i>
+        </span>
+        <span class="sidebar-text">Sucursales</span>
+    </a>
     <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
        href="#">
         <span>
