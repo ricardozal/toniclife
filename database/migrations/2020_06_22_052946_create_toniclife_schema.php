@@ -87,6 +87,7 @@ class CreateToniclifeSchema extends Migration
             $table->string('description');
             $table->double('min_amount');
             $table->date('expiration_date')->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
 

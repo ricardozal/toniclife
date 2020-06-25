@@ -24,7 +24,6 @@ body {
 .main-card {
   border-radius: 30px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  height: 90vh;
 }
 /********************************
  ********   Footer   *************
@@ -44,7 +43,7 @@ body {
   padding: 3rem 0;
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 100%;
   border-top-right-radius: 2rem;
   border-bottom-right-radius: 2rem;
 }

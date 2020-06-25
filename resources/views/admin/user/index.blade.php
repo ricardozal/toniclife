@@ -4,7 +4,7 @@
 @endpush
 @section('content')
 
-    <div class="row mt-5 mr-0">
+    <div class="row mt-5 mx-0">
         <div class="col-12">
             <div class="row">
                 <div class="col-12 justify-content-center d-flex align-items-center">
