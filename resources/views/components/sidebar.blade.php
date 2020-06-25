@@ -36,14 +36,14 @@
         <span>
             <i class="fas fa-cart-arrow-down"></i>
         </span>
-        <span class="sidebar-text">Ordenes de compra</span>
+        <span class="sidebar-text">Orden de compra</span>
     </a>
     <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
        href="#">
         <span>
             <i class="fas fa-building"></i>
         </span>
-        <span class="sidebar-text">Reorden de compras</span>
+        <span class="sidebar-text">Reordenes</span>
     </a>
     <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
        href="#">
@@ -57,7 +57,7 @@
         <span>
             <i class="fas fa-sitemap"></i>
         </span>
-        <span class="sidebar-text">Red de distribuidores</span>
+        <span class="sidebar-text">Red</span>
     </a>
     <a class="nav-link {{$routeName == 'login_logout' ? 'active' : ''}}"
        href="{{route('login_logout')}}">
