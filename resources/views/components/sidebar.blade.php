@@ -17,8 +17,8 @@
         </span>
         <span class="sidebar-text">Usuarios</span>
     </a>
-    <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-       href="#">
+    <a class="nav-link {{$routeName == 'admin_distributor_index' ? 'active' : ''}}"
+       href="{{route('admin_distributor_index')}}">
         <span>
             <i class="fas fa-users"></i>
         </span>

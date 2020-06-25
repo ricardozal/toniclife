@@ -46,3 +46,39 @@ Route::get('/user/{userId}/active',
 Route::get('/user/{userId}/delete',
     'UserController@delete')
     ->name('admin_user_delete');
+
+/***********************************
+ * *******   Distributor ***********
+ **********************************/
+
+Route::get('/distributor',
+    'DistributorController@index')
+    ->name('admin_distributor_index');
+
+Route::get('/distributor-content',
+    'DistributorController@indexContent')
+    ->name('admin_distributor_index_content');
+
+Route::get('/distributor/create',
+    'DistributorController@create')
+    ->name('admin_distributor_create');
+
+Route::post('/distributor/create',
+    'DistributorController@createPost')
+    ->name('admin_distributor_create_post');
+
+Route::get('/distributor/{distributorId}/update',
+    'DistributorController@update')
+    ->name('admin_distributor_update');
+
+Route::post('/distributor/{distributorId}/update',
+    'DistributorController@updatePost')
+    ->name('admin_distributor_update_post');
+
+Route::get('/distributor/{distributorId}/active',
+    'DistributorController@active')
+    ->name('admin_distributor_active');
+
+Route::get('/distributor/{distributorId}/delete',
+    'DistributorController@delete')
+    ->name('admin_distributor_delete');
