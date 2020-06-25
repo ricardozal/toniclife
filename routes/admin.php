@@ -47,6 +47,15 @@ Route::get('/user/{userId}/delete',
     'UserController@delete')
     ->name('admin_user_delete');
 
+
+/***********************************
+ * *******   Promotions  *************
+ **********************************/
+
+Route::get('/promotion',
+    'PromotionController@index')
+    ->name('admin_promotion_index');
+
 /***********************************
  * *******   Distributor ***********
  **********************************/
