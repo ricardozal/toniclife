@@ -34,6 +34,14 @@ class Promotion extends Model
 {
     protected $table = 'promotion';
 
+
+    protected $fillable = [
+        'name',
+        'description',
+        'min_amount',
+        'expiration_date'
+    ];
+
     public function distributors()
     {
         return $this->belongsToMany(

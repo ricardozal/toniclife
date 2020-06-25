@@ -38,6 +38,13 @@
         </span>
         <span class="sidebar-text">Orden de compra</span>
     </a>
+    <a class="nav-link {{$routeName == 'admin_promotion_index' ? 'active' : ''}}"
+       href="{{route('admin_promotion_index')}}">
+        <span>
+            <i class=""></i>
+        </span>
+        <span class="sidebar-text">Promociones</span>
+    </a>
     <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
        href="#">
         <span>
