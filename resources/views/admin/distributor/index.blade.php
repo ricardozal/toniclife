@@ -1,5 +1,6 @@
 @extends('template.main')
 @push('scripts')
+    <script src="{{asset('commons/jquery.autocomplete.min.js')}}"></script>
     <script src="{{asset('js/admin/distributor/index.js')}}"></script>
 @endpush
 @section('content')
@@ -44,8 +45,8 @@
            value="{{route('admin_distributor_active',['distributorId' => 'FAKE_ID'])}}">
     <input id="inp-url-update" type="hidden"
            value="{{route('admin_distributor_update',['distributorId' => 'FAKE_ID'])}}">
-    <input id="inp-url-delete" type="hidden"
-           value="{{route('admin_distributor_delete',['distributorId' => 'FAKE_ID'])}}">
+    <input id="inp-url-distributor-search" type="hidden"
+           value="{{route('admin_distributor_search')}}">
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">

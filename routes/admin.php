@@ -190,9 +190,9 @@ Route::get('/distributor/{distributorId}/active',
     'DistributorController@active')
     ->name('admin_distributor_active');
 
-Route::get('/distributor/{distributorId}/delete',
-    'DistributorController@delete')
-    ->name('admin_distributor_delete');
+Route::get('/distributor/search',
+    'DistributorController@search')
+    ->name('admin_distributor_search');
 
 /***********************************
  * *******   Country *************

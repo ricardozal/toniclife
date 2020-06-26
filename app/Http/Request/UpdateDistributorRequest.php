@@ -5,8 +5,9 @@ namespace App\Http\Request;
 
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class DistributorRequest extends FormRequest
+class UpdateDistributorRequest extends FormRequest
 {
     public function authorize()
     {
@@ -15,11 +16,13 @@ class DistributorRequest extends FormRequest
 
     public function rules()
     {
+
+        $distributorId = $this->route('distributorId');
+
         return [
-            'tonic_life_id' => ['required', 'unique:distributor'],
+            'tonic_life_id' => ['required', Rule::unique('distributor', 'tonic_life_id')->ignore($distributorId)],
             'name' => 'required',
-            'email' => ['required', 'email', 'unique:distributor'],
-            'password' => 'required|confirmed',
+            'email' => ['required', 'email', Rule::unique('distributor', 'email')->ignore($distributorId)],
         ];
     }
 
@@ -30,10 +33,8 @@ class DistributorRequest extends FormRequest
             'tonic_life_id.unique' => 'El ID Tonic Life ya está registrado',
             'name.required' => 'Nombre necesario',
             'email.required' => 'Correo electrónico necesario',
-            'email.unique' => 'El correo ya está registrado',
             'email.email' => 'Ingrese un correo electrónico',
-            'password.required' => 'Contraseña necesaria',
-            'password.confirmed' => 'Las contraseñas deben coincidir',
+            'email.unique' => 'El correo ya está registrado',
         ];
     }
 }
