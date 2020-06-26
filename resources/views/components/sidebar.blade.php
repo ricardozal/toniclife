@@ -31,8 +31,8 @@
         </span>
         <span class="sidebar-text">Inventarios</span>
     </a>
-    <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-       href="#">
+    <a class="nav-link {{$routeName == 'admin_order_index' ? 'active' : ''}}"
+       href="{{route('admin_order_index')}}">
         <span>
             <i class="fas fa-cart-arrow-down"></i>
         </span>
@@ -41,7 +41,7 @@
     <a class="nav-link {{$routeName == 'admin_promotion_index' ? 'active' : ''}}"
        href="{{route('admin_promotion_index')}}">
         <span>
-            <i class=""></i>
+            <i class="fas fa-percent"></i>
         </span>
         <span class="sidebar-text">Promociones</span>
     </a>
