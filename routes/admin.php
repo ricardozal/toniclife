@@ -128,3 +128,39 @@ Route::get('/distributor/{distributorId}/active',
 Route::get('/distributor/{distributorId}/delete',
     'DistributorController@delete')
     ->name('admin_distributor_delete');
+
+/***********************************
+ * *******   Country *************
+ **********************************/
+
+Route::get('/country',
+    'CountryController@index')
+    ->name('admin_country_index');
+
+Route::get('/country-content',
+    'CountryController@indexContent')
+    ->name('admin_country_index_content');
+
+Route::get('/country/create',
+    'CountryController@create')
+    ->name('admin_country_create');
+
+Route::post('/country/create',
+    'CountryController@createPost')
+    ->name('admin_country_create_post');
+
+Route::get('/country/{countryId}/update',
+    'CountryController@update')
+    ->name('admin_country_update');
+
+Route::post('/country/{countryId}/update',
+    'CountryController@updatePost')
+    ->name('admin_country_update_post');
+
+Route::get('/country/{countryId}/active',
+    'CountryController@active')
+    ->name('admin_country_active');
+
+Route::get('/country/{countryId}/delete',
+    'CountryController@delete')
+    ->name('admin_country_delete');

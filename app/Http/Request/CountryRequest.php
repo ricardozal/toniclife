@@ -1,20 +1,20 @@
 <?php
-
 namespace App\Http\Request;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BranchRequest extends FormRequest
+class CountryRequest extends FormRequest
 {
     public function authorize()
     {
-        return true;
+    return true;
     }
 
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
+            'tax_percentage' => 'required'
         ];
     }
 
@@ -22,6 +22,7 @@ class BranchRequest extends FormRequest
     {
         return [
             'name.required' => 'Nombre necesario',
+            'tax_percentage.required' => 'IVA necesario',
         ];
     }
 }
