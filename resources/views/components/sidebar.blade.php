@@ -17,8 +17,15 @@
         </span>
         <span class="sidebar-text">Usuarios</span>
     </a>
-    <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-       href="#">
+    <a class="nav-link {{$routeName == 'admin_branch_index' ? 'active' : ''}}"
+       href="{{route('admin_branch_index')}}">
+        <span>
+            <i class="fas fa-building"></i>
+        </span>
+        <span class="sidebar-text">Sucursales</span>
+    </a>
+    <a class="nav-link {{$routeName == 'admin_distributor_index' ? 'active' : ''}}"
+       href="{{route('admin_distributor_index')}}">
         <span>
             <i class="fas fa-users"></i>
         </span>
@@ -36,7 +43,8 @@
         <span>
             <i class="fas fa-cart-arrow-down"></i>
         </span>
-        <span class="sidebar-text">Orden de compra</span>
+        <span class="sidebar-text">Ordenes de compra</span>
+
     </a>
     <a class="nav-link {{$routeName == 'admin_promotion_index' ? 'active' : ''}}"
        href="{{route('admin_promotion_index')}}">
@@ -50,7 +58,7 @@
         <span>
             <i class="fas fa-building"></i>
         </span>
-        <span class="sidebar-text">Reordenes</span>
+        <span class="sidebar-text">Reorden de compras</span>
     </a>
     <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
        href="#">
@@ -64,7 +72,7 @@
         <span>
             <i class="fas fa-sitemap"></i>
         </span>
-        <span class="sidebar-text">Red</span>
+        <span class="sidebar-text">Red de distribuidores</span>
     </a>
     <a class="nav-link {{$routeName == 'login_logout' ? 'active' : ''}}"
        href="{{route('login_logout')}}">

@@ -49,6 +49,43 @@ Route::get('/user/{userId}/delete',
 
 
 /***********************************
+ * *******   Branch *************
+ **********************************/
+
+Route::get('/branch',
+    'BranchController@index')
+    ->name('admin_branch_index');
+
+Route::get('/branch-content',
+    'BranchController@indexContent')
+    ->name('admin_branch_index_content');
+
+Route::get('/branch/create',
+    'BranchController@create')
+    ->name('admin_branch_create');
+
+Route::post('/branch/create',
+    'BranchController@createPost')
+    ->name('admin_branch_create_post');
+
+Route::get('/branch/{branchId}/update',
+    'BranchController@update')
+    ->name('admin_branch_update');
+
+Route::post('/branch/{branchId}/update',
+    'BranchController@updatePost')
+    ->name('admin_branch_update_post');
+
+Route::get('/branch/{branchId}/active',
+    'BranchController@active')
+    ->name('admin_branch_active');
+
+Route::get('/branch/{branchId}/delete',
+    'BranchController@delete')
+    ->name('admin_branch_delete');
+
+
+/***********************************
  * *******   Promotions  *************
  **********************************/
 
@@ -120,3 +157,75 @@ Route::get('/order/{orderId}/active',
 Route::get('/order/{orderId}/delete',
     'OrderController@delete')
     ->name('admin_order_delete');
+
+/***********************************
+ * *******   Distributor ***********
+ **********************************/
+
+Route::get('/distributor',
+    'DistributorController@index')
+    ->name('admin_distributor_index');
+
+Route::get('/distributor-content',
+    'DistributorController@indexContent')
+    ->name('admin_distributor_index_content');
+
+Route::get('/distributor/create',
+    'DistributorController@create')
+    ->name('admin_distributor_create');
+
+Route::post('/distributor/create',
+    'DistributorController@createPost')
+    ->name('admin_distributor_create_post');
+
+Route::get('/distributor/{distributorId}/update',
+    'DistributorController@update')
+    ->name('admin_distributor_update');
+
+Route::post('/distributor/{distributorId}/update',
+    'DistributorController@updatePost')
+    ->name('admin_distributor_update_post');
+
+Route::get('/distributor/{distributorId}/active',
+    'DistributorController@active')
+    ->name('admin_distributor_active');
+
+Route::get('/distributor/{distributorId}/delete',
+    'DistributorController@delete')
+    ->name('admin_distributor_delete');
+
+/***********************************
+ * *******   Country *************
+ **********************************/
+
+Route::get('/country',
+    'CountryController@index')
+    ->name('admin_country_index');
+
+Route::get('/country-content',
+    'CountryController@indexContent')
+    ->name('admin_country_index_content');
+
+Route::get('/country/create',
+    'CountryController@create')
+    ->name('admin_country_create');
+
+Route::post('/country/create',
+    'CountryController@createPost')
+    ->name('admin_country_create_post');
+
+Route::get('/country/{countryId}/update',
+    'CountryController@update')
+    ->name('admin_country_update');
+
+Route::post('/country/{countryId}/update',
+    'CountryController@updatePost')
+    ->name('admin_country_update_post');
+
+Route::get('/country/{countryId}/active',
+    'CountryController@active')
+    ->name('admin_country_active');
+
+Route::get('/country/{countryId}/delete',
+    'CountryController@delete')
+    ->name('admin_country_delete');
