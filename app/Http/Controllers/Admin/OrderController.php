@@ -10,7 +10,7 @@ use App\Http\Request\UpdateOrderRequest;
 
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class OrderController extends Controller
 {
     public function index()
     {
