@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Request\ProductRequest;
+use App\Http\Request\UpdateProductRequest;
+use App\Models\Country;
 use App\Models\Product;
+use App\Services\UploadFiles;
 
 class ProductController extends Controller
 {
@@ -32,6 +36,80 @@ class ProductController extends Controller
         return view('admin.product.upsert');
     }
 
+    public function createPost(ProductRequest $request)
+    {
+        $product = new Product();
+
+        $products = Product::whereFkIdCountry($request->input('fk_id_country'))->get();
+        $category = Country::whereId($request->input('fk_id_country'))->first();
+
+        foreach ($products as $product)
+        {
+            if($request->input('code') == $product->code)
+            {
+                return response()->json([
+                    'errors' => ['code' => ['El código en el catálogo '.$category->name.' ya existe']]
+                ],422);
+            }
+        }
+
+        $product->fill($request->all());
+
+        $image = $request->file('file');
+        if ($image != null) {
+            $url = UploadFiles::storeFile($image, $product->id, 'products');
+            $product->image_url = $url;
+        }
+
+        if (!$product->save()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No se pudo registrar el producto en este momento, intente más tarde.',
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    public function updatePost(UpdateProductRequest $request, $productId)
+    {
+        $product = Product::find($productId);
+
+        if($product->id != $productId)
+        {
+            $products = Product::whereFkIdCountry($request->input('fk_id_country'))->get();
+            $category = Country::whereId($request->input('fk_id_country'))->first();
+
+            foreach ($products as $product)
+            {
+                if($request->input('code') == $product->code)
+                {
+                    return response()->json([
+                        'errors' => ['code' => ['El código en el catálogo '.$category->name.' ya existe']]
+                    ],422);
+                }
+            }
+        }
+
+        $product->fill($request->all());
+
+        $image = $request->file('file');
+        if ($image != null) {
+            $url = UploadFiles::storeFile($image, $product->id, 'products');
+            $product->image_url = $url;
+        }
+
+        if (!$product->save()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No se pudo registrar el producto en este momento, intente más tarde.',
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+        ]);
+    }
 
     public function active($productId)
     {

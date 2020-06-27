@@ -12,21 +12,21 @@ $(document).ready(function () {
                 "data": null,
                 render:function(data, type, row )
                 {
-                    return "<img src='"+data.image_url+"'>";
+                    return "<img src='"+data.absolute_image_url+"' style='max-height: 100px; width: auto;>";
                 },
             },
             { "data": "code" },
             { "data": "name" },
             {
                 "data": null,
-                render:function(data, type, row )
+                render:function(data)
                 {
                     return formatterMoney.format(data.distributor_price);
                 },
             },
             {
                 "data": null,
-                render:function(data, type, row )
+                render:function(data)
                 {
                     var tax = (data.country.tax_percentage*0.01)*data.distributor_price;
                     return formatterMoney.format(tax);

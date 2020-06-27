@@ -11,7 +11,7 @@
 <div class="row w-75">
     <div class="col-12">
         <div class="form-group focused">
-            <label for="tax_percentage" class="focused form-label">IVA</label>
+            <label for="tax_percentage" class="focused form-label">Porcentaje de impuesto</label>
             <input type="number" step="0.01" min="0" autocomplete="off" class="form-control" id="tax_percentage" name="tax_percentage" value="{{ isset($country) ? $country->tax_percentage : null}}">
             <span class="invalid-feedback">{{ $errors->first('tax_percentage') }}</span>
         </div>

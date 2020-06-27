@@ -36,3 +36,37 @@
     </div>
 </div>
 
+<div class="row w-75">
+    <div class="col-12">
+        <div class="form-group focused">
+            <label for="distributor_price" class="focused form-label">Precio distribuidor</label>
+            <input type="number" step="0.01" min="0" autocomplete="off" class="form-control" id="distributor_price" name="distributor_price" value="{{ isset($product) ? $product->distributor_price : null}}">
+            <span class="invalid-feedback">{{ $errors->first('distributor_price') }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row w-75">
+    <div class="col-12">
+        <div class="form-group focused">
+            <label for="points" class="focused form-label">Puntos</label>
+            <input type="number" min="0" autocomplete="off" class="form-control" id="points" name="points" value="{{ isset($product) ? $product->points : null}}">
+            <span class="invalid-feedback">{{ $errors->first('points') }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row w-75">
+    <div class="col-12">
+        <div class="form-group form-select focused">
+            <label for="country" class="focused form-label">Catálogo</label>
+            <select class="form-control" id="fk_id_country" name="fk_id_country">
+                @foreach(\App\Models\Country::asMap() as $id => $name)
+                    <option value="{{$id}}" {{isset($product) ? ($product->fk_id_country == $id ? 'selected' : '') : ''}}>{{$name}}</option>
+                @endforeach
+            </select>
+        </div>
+
+    </div>
+</div>
+
