@@ -18,6 +18,13 @@ class CreateToniclifeSchema extends Migration
             $table->string('name');
         });
 
+        Schema::create('country', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->decimal('tax_percentage');
+            $table->boolean('active')->default(true);
+        });
+
         Schema::create('address', function (Blueprint $table) {
             $table->increments('id');
             $table->string('street');
@@ -131,13 +138,6 @@ class CreateToniclifeSchema extends Migration
         Schema::create('payment_method', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->boolean('active')->default(true);
-        });
-
-        Schema::create('country', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->decimal('tax_percentage');
             $table->boolean('active')->default(true);
         });
 
@@ -299,7 +299,6 @@ class CreateToniclifeSchema extends Migration
         Schema::dropIfExists('branch_has_products');
         Schema::dropIfExists('product');
         Schema::dropIfExists('category');
-        Schema::dropIfExists('country');
         Schema::dropIfExists('payment_method');
         Schema::dropIfExists('order_status');
         Schema::dropIfExists('distributor_has_promotions');
@@ -309,6 +308,7 @@ class CreateToniclifeSchema extends Migration
         Schema::dropIfExists('user');
         Schema::dropIfExists('branch');
         Schema::dropIfExists('address');
+        Schema::dropIfExists('country');
         Schema::dropIfExists('role');
     }
 }
