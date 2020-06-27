@@ -39,7 +39,8 @@ class Promotion extends Model
         'name',
         'description',
         'min_amount',
-        'expiration_date'
+        'expiration_date',
+        'active'
     ];
 
     public function distributors()

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Request\DistributorRequest;
+use App\Http\Request\UpdateDistributorRequest;
 use App\Models\Distributor;
 use Illuminate\Http\Request;
 
@@ -63,12 +64,11 @@ class DistributorController extends Controller
 
     }
 
-    public function updatePost(DistributorRequest $request, $distributorId)
+    public function updatePost(UpdateDistributorRequest $request, $distributorId)
     {
         $distributor = Distributor::find($distributorId);
 
         $distributor->fill($request->all());
-        $distributor->accumulated_points = $request->input('accumulated_points');
 
         if($request->input('password') != null)
         {
@@ -77,6 +77,14 @@ class DistributorController extends Controller
 
         if($request->input('fk_id_distributor') != null)
         {
+
+            if($request->input('fk_id_distributor') == $distributor->id)
+            {
+                return response()->json([
+                    'errors' => ['fk_id_distributor' => ['No se puede asignar como líder a si mismo.'] ]
+                ],422);
+            }
+
             $distributor->fk_id_distributor = $request->input('fk_id_distributor');
         }
 
@@ -109,18 +117,28 @@ class DistributorController extends Controller
         ]);
     }
 
-    public function delete($distributorId)
-    {
-//        $user = User::find($userId);
-//
-//        if (!$user->delete()) {
-//            return response()->json([
-//                'success' => false,
-//                'message' => 'no se puede modificar el estatus en este momento'
-//            ]);
-//        }
-//        return response()->json([
-//            'success' => true,
-//        ]);
+    public function search(Request $request){
+
+        $query = $request->input('query', '');
+        $response = [
+            'suggestions' => [],
+            'query' => $query
+        ];
+
+
+        $query2 = Distributor::where('name','like','%'.$query.'%');
+
+        $distributors = $query2->get();
+
+        foreach ($distributors as $distributor){
+
+            $response['suggestions'][] = [
+                'id' => $distributor->id,
+                'value' => $distributor->name
+            ];
+        }
+
+        return response()->json($response);
+
     }
 }

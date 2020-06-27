@@ -48,3 +48,13 @@
     </div>
 </div>
 
+<div class="row w-75">
+    <div class="col-12">
+        <div class="form-group">
+            <label for="distributor_leader_name">Distribuidor líder</label>
+            <input type="text" class="form-control {{ $errors->has('distributor_leader_name') ? ' is-invalid' : '' }}" id="distributor_leader_name" name="distributor_leader_name" value="{{ isset($distributor) ? ($distributor->distributor != null ? $distributor->distributor->name : null ) : null }}">
+            <span class="invalid-feedback">{{ $errors->first('distributor_leader_name') }}</span>
+        </div>
+        <input type="hidden" value="{{ isset($distributor) ? ($distributor->distributor != null ? $distributor->distributor->id : null ) : null }}" id="fk_id_distributor" name="fk_id_distributor">
+    </div>
+</div>
