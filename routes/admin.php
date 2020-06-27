@@ -164,3 +164,13 @@ Route::get('/country/{countryId}/active',
 Route::get('/country/{countryId}/delete',
     'CountryController@delete')
     ->name('admin_country_delete');
+/***********************************
+ * *******   Inventory *************
+ **********************************/
+Route::get('/inventory',
+    'InventoryController@index')
+    ->name('admin_inventory_index');
+
+Route::get('/inventory-content',
+    'InventoryController@indexContent')
+    ->name('admin_inventory_index_content');

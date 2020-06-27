@@ -66,6 +66,13 @@
         </span>
         <span class="sidebar-text">Red de distribuidores</span>
     </a>
+    <a class="nav-link {{$routeName == 'admin_country_index' ? 'active' : ''}}"
+       href="{{route('admin_country_index')}}">
+        <span>
+            <i class="fas fa-globe-americas"></i>
+        </span>
+        <span class="sidebar-text">Países</span>
+    </a>
     <a class="nav-link {{$routeName == 'login_logout' ? 'active' : ''}}"
        href="{{route('login_logout')}}">
         <span>

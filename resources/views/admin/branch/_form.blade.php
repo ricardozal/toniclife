@@ -72,10 +72,10 @@
     <div class="col-12">
         <div class="form-group">
             <label for="country">País</label>
-            <select class="form-control" id="country" name="country"value="{{ isset($branch) ? $branch->address->country : null}}">
-            <option>México</option>
-            <option>EEUU</option>
-            <span class="invalid-feedback">{{ $errors->first('country') }}</span>
+            <select class="form-control" id="fk_id_country" name="fk_id_country">
+                @foreach(\App\Models\Country::asMap() as $id => $name)
+                    <option value="{{$id}}" {{isset($branch) ? ($branch->address->fk_id_country == $id ? 'selected' : '') : ''}}>{{$name}}</option>
+                @endforeach
             </select>
         </div>
 
