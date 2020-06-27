@@ -41,4 +41,17 @@ class Country extends Model
             'id'
         );
     }
+    public static function asMap()
+    {
+        return self::pluck('name', 'id');
+    }
+
+    public function address()
+    {
+        return $this->hasMany(
+            Address::class,
+            'fk_id_country',
+            'id'
+        );
+    }
 }

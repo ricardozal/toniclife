@@ -27,7 +27,7 @@ class CreateToniclifeSchema extends Migration
             $table->string('colony');
             $table->string('city');
             $table->string('state');
-            $table->string('country');
+            $table->unsignedInteger('fk_id_country');
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->timestamps();
