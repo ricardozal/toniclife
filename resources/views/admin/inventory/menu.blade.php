@@ -47,9 +47,9 @@
                             <div class="d-flex flex-column align-items-center w-100">
                                 <div class="row w-75">
                                     <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Por favor, elija una sucursal para ver su inventario</label>
-                                            <select class="form-control" id="fk_id_branch">
+                                        <div class="form-group form-select focused">
+                                            <label for="fk_id_branch" class="focused form-label">Por favor, elija una sucursal para ver su inventario</label>
+                                            <select class="form-control " id="fk_id_branch">
                                                 <option value="0">-- Elegir sucursal --</option>
                                                 @foreach(\App\Models\Branch::asMap() as $id => $name)
                                                     <option value="{{$id}}">{{$name}}</option>

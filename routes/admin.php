@@ -266,3 +266,35 @@ Route::get('/org-chart',
 Route::post('/org-chart-content',
     'OrganizationChartController@indexContent')
     ->name('admin_org_chart_index_content');
+
+/***********************************
+ * *******   Products **************
+ **********************************/
+
+Route::get('/product',
+    'ProductController@index')
+    ->name('admin_product_index');
+
+Route::get('product-content',
+    'ProductController@indexContent')
+    ->name('admin_product_index_content');
+
+Route::get('/product/create',
+    'ProductController@create')
+    ->name('admin_product_create');
+
+Route::post('/product/create',
+    'ProductController@createPost')
+    ->name('admin_product_create_post');
+
+Route::get('/product/{productId}/update',
+    'ProductController@update')
+    ->name('admin_product_update');
+
+Route::post('/product/{productId}/update',
+    'ProductController@updatePost')
+    ->name('admin_product_update_post');
+
+Route::get('/product/{productId}/active',
+    'ProductController@active')
+    ->name('admin_product_active');
