@@ -2,18 +2,17 @@
 
 @section('content')
 
-    <div class="container-fluid">
+    <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 50px);">
 
-        <div class="row">
+        <div class="row w-card-login">
             <div class="col-12">
-                <img src="{{asset('img/logos/logo_tonic_life.png')}}" class="img-fluid">
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
+                <div class="card card-login">
                     <div class="card-body">
+                        <div class="row my-5">
+                            <div class="col-12 text-center">
+                                <img src="{{asset('img/logos/logo_tonic_life.png')}}" class="img-fluid">
+                            </div>
+                        </div>
                         <form method="POST" action="{{ route('login_auth') }}">
                             @csrf
                             <div class="form-group row">
@@ -54,25 +53,25 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <div class="col-12 col-sm-12 col-md-6 mx-auto text-right">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                        <label class="form-check-label" for="remember">
-                                            Recordar mi sesión
-                                        </label>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <label class="custom-control-label" for="remember">Recordar mi sesión</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0">
-                                <div class="col-12 col-sm-12 col-md-6 mx-auto">
-
+                            <div class="row text-center my-3">
+                                <div class="col-12">
                                     <button type="submit" class="btn btn-primary">
                                         Iniciar sesión
                                     </button>
+                                </div>
+                            </div>
 
+                            <div class="row my-3 text-center">
+                                <div class="col-12">
                                     <a class="btn btn-link" href="#">
                                         ¿Has olvidado tu contraseña?
                                     </a>
@@ -85,6 +84,9 @@
             </div>
         </div>
 
+    </div>
+    <div class="container-fluid">
+        @include('components.footer')
     </div>
 
 @endsection
