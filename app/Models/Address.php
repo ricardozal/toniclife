@@ -55,11 +55,6 @@ class Address extends Model
         return $this->street.', '.$this->zip_code.', '.$this->ext_num.', '.$this->colony.', '.$this->city.', '.$this->state.', '.$this->country->name.'.';
     }
 
-    public static function asMap()
-    {
-        return self::pluck('name', 'id');
-    }
-
     public function country()
     {
         return $this->belongsTo(
