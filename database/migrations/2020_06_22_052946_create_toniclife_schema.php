@@ -31,6 +31,10 @@ class CreateToniclifeSchema extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->timestamps();
+
+            $table->foreign('fk_id_country')
+                ->references('id')
+                ->on('country');
         });
 
         Schema::create('branch', function (Blueprint $table) {
