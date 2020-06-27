@@ -31,8 +31,8 @@
         </span>
         <span class="sidebar-text">Distribuidores</span>
     </a>
-    <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-               href="#">
+    <a class="nav-link {{$routeName == 'admin_inventory_index' ? 'active' : ''}}"
+               href="{{route('admin_inventory_index')}}">
         <span>
             <i class="fas fa-boxes"></i>
         </span>

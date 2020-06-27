@@ -230,15 +230,30 @@ Route::get('/country/{countryId}/delete',
     'CountryController@delete')
     ->name('admin_country_delete');
 /***********************************
- * *******   Inventory *************
+ * *******   Inventory - Menu *****
  **********************************/
 Route::get('/inventory',
-    'InventoryController@index')
+    'Inventory\MenuController@index')
     ->name('admin_inventory_index');
 
-Route::get('/inventory-content',
-    'InventoryController@indexContent')
-    ->name('admin_inventory_index_content');
+/** Inventory Local **/
+Route::get('/inventory/{branchId}/local',
+    'Inventory\InventoryLocalController@indexLocal')
+    ->name('admin_inventory_local_index');
+
+Route::get('/inventory/{branchId}/local-content',
+    'Inventory\InventoryLocalController@indexContent')
+    ->name('admin_inventory_local_index_content');
+
+/** Inventory Global **/
+Route::get('/inventory/global',
+    'Inventory\InventoryGlobalController@index')
+    ->name('admin_inventory_global_index');
+
+Route::get('/inventory/global-content',
+    'Inventory\InventoryGlobalController@indexContent')
+    ->name('admin_inventory_global_index_content');
+
 
 /***********************************
  * *******   Organization Chart ****
