@@ -229,3 +229,15 @@ Route::get('/country/{countryId}/active',
 Route::get('/country/{countryId}/delete',
     'CountryController@delete')
     ->name('admin_country_delete');
+
+/***********************************
+ * *******   Organization Chart ****
+ **********************************/
+
+Route::get('/org-chart',
+    'OrganizationChartController@index')
+    ->name('admin_org_chart_index');
+
+Route::post('/org-chart-content',
+    'OrganizationChartController@indexContent')
+    ->name('admin_org_chart_index_content');

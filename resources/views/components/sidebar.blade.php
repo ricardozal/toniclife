@@ -67,8 +67,8 @@
         </span>
         <span class="sidebar-text">Envíos</span>
     </a>
-    <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-       href="#">
+    <a class="nav-link {{$routeName == 'admin_org_chart_index' ? 'active' : ''}}"
+       href="{{route('admin_org_chart_index')}}">
         <span>
             <i class="fas fa-sitemap"></i>
         </span>
