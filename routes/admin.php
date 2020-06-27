@@ -134,29 +134,7 @@ Route::get('/order-content',
     'OrderController@indexContent')
     ->name('admin_order_index_content');
 
-Route::get('/order/create',
-    'OrderController@create')
-    ->name('admin_order_create');
 
-Route::post('/order/create',
-    'OrderController@createPost')
-    ->name('admin_order_create_post');
-
-Route::get('/order/{orderId}/update',
-    'OrderController@update')
-    ->name('admin_order_update');
-
-Route::post('/order/{orderId}/update',
-    'OrderController@updatePost')
-    ->name('admin_order_update_post');
-
-Route::get('/order/{orderId}/active',
-    'OrderController@active')
-    ->name('admin_order_active');
-
-Route::get('/order/{orderId}/delete',
-    'OrderController@delete')
-    ->name('admin_order_delete');
 
 /***********************************
  * *******   Distributor ***********
@@ -229,3 +207,19 @@ Route::get('/country/{countryId}/active',
 Route::get('/country/{countryId}/delete',
     'CountryController@delete')
     ->name('admin_country_delete');
+
+/***********************************
+ * *******   Reorder  *************
+ **********************************/
+
+
+Route::get('/reorder',
+    'ReorderController@index')
+    ->name('admin_reorder_index');
+
+Route::get('/reorder-content',
+    'ReorderController@indexContent')
+    ->name('admin_reorder_index_content');
+
+
+

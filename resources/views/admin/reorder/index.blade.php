@@ -1,6 +1,6 @@
 @extends('template.main')
 @push('scripts')
-    <script src="{{asset('js/admin/order/index.js')}}"></script>
+    <script src="{{asset('js/admin/reorder/index.js')}}"></script>
 @endpush
 @section('content')
     <div class="row mt-5 mx-0">
@@ -16,13 +16,12 @@
                     <table id="table-data" class="table table-striped table-bordered dt-responsive nowrap text-center" style="width:100%">
                         <thead>
                         <tr>
-                            <th>Distribuidor </th>
-                            <th>Método de pago </th>
-                            <th>Fecha de compra </th>
-                            <th>Precio total</th>
-                            <th>Status de la compra</th>
-                            <th>Dirección de envio</th>
-                            <th>Ticket</th>
+                            <th>ID Tonic</th>
+                            <th>Nombre  </th>
+                            <th>Código producto </th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+
 
                         </tr>
                         </thead>
@@ -33,7 +32,7 @@
     </div>
 
     <input id="inp-url-index-content" type="hidden"
-           value="{{route('admin_order_index_content')}}">
+           value="{{route('admin_reorder_index_content')}}">
 
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
