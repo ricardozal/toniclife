@@ -16,12 +16,22 @@
     <div class="container-fluid">
 
         <div class="row main-card m-3">
-            <div class="col-2 p-0">
-                @include('components.sidebar')
+            <div class="col-12">
+                <div class="row d-block d-md-none">
+                    <div class="col-12 p-0">
+                        @include('components.navbar')
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 p-0 d-none d-md-block">
+                        @include('components.sidebar')
+                    </div>
+                    <div class="col-12 col-md-10 px-0 pb-5">
+                        @yield('content')
+                    </div>
+                </div>
             </div>
-            <div class="col-10 p-0">
-                @yield('content')
-            </div>
+
         </div>
 
         @include('components.footer')
