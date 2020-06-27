@@ -207,6 +207,75 @@ Route::get('/country/{countryId}/active',
 Route::get('/country/{countryId}/delete',
     'CountryController@delete')
     ->name('admin_country_delete');
+/***********************************
+ * *******   Inventory - Menu *****
+ **********************************/
+Route::get('/inventory',
+    'Inventory\MenuController@index')
+    ->name('admin_inventory_index');
+
+/** Inventory Local **/
+Route::get('/inventory/{branchId}/local',
+    'Inventory\InventoryLocalController@indexLocal')
+    ->name('admin_inventory_local_index');
+
+Route::get('/inventory/{branchId}/local-content',
+    'Inventory\InventoryLocalController@indexContent')
+    ->name('admin_inventory_local_index_content');
+
+/** Inventory Global **/
+Route::get('/inventory/global',
+    'Inventory\InventoryGlobalController@index')
+    ->name('admin_inventory_global_index');
+
+Route::get('/inventory/global-content',
+    'Inventory\InventoryGlobalController@indexContent')
+    ->name('admin_inventory_global_index_content');
+
+
+/***********************************
+ * *******   Organization Chart ****
+ **********************************/
+
+Route::get('/org-chart',
+    'OrganizationChartController@index')
+    ->name('admin_org_chart_index');
+
+Route::post('/org-chart-content',
+    'OrganizationChartController@indexContent')
+    ->name('admin_org_chart_index_content');
+
+/***********************************
+ * *******   Products **************
+ **********************************/
+
+Route::get('/product',
+    'ProductController@index')
+    ->name('admin_product_index');
+
+Route::get('product-content',
+    'ProductController@indexContent')
+    ->name('admin_product_index_content');
+
+Route::get('/product/create',
+    'ProductController@create')
+    ->name('admin_product_create');
+
+Route::post('/product/create',
+    'ProductController@createPost')
+    ->name('admin_product_create_post');
+
+Route::get('/product/{productId}/update',
+    'ProductController@update')
+    ->name('admin_product_update');
+
+Route::post('/product/{productId}/update',
+    'ProductController@updatePost')
+    ->name('admin_product_update_post');
+
+Route::get('/product/{productId}/active',
+    'ProductController@active')
+    ->name('admin_product_active');
 
 /***********************************
  * *******   Reorder  *************

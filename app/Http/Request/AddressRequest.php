@@ -19,8 +19,8 @@ class AddressRequest extends FormRequest{
             'ext_num' => 'required',
             'colony' => 'required',
             'city' => 'required',
-            'state' => 'required',
-            'country' => 'required'
+            'state' => 'required'
+
         ];
     }
 
@@ -33,7 +33,7 @@ class AddressRequest extends FormRequest{
             'colony.required' => 'Ingrese una colonia',
             'city.required' => 'Ingrese una ciudad',
             'state.required' => 'Ingresar un estado',
-            'country.required' => 'Seleccione un país'
+
         ];
     }
 }

@@ -10,11 +10,7 @@ use App\Http\Controllers\Controller;
 
 class BranchController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('admin.branch.index');

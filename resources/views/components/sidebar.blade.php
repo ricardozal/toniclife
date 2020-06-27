@@ -31,8 +31,15 @@
         </span>
         <span class="sidebar-text">Distribuidores</span>
     </a>
-    <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-               href="#">
+    <a class="nav-link {{$routeName == 'admin_product_index' ? 'active' : ''}}"
+       href="{{route('admin_product_index')}}">
+        <span>
+            <i class="fab fa-product-hunt"></i>
+        </span>
+        <span class="sidebar-text">Productos</span>
+    </a>
+    <a class="nav-link {{$routeName == 'admin_inventory_index' ? 'active' : ''}}"
+               href="{{route('admin_inventory_index')}}">
         <span>
             <i class="fas fa-boxes"></i>
         </span>
@@ -67,12 +74,19 @@
         </span>
         <span class="sidebar-text">Envíos</span>
     </a>
-    <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-       href="#">
+    <a class="nav-link {{$routeName == 'admin_org_chart_index' ? 'active' : ''}}"
+       href="{{route('admin_org_chart_index')}}">
         <span>
             <i class="fas fa-sitemap"></i>
         </span>
         <span class="sidebar-text">Red de distribuidores</span>
+    </a>
+    <a class="nav-link {{$routeName == 'admin_country_index' ? 'active' : ''}}"
+       href="{{route('admin_country_index')}}">
+        <span>
+            <i class="fas fa-globe-americas"></i>
+        </span>
+        <span class="sidebar-text">Países</span>
     </a>
     <a class="nav-link {{$routeName == 'login_logout' ? 'active' : ''}}"
        href="{{route('login_logout')}}">

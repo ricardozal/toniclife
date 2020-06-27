@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
                 'colony' => $this->faker->country,
                 'city' => $this->faker->city,
                 'state' => 'CDMX',
-                'country' => 'México'
+                'fk_id_country' => 1
             ]);
 
         $idBranch = DB::table('branch')->insertGetId([
