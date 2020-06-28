@@ -6,11 +6,12 @@ $(document).ready(function () {
         "ajax": $('#inp-url-index-content').val(),
         "processing": true,
         "columns": [
-            {"data": ""},
-            {"data": ""},
-            { "data": "" },
-            { "data": "" },
-            { "data": "" }
+            {"data": "distributor.name"},
+            {"data": "distributor.tonic_life_id"},
+
+
+
+
         ],
         "language": {
             "search": "Buscar: ",
