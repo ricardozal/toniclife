@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="row">
-            <table class="table table-borderless color-light-dark ">
+            <table class="table table-borderless color-light-dark table-responsive">
                 <thead class="border-bottom">
                 <tr>
                     <th class="text-center" scope="col">Producto</th>
