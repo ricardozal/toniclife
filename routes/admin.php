@@ -298,3 +298,7 @@ Route::post('/product/{productId}/update',
 Route::get('/product/{productId}/active',
     'ProductController@active')
     ->name('admin_product_active');
+
+Route::get('/product/{productId}/image',
+    'ProductController@image')
+    ->name('admin_product_image');

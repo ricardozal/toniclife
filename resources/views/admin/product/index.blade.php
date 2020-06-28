@@ -23,7 +23,6 @@
                     <table id="table-data" class="table table-striped table-bordered dt-responsive nowrap text-center" style="width:100%">
                         <thead>
                         <tr>
-                            <th></th>
                             <th>Código</th>
                             <th>Nombre</th>
                             <th>Precio distribuidor</th>
@@ -46,6 +45,8 @@
            value="{{route('admin_product_active',['productId' => 'FAKE_ID'])}}">
     <input id="inp-url-update" type="hidden"
            value="{{route('admin_product_update',['productId' => 'FAKE_ID'])}}">
+    <input id="inp-url-image" type="hidden"
+           value="{{route('admin_product_image',['productId' => 'FAKE_ID'])}}">
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
