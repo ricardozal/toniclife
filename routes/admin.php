@@ -245,6 +245,26 @@ Route::get('/inventory/{branchId}/local-content',
     'Inventory\InventoryLocalController@indexContent')
     ->name('admin_inventory_local_index_content');
 
+Route::get('/inventory/{branchId}/create',
+    'Inventory\InventoryLocalController@create')
+    ->name('admin_inventory_local_create');
+
+Route::post('/inventory/{branchId}/create',
+    'Inventory\InventoryLocalController@createPost')
+    ->name('admin_inventory_local_create_post');
+
+Route::get('/inventory/{branchId}/update',
+    'Inventory\InventoryLocalController@update')
+    ->name('admin_inventory_local_update');
+
+Route::post('/inventory/{branchId}/update',
+    'Inventory\InventoryLocalController@updatePost')
+    ->name('admin_inventory_local_update_post');
+
+Route::get('/inventory/{branchId}/delete',
+    'Inventory\InventoryLocalController@delete')
+    ->name('admin_inventory_local_delete');
+
 /** Inventory Global **/
 Route::get('/inventory/global',
     'Inventory\InventoryGlobalController@index')

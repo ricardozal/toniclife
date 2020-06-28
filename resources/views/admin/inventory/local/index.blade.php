@@ -1,6 +1,6 @@
 @extends('template.main')
 @push('scripts')
-
+    <script src="{{asset('js/admin/inventory/Local/index.js')}}"></script>
 @endpush
 @section('content')
 
@@ -9,6 +9,19 @@
             <div class="row">
                 <div class="col-12 justify-content-center d-flex align-items-center">
                     <strong class="text-color-primary" style="font-size: 150%">Inventario de {{$branch->name}}</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table id="table-data" class="table table-striped table-bordered dt-responsive nowrap text-center" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th>Stock</th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
