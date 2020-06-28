@@ -134,6 +134,10 @@ Route::get('/order-content',
     'OrderController@indexContent')
     ->name('admin_order_index_content');
 
+Route::get('/order/{orderId}/show',
+    'OrderController@show')
+    ->name('admin_order_show');
+
 
 
 /***********************************
