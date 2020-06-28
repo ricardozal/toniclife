@@ -106,14 +106,14 @@ class Product extends Model
         )->withPivot(['price','quantity']);
     }
 
-    public function branchHasProduct()
+    public function reorderRequests()
     {
         return $this->belongsToMany(
-            Branch::class,
-            'brach_has_products',
-            'fk_id_branch',
-            'fk_id_product'
-        );
+            ReorderRequest::class,
+            'reorder_request_product',
+            'fk_id_product',
+            'fk_id_reorder_request'
+        )->withPivot(['quantity']);
     }
 
     public function getAbsoluteImageUrlAttribute(){
