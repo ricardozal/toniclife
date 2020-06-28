@@ -70,7 +70,7 @@ class Distributor extends Model
             Distributor::class,
             'fk_id_distributor',
             'id'
-        );
+        )->with('distributors');
     }
 
     public function distributor()

@@ -21,29 +21,34 @@ class OrganizationChartController extends Controller
             ->where('fk_id_distributor', null)
             ->get();
 
-        $dataset = [];
 
-        foreach($distributors as $key=>$distributor)
-        {
-            $dataset[$key] = $this->getChildren($distributor);
-        }
 
-        return response()->json($dataset);
+
+//        $dataset = [];
+//
+//
+////
+//        foreach($distributors as $key=>$distributor)
+//        {
+//            $dataset[] = $this->getChildren($distributor);
+//        }
+
+        return response()->json($distributors);
     }
 
-    public function getChildren($distributor)
-    {
-        $data = [];
-
-        if($distributor->distributors != null)
-        {
-            $iio = $distributor->distributors->count();
-            for($i = 0; $i < $iio; $i++)
-            {
-                $data['name'][$i] = $distributor->distributors[$iio]->name;
-                $this->getChildren($distributor->distributors[$iio]);
-            }
-        }
-
-    }
+//    public function getChildren($distributor)
+//    {
+//        $data = [];
+//
+//        if($distributor->distributors != null)
+//        {
+//            $iio = $distributor->distributors->count();
+//            for($i = 0; $i < $iio; $i++)
+//            {
+//                $data['name'][$i] = $distributor->distributors[$iio]->name;
+//                $this->getChildren($distributor->distributors[$iio]);
+//            }
+//        }
+//
+//    }
 }
