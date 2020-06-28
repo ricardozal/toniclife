@@ -96,16 +96,6 @@ class Product extends Model
         );
     }
 
-    public function reorderRequests()
-    {
-        return $this->belongsToMany(
-            ReorderRequest::class,
-            'reorder_request_product',
-            'fk_id_product',
-            'fk_id_reorder_request'
-        )->withPivot(['quantity']);
-    }
-
     public function orders()
     {
         return $this->belongsToMany(
@@ -114,6 +104,16 @@ class Product extends Model
             'fk_id_product',
             'fk_id_order'
         )->withPivot(['price','quantity']);
+    }
+
+    public function branchHasProduct()
+    {
+        return $this->belongsToMany(
+            Branch::class,
+            'brach_has_products',
+            'fk_id_branch',
+            'fk_id_product'
+        );
     }
 
     public function getAbsoluteImageUrlAttribute(){
