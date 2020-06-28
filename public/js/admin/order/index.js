@@ -11,7 +11,23 @@ $(document).ready(function () {
             { "data": "created_at" },
             { "data": "total_price" },
             { "data": "status.name" },
-            {"data": "shipping_address.FullAddress"}
+            {"data": "shipping_address.FullAddress"},
+            {
+                "data": "id",
+                render:function(data)
+                {
+                    var $inpUrlShow = $('#inp-url-show');
+                    if ($inpUrlShow.length === 0) {
+                        return '';
+                    }
+
+                    var url = $inpUrlShow.val();
+                    url = url.replace('FAKE_ID', data);
+
+                    return "<a href='"+url+"' title='Ver ticket' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='far fa-eye'></span></a>";
+                },
+                "targets": -1
+            },
         ],
         "language": {
             "search": "Buscar: ",
@@ -31,4 +47,14 @@ $(document).ready(function () {
         "ordering": false
 
     });
+
+    $(document).on('click', '.show-btn', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        modalTools.renderView('modal-upsert', url, true,function () {
+
+        });
     });
+
+});

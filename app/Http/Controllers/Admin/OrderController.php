@@ -27,8 +27,15 @@ class OrderController extends Controller
         return response()->json([
             'data' => $query
         ]);
+    }
 
+    public function show($orderId)
+    {
+        $order = Order::find($orderId);
 
+        return view('admin.order.show',[
+            'order' => $order
+        ]);
     }
 
 }
