@@ -10,8 +10,8 @@ $(document).ready(function () {
             {"data": "payment_method.name"},
             { "data": "created_at" },
             { "data": "total_price" },
-            { "data": "order_status.name" },
-            {"data": "address.FullAddress"}
+            { "data": "status.name" },
+            {"data": "shipping_address.FullAddress"}
         ],
         "language": {
             "search": "Buscar: ",

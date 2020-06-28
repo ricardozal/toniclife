@@ -23,7 +23,7 @@ class OrderController extends Controller
 
     public function indexContent(Request $request)
     {
-        $query = Order::with(['distributor','payment_method','order_status','address'])->get();
+        $query = Order::with(['distributor','paymentMethod','status','shippingAddress'])->get();
         return response()->json([
             'data' => $query
         ]);

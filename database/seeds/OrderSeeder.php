@@ -18,7 +18,7 @@ class OrderSeeder extends Seeder
                 'fk_id_shipping_address' => 1,
                 'fk_id_branch' => 1,
                 'fk_id_payment_method' => 1,
-                'created_at'=>''
+                'created_at'=>Carbon\Carbon::now()->toDateString()
 
 
 

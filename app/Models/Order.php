@@ -74,7 +74,7 @@ class Order extends Model
         );
     }
 
-    public function order_status()
+    public function status()
     {
         return $this->belongsTo(
             OrderStatus::class,
@@ -83,7 +83,7 @@ class Order extends Model
         );
     }
 
-    public function address()
+    public function shippingAddress()
     {
         return $this->belongsTo(
             Address::class,
@@ -101,7 +101,7 @@ class Order extends Model
         );
     }
 
-    public function payment_method()
+    public function paymentMethod()
     {
         return $this->belongsTo(
             PaymentMethod::class,
