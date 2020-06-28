@@ -27,10 +27,7 @@ class PromotionController extends Controller
     {
             $promotion = Promotion::all();
             $query = $promotion;
-
-
-
-        return response()->json([
+            return response()->json([
             'data' => $query
         ]);
 

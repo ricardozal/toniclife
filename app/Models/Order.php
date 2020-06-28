@@ -51,6 +51,20 @@ class Order extends Model
 {
     protected $table = 'order';
 
+    protected $fillable = [
+        'total_price',
+        'total_taxes',
+        'total_accumulated_points',
+        'shipping_price',
+        'bill_required',
+        'fk_id_distributor',
+        'fk_id_order_status',
+        'fk_id_shipping_address',
+        'fk_id_shipping_address',
+        'fk_id_branch',
+        'fk_id_payment_method'
+    ];
+
     public function distributor()
     {
         return $this->belongsTo(
@@ -60,7 +74,7 @@ class Order extends Model
         );
     }
 
-    public function status()
+    public function order_status()
     {
         return $this->belongsTo(
             OrderStatus::class,
@@ -69,7 +83,7 @@ class Order extends Model
         );
     }
 
-    public function shippingAddress()
+    public function address()
     {
         return $this->belongsTo(
             Address::class,
@@ -87,7 +101,7 @@ class Order extends Model
         );
     }
 
-    public function paymentMethod()
+    public function payment_method()
     {
         return $this->belongsTo(
             PaymentMethod::class,
