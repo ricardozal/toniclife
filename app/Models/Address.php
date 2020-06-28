@@ -55,7 +55,6 @@ class Address extends Model
         return $this->street.', '.$this->zip_code.', '.$this->ext_num.', '.$this->colony.', '.$this->city.', '.$this->state.', '.$this->country->name.'.';
     }
 
-
     public function country()
     {
         return $this->belongsTo(
