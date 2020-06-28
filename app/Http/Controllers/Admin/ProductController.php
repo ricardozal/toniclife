@@ -125,4 +125,9 @@ class ProductController extends Controller
             'success' => true,
         ]);
     }
+
+    public function image($productId){
+        $product = Product::find($productId);
+        return view('admin.product.image',['product' => $product]);
+    }
 }

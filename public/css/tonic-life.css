@@ -27,6 +27,21 @@ body {
   min-height: calc(100vh - 96px);
 }
 /********************************
+ ********   Login   *************
+ ********************************/
+.card-login {
+  border-radius: 30px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.w-card-login {
+  width: 75%;
+}
+@media (max-width: 425px) {
+  .w-card-login {
+    width: 100% !important;
+  }
+}
+/********************************
  ********   Footer   *************
  ********************************/
 .footer {
@@ -70,6 +85,32 @@ body {
 }
 .nav .sidebar-text {
   margin-left: 4px;
+}
+/********************************
+ ********  Navbar   *************
+ ********************************/
+.navbar {
+  background: #0C5394 !important;
+  border-radius: 30px 30px 0px 0px;
+  color: white !important;
+}
+.navbar .navbar-nav .nav-link {
+  color: #FFFFFF !important;
+  padding: 0 !important;
+  margin-bottom: 3rem !important;
+}
+.navbar .navbar-nav .nav-link.active span:first-child {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  border-top-right-radius: 2rem !important;
+  border-bottom-right-radius: 2rem !important;
+}
+.navbar .navbar-nav .nav-link span:first-child {
+  padding: 1rem 0 !important;
+  padding-left: 1rem !important;
+  padding-right: 6px !important;
+}
+.navbar .navbar-nav .sidebar-text {
+  margin-left: 4px !important;
 }
 /********************************
  ********   Modal   *************

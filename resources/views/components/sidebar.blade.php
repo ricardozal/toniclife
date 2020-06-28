@@ -60,8 +60,8 @@
         </span>
         <span class="sidebar-text">Promociones</span>
     </a>
-    <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-       href="#">
+    <a class="nav-link {{$routeName == 'admin_reorder_index' ? 'active' : ''}}"
+       href="{{route('admin_reorder_index')}}">
         <span>
             <i class="fas fa-building"></i>
         </span>

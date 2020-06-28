@@ -9,7 +9,7 @@
         @include('admin.product._form')
         <div class="form-group text-center w-75">
             <button type="submit" class="btn btn-primary">
-                {{isset($user) ? 'Guardar' : 'Agregar producto'}}
+                {{isset($product) ? 'Guardar' : 'Agregar producto'}}
             </button>
         </div>
     </form>

@@ -8,13 +8,6 @@ $(document).ready(function () {
         "ajax": $('#inp-url-index-content').val(),
         "processing": true,
         "columns": [
-            {
-                "data": null,
-                render:function(data, type, row )
-                {
-                    return "<img src='"+data.absolute_image_url+"' style='max-height: 100px; width: auto;>";
-                },
-            },
             { "data": "code" },
             { "data": "name" },
             {
@@ -46,7 +39,16 @@ $(document).ready(function () {
                     var url = $inpUrlUpdate.val();
                     url = url.replace('FAKE_ID', data);
 
-                    return "<a href='"+url+"' title='Editar' data-toggle='tooltip' class='update-btn' style='color: #2B6699'><span class='far fa-edit'></span></a>";
+                    var $inpUrlImage = $('#inp-url-image');
+                    if ($inpUrlImage.length === 0) {
+                        return '';
+                    }
+
+                    var urlImg = $inpUrlImage.val();
+                    urlImg = urlImg.replace('FAKE_ID', data);
+
+                    return "<a href='"+url+"' title='Editar' data-toggle='tooltip' class='update-btn' style='color: #2B6699'><span class='far fa-edit'></span></a>" +
+                           "&nbsp;&nbsp;&nbsp;<a href='"+urlImg+"' title='Ver foto del producto' data-toggle='tooltip' class='watch-image-btn' style='color: #2B6699'><span class='fas fa-image'></span></a>";
                 },
                 "targets": -1
             },
@@ -106,6 +108,15 @@ $(document).ready(function () {
                 $('#modal-upsert').modal('hide');
                 table.ajax.reload();
             });
+        });
+    });
+
+    $(document).on('click', '.watch-image-btn', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        modalTools.renderView('modal-upsert', url, true,function () {
+
         });
     });
 
