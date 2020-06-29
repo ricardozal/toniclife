@@ -16,9 +16,11 @@
                     <table id="table-data" class="table table-striped table-bordered dt-responsive text-center" style="width:100%">
                         <thead>
                         <tr>
-                            <th>Nombre  </th>
-                            <th>ID Tonic</th>
+                            <th>Distribudor</th>
+                            <th>ID tonic life</th>
                             <th>Fecha</th>
+                            <th>Status</th>
+                            <th>Detalles del producto</th>
 
 
 

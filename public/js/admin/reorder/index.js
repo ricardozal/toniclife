@@ -8,9 +8,25 @@ $(document).ready(function () {
         "columns": [
             {"data": "distributor.name"},
             {"data": "distributor.tonic_life_id"},
+            {"data": "created_at"},
+            {"data": "status.name"},
 
+            {
+                "data": "id",
+                render:function(data)
+                {
+                    var $inpUrlShow = $('#inp-url-show');
+                    if ($inpUrlShow.length === 0) {
+                        return '';
+                    }
 
+                    var url = $inpUrlShow.val();
+                    url = url.replace('FAKE_ID', data);
 
+                    return "<a href='"+url+"' title='Detalle producto' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='far fa-eye'></span></a>";
+                },
+                "targets": -1
+            },
 
         ],
         "language": {
@@ -30,5 +46,13 @@ $(document).ready(function () {
         },
         "ordering": false
 
+    });
+    $(document).on('click', '.show-btn', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        modalTools.renderView('modal-upsert', url, true,function () {
+
+        });
     });
 });
