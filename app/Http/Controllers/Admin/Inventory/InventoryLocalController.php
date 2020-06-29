@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\BranchHasProduct;
 use App\Models\Product;
-use http\Env\Request;
+use Illuminate\Http\Request;
 
 class InventoryLocalController extends Controller
 {
@@ -26,5 +26,28 @@ class InventoryLocalController extends Controller
         return response()->json([
             'data' => $query
         ]);
+    }
+
+    public function update($branchId){
+        $inventoryL = Branch::find($branchId)->products()->get();
+        return view('admin.inventory.local.upsert',['inventoryL' => $inventoryL]);
+    }
+
+    public function createLocal($branchId)
+    {
+        $branch = Branch::find($branchId);
+        return view('admin.inventory.local.upsert',[
+            'branchId'=>$branch->id
+        ]);
+    }
+
+    public function createPost(Request $request)
+    {
+        dd($request->all());
+        $branchId = 1;
+        $branchFormId  = Branch::findOrFail($branchId);
+        $stock = $request->input('stock');
+        $branchFormId->products()->attach(1,['stock'=>  $stock]);
+
     }
 }
