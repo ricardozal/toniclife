@@ -10,7 +10,6 @@ $(document).ready(function () {
             {"data": "distributor.tonic_life_id"},
             {"data": "created_at"},
             {"data": "status.name"},
-
             {
                 "data": "id",
                 render:function(data)
@@ -23,11 +22,10 @@ $(document).ready(function () {
                     var url = $inpUrlShow.val();
                     url = url.replace('FAKE_ID', data);
 
-                    return "<a href='"+url+"' title='Detalle producto' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='far fa-eye'></span></a>";
+                    return "<a href='"+url+"' title='Detalle Producto' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='far fa-eye'></span></a>";
                 },
                 "targets": -1
             },
-
         ],
         "language": {
             "search": "Buscar: ",
@@ -47,6 +45,7 @@ $(document).ready(function () {
         "ordering": false
 
     });
+
     $(document).on('click', '.show-btn', function (e) {
         e.preventDefault();
         var url = $(this).attr('href');
@@ -55,4 +54,5 @@ $(document).ready(function () {
 
         });
     });
+
 });

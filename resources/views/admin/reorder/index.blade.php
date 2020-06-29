@@ -34,6 +34,7 @@
 
     <input id="inp-url-index-content" type="hidden"
            value="{{route('admin_reorder_index_content')}}">
+    <input type="hidden" value="{{route('admin_reorder_show',['reorderId' => 'FAKE_ID'])}}" id="inp-url-show">
 
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
