@@ -27,9 +27,8 @@
             <table class="table table-borderless color-light-dark table-responsive">
                 <thead class="border-bottom">
                 <tr>
-                    <th class="text-center" scope="col">Código</th>
-                    <th class="text-center" scope="col">Nombre del roducto</th>
-
+                    <th class="text-center" scope="col">Código del prodcuto</th>
+                    <th class="text-center" scope="col">Nombre del producto</th>
                     <th class="text-center" scope="col">Cantidad</th>
 
 
@@ -42,7 +41,7 @@
                             {{$product->code}}
                         </th>
                         <th class="text-center">
-                            {{$product->code}}
+                            {{$product->name}}
                         </th>
                         <th class="text-center">
                             {{$product->pivot->quantity}}
