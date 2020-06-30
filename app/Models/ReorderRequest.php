@@ -32,6 +32,14 @@ class ReorderRequest extends Model
 {
     protected $table = 'reorder_request';
 
+    protected $fillable = [
+
+        'fk_id_distributor',
+        'fk_id_reorder_request_status',
+        'created_at',
+        'updated_at'
+    ];
+
     public function products()
     {
         return $this->belongsToMany(

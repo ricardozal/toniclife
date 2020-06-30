@@ -27,11 +27,29 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     protected $table = 'country';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'name','tax_percentage'
+    ];
 
     public function products()
     {
         return $this->hasMany(
             Product::class,
+            'fk_id_country',
+            'id'
+        );
+    }
+    public static function asMap()
+    {
+        return self::pluck('name', 'id');
+    }
+
+    public function address()
+    {
+        return $this->hasMany(
+            Address::class,
             'fk_id_country',
             'id'
         );

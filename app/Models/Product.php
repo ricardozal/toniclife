@@ -45,6 +45,19 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $table = 'product';
+    public $timestamps = false;
+
+    public $appends = [
+        'absolute_image_url'
+    ];
+
+    protected $fillable = [
+        'code',
+        'name',
+        'distributor_price',
+        'points',
+        'fk_id_country'
+    ];
 
     public function branches()
     {
@@ -83,6 +96,16 @@ class Product extends Model
         );
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany(
+            Order::class,
+            'order_product',
+            'fk_id_product',
+            'fk_id_order'
+        )->withPivot(['price','quantity']);
+    }
+
     public function reorderRequests()
     {
         return $this->belongsToMany(
@@ -93,14 +116,8 @@ class Product extends Model
         )->withPivot(['quantity']);
     }
 
-    public function orders()
-    {
-        return $this->belongsToMany(
-            Order::class,
-            'order_product',
-            'fk_id_product',
-            'fk_id_order'
-        )->withPivot(['price','quantity']);
+    public function getAbsoluteImageUrlAttribute(){
+        return asset($this->image_url);
     }
 
 }

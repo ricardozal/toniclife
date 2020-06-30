@@ -24,6 +24,22 @@ body {
 .main-card {
   border-radius: 30px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  min-height: calc(100vh - 96px);
+}
+/********************************
+ ********   Login   *************
+ ********************************/
+.card-login {
+  border-radius: 30px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.w-card-login {
+  width: 75%;
+}
+@media (max-width: 425px) {
+  .w-card-login {
+    width: 100% !important;
+  }
 }
 /********************************
  ********   Footer   *************
@@ -71,6 +87,32 @@ body {
   margin-left: 4px;
 }
 /********************************
+ ********  Navbar   *************
+ ********************************/
+.navbar {
+  background: #0C5394 !important;
+  border-radius: 30px 30px 0px 0px;
+  color: white !important;
+}
+.navbar .navbar-nav .nav-link {
+  color: #FFFFFF !important;
+  padding: 0 !important;
+  margin-bottom: 3rem !important;
+}
+.navbar .navbar-nav .nav-link.active span:first-child {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  border-top-right-radius: 2rem !important;
+  border-bottom-right-radius: 2rem !important;
+}
+.navbar .navbar-nav .nav-link span:first-child {
+  padding: 1rem 0 !important;
+  padding-left: 1rem !important;
+  padding-right: 6px !important;
+}
+.navbar .navbar-nav .sidebar-text {
+  margin-left: 4px !important;
+}
+/********************************
  ********   Modal   *************
  ********************************/
 .modal-content {
@@ -79,4 +121,165 @@ body {
 .text-header {
   color: #0C5394;
   font-weight: 500;
+}
+/*******************************************/
+/* Autocomplete*/
+.autocomplete-suggestions {
+  background: #F7F7FC;
+  padding: 4px;
+}
+.autocomplete-suggestions .autocomplete-suggestion {
+  cursor: pointer;
+  padding: 8px;
+}
+.autocomplete-suggestions .autocomplete-suggestion:hover {
+  background: #D1F5EC;
+  color: black;
+}
+/*Card*/
+.card.card-option {
+  cursor: pointer;
+  border-radius: 10px;
+  margin: 0 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.card.card-option .card-body {
+  text-align: center;
+  color: black;
+  font-size: 120%;
+}
+.card.card-option .card-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 2rem auto;
+}
+.card.card-option:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+/*********************
+==================================
+            Inputs
+==================================
+*/
+.form-group {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+.form-group .invalid-feedback {
+  margin-left: 10px;
+}
+.form-group span {
+  padding-left: 50px;
+}
+.form-group label {
+  position: absolute;
+  left: 50px;
+  margin-top: 8px;
+  font-weight: bold;
+  color: #0C5394;
+  background-color: white;
+  z-index: 10;
+  transition: transform 150ms ease-out, font-size 150ms ease-out;
+}
+.form-group .form-control {
+  position: relative;
+  display: block;
+  outline: 0;
+  border-width: 2px;
+  border-color: #BCBCBC;
+  border-radius: 5px;
+  background-color: transparent;
+  box-shadow: none;
+  color: black;
+  width: 100%;
+  height: auto;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding-left: 50px;
+}
+.form-group .form-control:focus {
+  outline: 0;
+  box-shadow: none;
+}
+.form-group .is-invalid {
+  border-color: #dc3545;
+}
+.focused .form-label {
+  transform: translateY(-90%);
+  left: 50px;
+  font-size: 0.8em;
+  padding: 0 8px;
+  text-align: center;
+  z-index: 10;
+  color: #0C5394 !important;
+}
+.focused.form-select .form-label {
+  transform: translateY(-170%);
+  left: 50px;
+  font-size: 0.8em;
+  padding: 0 8px;
+  text-align: center;
+  z-index: 10;
+  color: #0C5394 !important;
+}
+.form-group .inp-file-msg {
+  padding: 0 8px;
+  position: absolute;
+  left: 58px;
+  top: -40%;
+  font-size: 0.8em;
+  background-color: white;
+  z-index: 11;
+  color: #0C5394;
+  transition: transform 150ms ease-out, font-size 150ms ease-out;
+}
+.form-group .custom-file-input {
+  opacity: 0;
+  position: absolute;
+}
+.form-group .custom-file-label {
+  position: relative;
+  display: block;
+  outline: 0;
+  border-width: 2px;
+  border-color: #BCBCBC;
+  border-radius: 5px;
+  background-color: transparent;
+  box-shadow: none;
+  color: black;
+  width: 100%;
+  height: auto;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 1.2rem 0.75rem;
+  padding-left: 50px;
+  font-weight: normal;
+  left: 0;
+  z-index: 0;
+}
+.form-group .custom-file-label::after {
+  content: "" !important;
+  background: #FFFFFF url(/images/ic-upload-image.png?1920e4a4f79fb873cdfe35a5f8d9a776) no-repeat scroll 7px;
+  background-size: 24px;
+  border: none;
+  margin: auto 1rem;
+  z-index: 3;
+  display: block;
+  height: 1rem;
+  padding: 1rem;
+  line-height: 1.5;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+#input-image {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+table.dataTable tbody td {
+  vertical-align: middle;
 }
