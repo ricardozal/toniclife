@@ -60,6 +60,7 @@ $(document).ready(function () {
         var url = $(this).attr('href');
 
         modalTools.renderView('modal-upsert', url, true,function () {
+            makeAutocompleteProducts();
             formTools.useAjaxOnSubmit('form-upsert', function () {
                 $('#modal-upsert').modal('hide');
                 table.ajax.reload();
@@ -109,6 +110,20 @@ $(document).ready(function () {
             }
         })
     });
+
+    function makeAutocompleteProducts(){
+
+        var $inpItem = $('#code');
+        var url = $('#inp-url-product-search').val();
+
+        $inpItem.autocomplete({
+            serviceUrl: url,
+            onSelect: function (suggestion) {
+                $('#fk_id_product').val(suggestion.id);
+                $inpItem.val(suggestion.value);
+            }
+        });
+    }
 
 
 

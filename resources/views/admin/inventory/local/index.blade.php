@@ -1,5 +1,6 @@
 @extends('template.main')
 @push('scripts')
+    <script src="{{asset('commons/jquery.autocomplete.min.js')}}"></script>
     <script src="{{asset('js/admin/inventory/Local/index.js')}}"></script>
 @endpush
 @section('content')
@@ -38,9 +39,11 @@
     <input id="inp-url-index-content" type="hidden"
            value="{{route('admin_inventory_local_index_content',['branchId' => $branch->id])}}">
     <input id="inp-url-update" type="hidden"
-           value="{{route('admin_inventory_local_update',['branchId' => 'FAKE_ID'])}}">
+           value="{{route('admin_inventory_local_update',['branchId' => $branch->id, 'productId'=> 'FAKE_ID'])}}">
     <input id="inp-url-delete" type="hidden"
-           value="{{route('admin_inventory_local_delete',['branchId' => 'FAKE_ID'])}}">
+           value="{{route('admin_inventory_local_delete',['branchId' => $branch->id, 'productId'=> 'FAKE_ID'])}}">
+    <input id="inp-url-product-search" type="hidden"
+           value="{{route('admin_product_search')}}">
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">

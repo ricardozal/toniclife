@@ -10,6 +10,7 @@ use App\Http\Request\UpdateProductRequest;
 use App\Models\Country;
 use App\Models\Product;
 use App\Services\UploadFiles;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -130,4 +131,30 @@ class ProductController extends Controller
         $product = Product::find($productId);
         return view('admin.product.image',['product' => $product]);
     }
+
+    public function search(Request $request){
+
+        $query = $request->input('query', '');
+        $response = [
+            'suggestions' => [],
+            'query' => $query
+        ];
+
+
+        $query2 = Product::where('code','like','%'.$query.'%');
+
+        $products = $query2->get();
+
+        foreach ($products as $product){
+
+            $response['suggestions'][] = [
+                'id' => $product->id,
+                'value' => $product->code
+            ];
+        }
+
+        return response()->json($response);
+
+    }
+
 }

@@ -235,17 +235,18 @@ Route::post('/inventory/local/create',
     'Inventory\InventoryLocalController@createPost')
     ->name('admin_inventory_local_create_post');
 
-Route::get('/inventory/local/update',
+Route::get('/inventory/local/{branchId}/update',
     'Inventory\InventoryLocalController@update')
     ->name('admin_inventory_local_update');
 
-Route::post('/inventory/local/update',
+Route::post('/inventory/local/{branchId}/update',
     'Inventory\InventoryLocalController@updatePost')
     ->name('admin_inventory_local_update_post');
 
-Route::get('/inventory/local/delete',
+Route::get('/inventory/local/{branchId}/delete',
     'Inventory\InventoryLocalController@delete')
     ->name('admin_inventory_local_delete');
+
 
 /** Inventory Global **/
 Route::get('/inventory/global',
@@ -304,6 +305,10 @@ Route::get('/product/{productId}/active',
 Route::get('/product/{productId}/image',
     'ProductController@image')
     ->name('admin_product_image');
+
+Route::get('/product/search',
+    'ProductController@search')
+    ->name('admin_product_search');
 
 /***********************************
  * *******   Reorder  *************
