@@ -141,7 +141,7 @@ class ProductController extends Controller
         ];
 
 
-        $query2 = Product::where('code','like','%'.$query.'%');
+        $query2 = Product::where('name','like','%'.$query.'%');
 
         $products = $query2->get();
 
@@ -149,7 +149,7 @@ class ProductController extends Controller
 
             $response['suggestions'][] = [
                 'id' => $product->id,
-                'value' => $product->code
+                'value' => $product->name
             ];
         }
 

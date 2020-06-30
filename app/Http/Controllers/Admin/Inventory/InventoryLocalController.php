@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin\Inventory;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Request\InventoryLocalRequest;
 use App\Models\Branch;
 use App\Models\BranchHasProduct;
+use App\Models\Movement;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -41,12 +43,51 @@ class InventoryLocalController extends Controller
         $branchFormId  = Branch::findOrFail($branchId);
         $stock = $request->input('stock');
         $comment = $request->input('comment');
-        $branchFormId->products()->updateExistingPivot($productId,['stock'=> $stock]);
+        $type = $request->input('type');
+        $movement = new Movement();
+        $stockBP = $branchFormId->products()->findOrFail($productId,['stock'])->pivot->stock;
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Guardado correctamente'
-        ]);
+        try{
+            \DB::beginTransaction();
+
+            $movement->comment=$comment;
+            $movement->type =$type;
+            $movement->quantity=$stock;
+            $movement->fk_id_product = $productId;
+
+            $movement->saveOrFail();
+            if ($request->input('type') == 0)
+            {
+                $totalStock = $stockBP - $stock;
+                if($totalStock<1){
+                    return response()->json([
+                        'errors' => ['stock' => ['El stock no puede ser menor a 1'] ]
+                    ],422);
+                }else{
+                    $branchFormId->products()->updateExistingPivot($productId,['stock'=> $totalStock]);
+                }
+
+            }elseif ($request->input('type') == 1){
+                $totalStock = $stockBP + $stock;
+                $branchFormId->products()->updateExistingPivot($productId,['stock'=> $totalStock]);
+            }
+
+            \DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'Proceso completado'
+            ]);
+        } catch (\Throwable $e){
+            \DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Error durante el proceso',
+                'error' => $e
+            ]);
+        }
+
+        //$branchFormId->products()->updateExistingPivot($productId,['stock'=> $stock]);
+
     }
 
     public function createLocal($branchId)
@@ -57,14 +98,13 @@ class InventoryLocalController extends Controller
         ]);
     }
 
-    public function createPost(Request $request)
+    public function createPost(InventoryLocalRequest $request)
     {
-        //dd($request->all());
         $branchId =$request->input('branchId');
+        //$ListProduct = Branch::find($branchId)->products()->get();
         $branchFormId  = Branch::findOrFail($branchId);
         $stock = $request->input('stock');
         $productId = $request->input('fk_id_product');
-
         $branchFormId->products()->attach($productId,['stock'=>  $stock]);
 
         if (!$branchFormId->save()) {

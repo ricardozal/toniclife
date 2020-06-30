@@ -113,7 +113,7 @@ $(document).ready(function () {
 
     function makeAutocompleteProducts(){
 
-        var $inpItem = $('#code');
+        var $inpItem = $('#name');
         var url = $('#inp-url-product-search').val();
 
         $inpItem.autocomplete({

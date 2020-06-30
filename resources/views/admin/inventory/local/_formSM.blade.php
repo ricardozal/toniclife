@@ -3,8 +3,8 @@
         <div class="form-group form-select focused">
             <label for="type" class="focused form-label">Movimiento</label>
             <select class="form-control" id="type" name="type">
-                <option value="true"> Positivo </option>
-                <option value="false"> Negativo </option>
+                <option value="1"> Positivo </option>
+                <option value="0"> Negativo </option>
             </select>
         </div>
 
@@ -15,7 +15,7 @@
     <div class="col-12">
         <div class="form-group focused">
             <label for="stock" class="focused form-label">Cantidad de ajuste</label>
-            <input type="number" min="0" autocomplete="off" class="form-control" id="stock" name="stock" value="" autocomplete="off">
+            <input type="number" min="1" autocomplete="off" class="form-control" id="stock" name="stock" value="" autocomplete="off">
             <span class="invalid-feedback">{{ $errors->first('stock') }}</span>
         </div>
     </div>
