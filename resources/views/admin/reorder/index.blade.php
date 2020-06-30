@@ -16,9 +16,11 @@
                     <table id="table-data" class="table table-striped table-bordered dt-responsive text-center" style="width:100%">
                         <thead>
                         <tr>
-                            <th>Nombre  </th>
-                            <th>ID Tonic</th>
+                            <th>Distribudor</th>
+                            <th>ID tonic life</th>
                             <th>Fecha</th>
+                            <th>Status</th>
+                            <th>Detalles del producto</th>
 
 
 
@@ -32,6 +34,7 @@
 
     <input id="inp-url-index-content" type="hidden"
            value="{{route('admin_reorder_index_content')}}">
+    <input type="hidden" value="{{route('admin_reorder_show',['reorderId' => 'FAKE_ID'])}}" id="inp-url-show">
 
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

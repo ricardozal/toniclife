@@ -323,5 +323,11 @@ Route::get('/reorder-content',
     'ReorderController@indexContent')
     ->name('admin_reorder_index_content');
 
+Route::get('/reorder/{reorderId}/show',
+    'ReorderController@show')
+    ->name('admin_reorder_show');
+
+
+
 
 

@@ -25,4 +25,10 @@ use Illuminate\Database\Eloquent\Model;
 class ReorderRequestProduct extends Model
 {
     protected $table = 'reorder_request_product';
+
+    protected $fillable = [
+        'quantity',
+        'fk_id_product',
+        'fk_id_reorder_request'
+    ];
 }
