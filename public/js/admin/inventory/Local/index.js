@@ -72,9 +72,9 @@ $(document).ready(function () {
         e.preventDefault();
         var url = $(this).attr('href');
 
-        modalTools.renderView('modal-upsert', url, true,function () {
-            formTools.useAjaxOnSubmit('form-upsert', function () {
-                $('#modal-upsert').modal('hide');
+        modalTools.renderView('modal-update', url, true,function () {
+            formTools.useAjaxOnSubmit('form-update', function () {
+                $('#modal-update').modal('hide');
                 table.ajax.reload();
             });
         });

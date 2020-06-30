@@ -23,27 +23,25 @@ class InventoryLocalController extends Controller
     public function indexContent($branchId)
     {
         $query = Branch::find($branchId)->products()->get();
-        //dd($query);
         return response()->json([
             'data' => $query
         ]);
     }
 
     public function update($branchId){
-        //dd($branchId);
+        $productId = \request()->input('productId');
         $branchP = Branch::find($branchId)->products()->get();
-        //dd($branchP);
-        return view('admin.inventory.local.upsert',['$branchP' => $branchP]);
+        return view('admin.inventory.local.updateStockMovement',['branchP' => $branchP,'branchId'=>$branchId, 'productId'=>$productId]);
     }
 
     public function updatePost(Request $request)
     {
-        dd($request->all());
+        $productId = $request->input('productId');
         $branchId =$request->input('branchId');
-        //dd($branchId);
-        $branch = Branch::findOrFail($branchId);
+        $branchFormId  = Branch::findOrFail($branchId);
         $stock = $request->input('stock');
-        $branch->fill($stock);
+        $comment = $request->input('comment');
+        $branchFormId->products()->updateExistingPivot($productId,['stock'=> $stock]);
 
         return response()->json([
             'success' => true,
@@ -61,6 +59,7 @@ class InventoryLocalController extends Controller
 
     public function createPost(Request $request)
     {
+        //dd($request->all());
         $branchId =$request->input('branchId');
         $branchFormId  = Branch::findOrFail($branchId);
         $stock = $request->input('stock');
