@@ -1,8 +1,8 @@
 <div class="d-flex flex-column align-items-center mb-5">
-    <h4 class="text-header mt-2">Modificar stock</h4>
+    <h4 class="text-header mt-2">Modificar stock de {{$product->name}}</h4>
 </div>
 <div class="row">
-    <form id="form-update" action="{{route('admin_inventory_local_update_post',['branchId' => $branchId])}}"
+    <form id="form-update" action="{{route('admin_inventory_local_update_post',['branchId' => $branch->id])}}"
           class="d-flex flex-column align-items-center w-100"
           method="post">
         @csrf

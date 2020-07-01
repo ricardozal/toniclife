@@ -16,7 +16,8 @@ class InventoryLocalRequest extends FormRequest
     public function rules()
     {
         return [
-            'stock' => 'required'
+            'stock' => 'required',
+            'name' => 'required',
         ];
     }
 
@@ -24,6 +25,7 @@ class InventoryLocalRequest extends FormRequest
     {
         return [
             'stock.required'=> 'El stock es necesario',
+            'name.required'=> 'Se debe de seleccionar un producto es necesario',
         ];
     }
 }

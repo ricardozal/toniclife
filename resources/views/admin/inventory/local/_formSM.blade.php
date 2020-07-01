@@ -15,7 +15,7 @@
     <div class="col-12">
         <div class="form-group focused">
             <label for="stock" class="focused form-label">Cantidad de ajuste</label>
-            <input type="number" min="1" autocomplete="off" class="form-control" id="stock" name="stock" value="" autocomplete="off">
+            <input type="number" min="1" class="form-control" id="stock" name="stock" value="" autocomplete="off">
             <span class="invalid-feedback">{{ $errors->first('stock') }}</span>
         </div>
     </div>
@@ -31,5 +31,5 @@
     </div>
 </div>
 
-<input type="hidden" name="branchId" value="{{$branchId}}">
-<input type="hidden" name="productId" value="{{$productId}}">
+<input type="hidden" name="branchId" value="{{$branch->id}}">
+<input type="hidden" name="productId" value="{{$product->id}}">

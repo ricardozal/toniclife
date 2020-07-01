@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Http\Request\InventoryLocalRequest;
+use App\Http\Request\InventoryLocalUpdateRequest;
 use App\Models\Branch;
 use App\Models\BranchHasProduct;
 use App\Models\Movement;
@@ -30,33 +31,41 @@ class InventoryLocalController extends Controller
         ]);
     }
 
-    public function update($branchId){
-        $productId = \request()->input('productId');
-        $branchP = Branch::find($branchId)->products()->get();
-        return view('admin.inventory.local.updateStockMovement',['branchP' => $branchP,'branchId'=>$branchId, 'productId'=>$productId]);
+    public function update(Request $request, $branchId){
+        $productId = $request->input('productId');
+        $branch = Branch::find($branchId);
+        $product = Product::find($productId);
+        return view('admin.inventory.local.updateStockMovement',[
+            'branch' => $branch,
+            'product'=>$product
+        ]);
     }
 
-    public function updatePost(Request $request)
+    public function updatePost(InventoryLocalUpdateRequest $request)
     {
         $productId = $request->input('productId');
-        $branchId =$request->input('branchId');
-        $branchFormId  = Branch::findOrFail($branchId);
+        $branchId = $request->input('branchId');
         $stock = $request->input('stock');
         $comment = $request->input('comment');
         $type = $request->input('type');
+
+        $branchFormId  = Branch::findOrFail($branchId);
+
         $movement = new Movement();
+
         $stockBP = $branchFormId->products()->findOrFail($productId,['stock'])->pivot->stock;
 
         try{
             \DB::beginTransaction();
 
-            $movement->comment=$comment;
-            $movement->type =$type;
-            $movement->quantity=$stock;
+            $movement->comment = $comment;
+            $movement->type = $type;
+            $movement->quantity = $stock;
             $movement->fk_id_product = $productId;
 
             $movement->saveOrFail();
-            if ($request->input('type') == 0)
+
+            if (!$type)
             {
                 $totalStock = $stockBP - $stock;
                 if($totalStock<1){
@@ -67,7 +76,7 @@ class InventoryLocalController extends Controller
                     $branchFormId->products()->updateExistingPivot($productId,['stock'=> $totalStock]);
                 }
 
-            }elseif ($request->input('type') == 1){
+            }else{
                 $totalStock = $stockBP + $stock;
                 $branchFormId->products()->updateExistingPivot($productId,['stock'=> $totalStock]);
             }
@@ -86,8 +95,6 @@ class InventoryLocalController extends Controller
             ]);
         }
 
-        //$branchFormId->products()->updateExistingPivot($productId,['stock'=> $stock]);
-
     }
 
     public function createLocal($branchId)
@@ -100,11 +107,26 @@ class InventoryLocalController extends Controller
 
     public function createPost(InventoryLocalRequest $request)
     {
-        $branchId =$request->input('branchId');
-        //$ListProduct = Branch::find($branchId)->products()->get();
+
+
+        $branchId = $request->input('branchId');
         $branchFormId  = Branch::findOrFail($branchId);
         $stock = $request->input('stock');
         $productId = $request->input('fk_id_product');
+
+
+        $products = $branchFormId->products;
+
+        foreach($products as $product)
+        {
+            if($product->id == $productId)
+            {
+                return response()->json([
+                    'errors' => ['name' => ['El producto ya se encuentra agregado en el inventario'] ]
+                ],422);
+            }
+        }
+
         $branchFormId->products()->attach($productId,['stock'=>  $stock]);
 
         if (!$branchFormId->save()) {
@@ -113,6 +135,7 @@ class InventoryLocalController extends Controller
                 'message' => 'No se guardo el producto'
             ]);
         }
+
         return response()->json([
             'success' => true,
             'message' => 'Guardado correctamente'
