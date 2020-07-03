@@ -5,6 +5,10 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 /**
  * App\Models\Distributor
@@ -44,8 +48,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Distributor extends Model
+class Distributor extends Authenticatable
 {
+
+    use HasApiTokens, Notifiable;
+
     protected $table = 'distributor';
 
     protected $fillable = [
