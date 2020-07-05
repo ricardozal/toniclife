@@ -33,7 +33,7 @@ class AuthController extends Controller
         if(!$distributor->active){
             return response()->json([
                 'success' => false,
-                'message' => 'Lo sentimos hay un problema con la session',
+                'message' => 'Su cuenta fue desactivada',
                 'data' => null
             ]);
         }
@@ -54,9 +54,17 @@ class AuthController extends Controller
         $token->save();
 
         return response()->json([
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
+            'success' => true,
+            'message' => "Sesión iniciada",
+            'data' => [
+                'id' => $distributor->id,
+                'name' => $distributor->name,
+                'email' => $distributor->email,
+                'tonic_life_id' => $distributor->tonic_life_id,
+                'access_token' => $tokenResult->accessToken,
+                'token_type' => 'Bearer',
+                'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
+            ]
         ]);
     }
 
