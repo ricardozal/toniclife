@@ -39,6 +39,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Address whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Address whereZipCode($value)
  * @mixin \Eloquent
+ * @property int $fk_id_country
+ * @property string|null $references
+ * @property-read mixed $full_address
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Address whereFkIdCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Address whereReferences($value)
  */
 class Address extends Model
 {

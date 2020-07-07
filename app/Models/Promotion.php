@@ -29,6 +29,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Promotion whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Promotion whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $begin_date
+ * @property int $with_points
+ * @property int $is_accumulative
+ * @property int $active
+ * @property int $fk_id_country
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Promotion whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Promotion whereBeginDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Promotion whereFkIdCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Promotion whereIsAccumulative($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Promotion whereWithPoints($value)
  */
 class Promotion extends Model
 {
