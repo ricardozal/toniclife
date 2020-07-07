@@ -11,9 +11,9 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
     {
         $this->faker = Faker\Factory::create();
 
-//        if (env('APP_DEBUG', false)) {
+        if (env('APP_DEBUG')) {
             $this->distributors();
-//        }
+        }
 
     }
 

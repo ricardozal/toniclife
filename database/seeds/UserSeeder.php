@@ -19,12 +19,12 @@ class UserSeeder extends Seeder
     {
         $this->role();
 
-//        if (env('APP_DEBUG', false)) {
+        if (env('APP_DEBUG')) {
             $this->admin();
             $this->branch();
-//        }else{
-//            $this->adminP();
-//        }
+        }else{
+            $this->adminP();
+        }
 
     }
 
