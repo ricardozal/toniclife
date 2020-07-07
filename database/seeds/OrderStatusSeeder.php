@@ -14,6 +14,11 @@ class OrderStatusSeeder extends Seeder
         ]);
 
         DB::table('order_status')->insert([
+            'name'=> 'Enviado'
+
+        ]);
+
+        DB::table('order_status')->insert([
             'name'=> 'Entregado'
 
         ]);

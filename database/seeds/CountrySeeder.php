@@ -14,7 +14,7 @@ class CountrySeeder extends Seeder
         ]);
 
         DB::table('country')->insert([
-            'name'=> 'EstadosUnidos',
+            'name'=> 'Estados Unidos',
             'tax_percentage'=> 10.5
         ]);
     }

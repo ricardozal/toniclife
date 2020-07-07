@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function getProducts()
     {
-        $products = Product::whereFkIdCountry(1)->limit(10)->get();
+        $products = Product::whereFkIdCountry(1)->where('active',1)->limit(10)->get();
 
         $productList = [];
 

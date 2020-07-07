@@ -36,8 +36,25 @@ class OrderSeeder extends Seeder
                 'created_at'=>Carbon\Carbon::now()->toDateString()
         ]);
 
-        $distributor->accumulated_points = $distributor->accumulated_points+$points;
-        $distributor->save();
+        $today = \Carbon\Carbon::now();
+
+        foreach ($distributor->accumulatedPointsHistory as $point)
+        {
+            $begin = \Carbon\Carbon::parse($point->begin_period);
+            $end = \Carbon\Carbon::parse($point->end_period);
+            if ($today->between($begin,$end))
+            {
+                $point->accumulated_points = $point->accumulated_points+$points;
+                $point->save();
+            } else{
+                $point = new \App\Models\PointsHistory();
+                $point->begin_period = $today;
+                $point->end_period = $today->addMonth();
+                $point->accumulated_points = $points;
+                $point->fk_id_distributor = $distributor->id;
+                $point->save();
+            }
+        }
 
         DB::table('order_product')->insert([
             'price' => (($product1->distributor_price*2)+(($product1->country->tax_percentage*0.01)*($product1->distributor_price*2))),

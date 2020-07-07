@@ -37,6 +37,7 @@ class CreateToniclifeSchema extends Migration
             $table->unsignedInteger('fk_id_country');
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
+            $table->string('references')->nullable();
             $table->timestamps();
 
             $table->foreign('fk_id_country')
@@ -82,10 +83,21 @@ class CreateToniclifeSchema extends Migration
             $table->string('tonic_life_id');
             $table->string('email');
             $table->string('password');
-            $table->double('accumulated_points');
             $table->boolean('active')->default(true);
             $table->unsignedInteger('fk_id_distributor')->nullable();
             $table->timestamps();
+
+            $table->foreign('fk_id_distributor')
+                ->references('id')
+                ->on('distributor');
+        });
+
+        Schema::create('point_history', function (Blueprint $table) {
+            $table->increments('id');
+            $table->double('accumulated_points');
+            $table->date('begin_period');
+            $table->date('end_period');
+            $table->unsignedInteger('fk_id_distributor')->nullable();
 
             $table->foreign('fk_id_distributor')
                 ->references('id')
@@ -97,9 +109,17 @@ class CreateToniclifeSchema extends Migration
             $table->string('name');
             $table->string('description');
             $table->double('min_amount');
-            $table->date('expiration_date')->nullable();
+            $table->date('begin_date');
+            $table->date('expiration_date');
+            $table->boolean('with_points');
+            $table->boolean('is_accumulative');
             $table->boolean('active')->default(true);
+            $table->unsignedInteger('fk_id_country');
             $table->timestamps();
+
+            $table->foreign('fk_id_country')
+                ->references('id')
+                ->on('country');
         });
 
         Schema::create('distributor_has_addresses',function (Blueprint $table){
@@ -144,7 +164,6 @@ class CreateToniclifeSchema extends Migration
         Schema::create('category', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
         });
 
         Schema::create('product', function (Blueprint $table) {
@@ -281,6 +300,46 @@ class CreateToniclifeSchema extends Migration
                 ->references('id')
                 ->on('reorder_request');
         });
+
+        Schema::create('new_distributor', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email');
+            $table->string('marital_status');
+            $table->date('birthday');
+            $table->string('birth_place');
+            $table->string('nationality');
+            $table->string('rfc_or_itin');
+            $table->string('curp_or_ssn');
+            $table->string('phone_1');
+            $table->string('phone_2');
+            $table->string('no_official_identification')->nullable();
+            $table->unsignedInteger('fk_id_address');
+            $table->unsignedInteger('fk_id_order');
+            $table->timestamps();
+
+            $table->foreign('fk_id_address')
+                ->references('id')
+                ->on('address');
+
+            $table->foreign('fk_id_order')
+                ->references('id')
+                ->on('order');
+
+        });
+
+        Schema::create('data_bank', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('bank_name');
+            $table->string('account_name');
+            $table->string('bank_account_number');
+            $table->string('clabe_routing_bank');
+            $table->unsignedInteger('fk_id_new_distributor');
+
+            $table->foreign('fk_id_new_distributor')
+                ->references('id')
+                ->on('new_distributor');
+        });
     }
 
     /**
@@ -290,6 +349,8 @@ class CreateToniclifeSchema extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('data_bank');
+        Schema::dropIfExists('new_distributor');
         Schema::dropIfExists('reorder_request_product');
         Schema::dropIfExists('reorder_request');
         Schema::dropIfExists('reorder_request_status');
@@ -304,6 +365,7 @@ class CreateToniclifeSchema extends Migration
         Schema::dropIfExists('distributor_has_promotions');
         Schema::dropIfExists('distributor_has_addresses');
         Schema::dropIfExists('promotion');
+        Schema::dropIfExists('points_history');
         Schema::dropIfExists('distributor');
         Schema::dropIfExists('user');
         Schema::dropIfExists('branch');

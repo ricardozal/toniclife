@@ -18,7 +18,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $tonic_life_id
  * @property string $email
  * @property string $password
- * @property float $accumulated_points
  * @property int $active
  * @property int|null $fk_id_distributor
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -112,6 +111,15 @@ class Distributor extends Authenticatable
     {
         return $this->hasMany(
             ReorderRequest::class,
+            'fk_id_distributor',
+            'id'
+        );
+    }
+
+    public function accumulatedPointsHistory()
+    {
+        return $this->hasMany(
+            PointsHistory::class,
             'fk_id_distributor',
             'id'
         );

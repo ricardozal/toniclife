@@ -13,7 +13,7 @@ class ReorderRequestSeeder extends Seeder
         $distributor = \App\Models\Distributor::whereId(1)->first();
 
         $reorderId = DB::table('reorder_request')->insertGetId([
-            'fk_id_distributor'=> 1,
+            'fk_id_distributor'=> $distributor->id,
             'fk_id_reorder_request_status'=>1,
             'created_at'=>Carbon\Carbon::now()->toDateString()
 

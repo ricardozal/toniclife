@@ -11,9 +11,9 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
     {
         $this->faker = Faker\Factory::create();
 
-        if (env('APP_DEBUG', false)) {
+//        if (env('APP_DEBUG', false)) {
             $this->distributors();
-        }
+//        }
 
     }
 
@@ -22,38 +22,56 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
 
         for($i = 0; $i<2 ;$i++){
 
-            DB::table('distributor')->insert([
+            $id = DB::table('distributor')->insertGetId([
                 'name' => $this->faker->firstNameMale,
                 'tonic_life_id' => 'DIST-'.$i,
                 'email' => $this->faker->email,
                 'password' => bcrypt('prueba'),
-                'accumulated_points' => 0
+            ]);
+
+            DB::table('point_history')->insert([
+                'accumulated_points' => 0,
+                'begin_period' => Carbon\Carbon::now()->toDateString(),
+                'end_period' => Carbon\Carbon::now()->addMonth()->toDateString(),
+                'fk_id_distributor' => $id
             ]);
 
         }
 
         for($i = 2; $i<4 ;$i++){
 
-            DB::table('distributor')->insert([
+            $id = DB::table('distributor')->insertGetId([
                 'name' => $this->faker->firstNameMale,
                 'tonic_life_id' => 'DIST-'.$i,
                 'email' => $this->faker->email,
                 'password' => bcrypt('prueba'),
-                'accumulated_points' => 0,
                 'fk_id_distributor' => 1
+            ]);
+
+            DB::table('point_history')->insert([
+                'accumulated_points' => 0,
+                'begin_period' => Carbon\Carbon::now()->toDateString(),
+                'end_period' => Carbon\Carbon::now()->addMonth()->toDateString(),
+                'fk_id_distributor' => $id
             ]);
 
         }
 
         for($i = 4; $i<6 ;$i++){
 
-            DB::table('distributor')->insert([
+            $id = DB::table('distributor')->insertGetId([
                 'name' => $this->faker->firstNameMale,
                 'tonic_life_id' => 'DIST-'.$i,
                 'email' => $this->faker->email,
                 'password' => bcrypt('prueba'),
-                'accumulated_points' => 0,
                 'fk_id_distributor' => 2
+            ]);
+
+            DB::table('point_history')->insert([
+                'accumulated_points' => 0,
+                'begin_period' => Carbon\Carbon::now()->toDateString(),
+                'end_period' => Carbon\Carbon::now()->addMonth()->toDateString(),
+                'fk_id_distributor' => $id
             ]);
 
         }
