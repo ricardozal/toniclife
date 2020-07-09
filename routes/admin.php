@@ -327,7 +327,40 @@ Route::get('/reorder/{reorderId}/show',
     'ReorderController@show')
     ->name('admin_reorder_show');
 
+/***********************************
+ * *******   Category  *************
+ **********************************/
 
 
+Route::get('/category',
+    'CategoryController@index')
+    ->name('admin_category_index');
 
+Route::get('/category-content',
+    'CategoryController@indexContent')
+    ->name('admin_category_index_content');
+
+Route::get('/category/create',
+    'CategoryController@create')
+    ->name('admin_category_create');
+
+Route::post('/category/create',
+    'CategoryController@createPost')
+    ->name('admin_category_create_post');
+
+Route::get('/category/{categoryId}/update',
+    'CategoryController@update')
+    ->name('admin_category_update');
+
+Route::post('/category/{categoryId}/update',
+    'CategoryController@updatePost')
+    ->name('admin_category_update_post');
+
+Route::get('/category/{categoryId}/active',
+    'CategoryController@active')
+    ->name('admin_category_active');
+
+Route::get('/category/{categoryId}/delete',
+    'CategoryController@delete')
+    ->name('admin_category_delete');
 
