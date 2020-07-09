@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
- * @property string $description
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
  * @property-read int|null $products_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category newModelQuery()
@@ -25,6 +24,12 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $table = 'category';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'name'
+
+    ];
 
     public function products()
     {
