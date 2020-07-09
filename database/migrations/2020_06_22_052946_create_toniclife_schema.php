@@ -365,7 +365,7 @@ class CreateToniclifeSchema extends Migration
         Schema::dropIfExists('distributor_has_promotions');
         Schema::dropIfExists('distributor_has_addresses');
         Schema::dropIfExists('promotion');
-        Schema::dropIfExists('points_history');
+        Schema::dropIfExists('point_history');
         Schema::dropIfExists('distributor');
         Schema::dropIfExists('user');
         Schema::dropIfExists('branch');
