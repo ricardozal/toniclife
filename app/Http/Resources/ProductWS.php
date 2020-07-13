@@ -13,6 +13,7 @@ class ProductWS extends JsonResource
         /** @var Product $this */
 
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'image_url' => $this->image_url,
             'distributor_price' => $this->distributor_price,
