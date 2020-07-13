@@ -81,7 +81,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
+                <a class="nav-link {{$routeName == 'admin_shipping_index_menu' ? 'active' : ''}}"
                    href="#">
                     <span>
                         <i class="fas fa-shipping-fast"></i>
@@ -105,6 +105,15 @@
                         <i class="fas fa-globe-americas"></i>
                     </span>
                     <span class="sidebar-text">Países</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{$routeName == 'admin_kits_index' ? 'active' : ''}}"
+                   href="{{route('admin_kits_index')}}">
+                    <span>
+                        <i class="fas fa-box-open"></i>
+                    </span>
+                    <span class="sidebar-text">Kits de inscripción</span>
                 </a>
             </li>
             <li class="nav-item">

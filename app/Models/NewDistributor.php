@@ -50,4 +50,12 @@ class NewDistributor extends Model
 {
     protected $table = 'new_distributor';
 
+
+    public function order(){
+        return $this->belongsTo(
+            Order::class,
+            'fk_id_order',
+            'id'
+        );
+    }
 }

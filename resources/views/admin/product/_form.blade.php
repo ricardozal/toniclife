@@ -61,8 +61,8 @@
         <div class="form-group form-select focused">
             <label for="country" class="focused form-label">Catálogo</label>
             <select class="form-control" id="fk_id_country" name="fk_id_country">
-                @foreach(\App\Models\Country::asMap() as $id => $name)
-                    <option value="{{$id}}" {{isset($product) ? ($product->fk_id_country == $id ? 'selected' : '') : ''}}>{{$name}}</option>
+                @foreach(\App\Models\Country::asMap() as $id => $name_country)
+                    <option value="{{$id}}" {{isset($product) ? ($product->fk_id_country == $id ? 'selected' : '') : ''}}>{{$name_country}}</option>
                 @endforeach
             </select>
         </div>

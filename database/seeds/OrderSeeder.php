@@ -11,7 +11,13 @@ class OrderSeeder extends Seeder
         $product1 = \App\Models\Product::whereId(1)->first();
         $product2 = \App\Models\Product::whereId(2)->first();
         $product3 = \App\Models\Product::whereId(3)->first();
+        $product4 = \App\Models\Product::whereId(102)->first();
         $distributor = \App\Models\Distributor::whereId(1)->first();
+
+        $totalKitPrice = ((($product4->distributor_price*2)+(($product4->country->tax_percentage*0.01)*($product4->distributor_price*2))));
+        $totalKitTaxes = (((($product4->country->tax_percentage*0.01)*($product4->distributor_price*2))));
+        $pointsKit = ($product4->points*2);
+
 
         $totalPrice = ((($product1->distributor_price*2)+(($product1->country->tax_percentage*0.01)*($product1->distributor_price*2)))+
                       (($product2->distributor_price*2)+(($product2->country->tax_percentage*0.01)*($product2->distributor_price*2)))+
@@ -34,6 +40,19 @@ class OrderSeeder extends Seeder
                 'fk_id_branch' => 1,
                 'fk_id_payment_method' => 1,
                 'created_at'=>Carbon\Carbon::now()->toDateString()
+        ]);
+
+        $orderKitId = DB::table('order')->insertGetId([
+            'total_price'=>$totalKitPrice,
+            'total_taxes'=>$totalKitTaxes,
+            'total_accumulated_points'=>$pointsKit,
+            'shipping_price'=>50,
+            'fk_id_distributor'=>$distributor->id,
+            'fk_id_order_status' => 1,
+            'fk_id_shipping_address' => 1,
+            'fk_id_branch' => 1,
+            'fk_id_payment_method' => 1,
+            'created_at'=>Carbon\Carbon::now()->toDateString()
         ]);
 
         $today = \Carbon\Carbon::now();
@@ -75,6 +94,12 @@ class OrderSeeder extends Seeder
             'quantity' => 2,
             'fk_id_product' => $product3->id,
             'fk_id_order' => $orderId
+        ]);
+        DB::table('order_product')->insert([
+            'price' => (($product4->distributor_price*2)+(($product4->country->tax_percentage*0.01)*($product4->distributor_price*2))),
+            'quantity' => 1,
+            'fk_id_product' => $product4->id,
+            'fk_id_order' => $orderKitId
         ]);
     }
 

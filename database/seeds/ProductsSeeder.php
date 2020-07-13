@@ -492,7 +492,7 @@ class ProductsSeeder extends Seeder
 
         DB::table('product')->insert([
             [
-                'code'=>'KPM01',
+                'code'=>'8420',
                 'name'=>'KIT DE INSCRIPCIÓN - D-TOX -',
                 'image_url'=>'products/KPM01.jpg',
                 'distributor_price'=>1100.00,

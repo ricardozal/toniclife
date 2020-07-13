@@ -67,8 +67,8 @@
         </span>
         <span class="sidebar-text">Reorden de compras</span>
     </a>
-    <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-       href="#">
+    <a class="nav-link {{$routeName == 'admin_shipping_index' ? 'active' : ''}}"
+       href="{{route('admin_shipping_index_menu')}}">
         <span>
             <i class="fas fa-shipping-fast"></i>
         </span>
@@ -87,6 +87,13 @@
             <i class="fas fa-globe-americas"></i>
         </span>
         <span class="sidebar-text">Países</span>
+    </a>
+    <a class="nav-link {{$routeName == 'admin_kits_index' ? 'active' : ''}}"
+           href="{{route('admin_kits_index')}}">
+                    <span>
+                        <i class="fas fa-box-open"></i>
+                    </span>
+            <span class="sidebar-text">Kits de inscripción</span>
     </a>
     <a class="nav-link {{$routeName == 'login_logout' ? 'active' : ''}}"
        href="{{route('login_logout')}}">

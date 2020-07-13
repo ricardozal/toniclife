@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ReorderRequestSeeder::class);
         $this->call(BranchHasProductsSeeder::class);
         $this->call(MovementSeeder::class);
+        $this->call(NewDistributorSeeder::class);
     }
 
 }
