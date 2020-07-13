@@ -261,6 +261,10 @@ Route::get('/inventory/{fk_id_product}/show',
     'Inventory\InventoryGlobalController@show')
     ->name('admin_inventory_global_show');
 
+Route::get('/inventory/{fk_id_product}/showMovements',
+    'Inventory\InventoryGlobalController@showMovements')
+    ->name('admin_inventory_global_showMovements');
+
 
 /***********************************
  * *******   Organization Chart ****

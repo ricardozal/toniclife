@@ -22,7 +22,24 @@ $(document).ready(function () {
                     var url = $inpUrlShow.val();
                     url = url.replace('FAKE_ID', data);
 
-                    return "<a href='"+url+"' title='Ver ticket' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='fas fa-info-circle'></span></a>";
+                    return "<a href='"+url+"' title='Ver detalles' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='fas fa-info-circle'></span></a>";
+                },
+                "targets": -1
+            },
+            {
+                "data": "fk_id_product",
+                render:function(data)
+                {
+                    var $inpUrlShowMovements = $('#inp-url-showMovements');
+                    if ($inpUrlShowMovements.length === 0) {
+                        return '';
+                    }
+
+                    var url = $inpUrlShowMovements.val();
+                    url = url.replace('FAKE_ID', data);
+
+
+                    return "<a href='"+url+"' title='Ver movimientos' data-toggle='tooltip' class='show-btnMov' style='color: #2B6699'><span class='fas fa-truck-moving'></span></a>";
                 },
                 "targets": -1
             },
@@ -48,6 +65,15 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '.show-btn', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        modalTools.renderView('modal-upsert', url, true,function () {
+
+        });
+    });
+
+    $(document).on('click', '.show-btnMov', function (e) {
         e.preventDefault();
         var url = $(this).attr('href');
 

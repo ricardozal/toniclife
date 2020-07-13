@@ -21,6 +21,7 @@
                             <th>País</th>
                             <th>Stock Global</th>
                             <th>Detalles</th>
+                            <th>Movimientos</th>
                         </tr>
                         </thead>
                     </table>
@@ -32,6 +33,7 @@
     <input id="inp-url-index-content" type="hidden"
            value="{{route('admin_inventory_global_index_content')}}">
     <input type="hidden" value="{{route('admin_inventory_global_show',['fk_id_product' => 'FAKE_ID'])}}" id="inp-url-show">
+    <input type="hidden" value="{{route('admin_inventory_global_showMovements',['fk_id_product' => 'FAKE_ID'])}}" id="inp-url-showMovements">
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">

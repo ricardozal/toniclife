@@ -38,11 +38,20 @@ class InventoryGlobalController extends Controller
         $product = Product::find($fk_id_product);
         $branches = $product->branches;
 
-        dd($branches);
-
-
         return view('admin.inventory.global.show',[
-            'products' => $products
+            'branches' => $branches,
+            'product' => $product
+        ]);
+    }
+
+    public function showMovements($fk_id_product)
+    {
+
+        dd($fk_id_product);
+        $product = Product::find($fk_id_product);
+
+        return view('admin.inventory.global.showMovements',[
+            '$product' => $product
         ]);
     }
 }
