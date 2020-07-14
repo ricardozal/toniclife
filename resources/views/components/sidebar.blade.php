@@ -34,7 +34,7 @@
     <a class="nav-link {{$routeName == 'admin_category_index' ? 'active' : ''}}"
        href="{{route('admin_category_index')}}">
         <span>
-            <i class=""></i>
+            <i class="fas fa-book"></i>
         </span>
         <span class="sidebar-text">Categorias</span>
     </a>

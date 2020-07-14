@@ -9,7 +9,7 @@ class CountrySeeder extends Seeder
     public function run()
     {
         DB::table('country')->insert([
-            'name'=> 'Mexico',
+            'name'=> 'México',
             'tax_percentage'=> 16
         ]);
 

@@ -111,19 +111,4 @@ class BranchController extends Controller
             'success' => true,
         ]);
     }
-
-    public function delete($branchId)
-    {
-        $branch = Branch::find($branchId);
-
-        if (!$branch->delete()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'no se puede modificar el estatus en este momento'
-            ]);
-        }
-        return response()->json([
-            'success' => true,
-        ]);
-    }
 }

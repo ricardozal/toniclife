@@ -8,6 +8,13 @@ class NewDistributorSeeder extends Seeder
 
     public function run()
     {
+        if (env('APP_DEBUG')) {
+            $this->newDistributor();
+        }
+    }
+
+    public function newDistributor()
+    {
         DB::table('new_distributor')->insert([
             'name'=> 'Juan Perez',
             'email'=> 'juan@toniclife.com.mx',
@@ -23,7 +30,6 @@ class NewDistributorSeeder extends Seeder
             'fk_id_address'=>1,
             'fk_id_order'=>1
         ]);
-
-
     }
+
 }

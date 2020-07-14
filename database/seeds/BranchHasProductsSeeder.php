@@ -7,6 +7,15 @@ class BranchHasProductsSeeder extends Seeder
 {
     public function run()
     {
+
+        if (env('APP_DEBUG')) {
+            $this->inventory();
+        }
+    }
+
+
+    public function inventory()
+    {
         DB::table('branch_has_products')->insert([
             'stock'=>5,
             'fk_id_product'=>1,

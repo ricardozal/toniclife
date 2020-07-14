@@ -22,7 +22,7 @@ class CountryRequest extends FormRequest
     {
         return [
             'name.required' => 'Nombre necesario',
-            'tax_percentage.required' => 'IVA necesario',
+            'tax_percentage.required' => 'Porcentaje de impuesto necesario',
         ];
     }
 }
