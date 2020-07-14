@@ -12,7 +12,7 @@ class ShippingController extends Controller
 {
     public  function index()
     {
-        return view('admin.shipping.index');
+        return view('admin.shipping.shipping.index');
     }
 
     public function indexContent(Request $request)
