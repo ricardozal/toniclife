@@ -121,6 +121,11 @@ Route::get('/promotion/{promotionId}/delete',
     'PromotionController@delete')
     ->name('admin_promotion_delete');
 
+Route::get('/promotion/{promotionId}/show',
+    'PromotionController@show')
+    ->name('admin_promotion_show');
+
+
 /***********************************
  * *******   Order  *************
  **********************************/
@@ -363,4 +368,6 @@ Route::get('/category/{categoryId}/active',
 Route::get('/category/{categoryId}/delete',
     'CategoryController@delete')
     ->name('admin_category_delete');
+
+
 

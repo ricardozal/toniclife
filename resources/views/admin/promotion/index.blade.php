@@ -33,6 +33,10 @@
                             <th>Fecha de expiración</th>
                             <th>Opciones</th>
                             <th>Desactivar/Activar</th>
+                            <th>Detalles de promociones</th>
+
+
+
                         </tr>
                         </thead>
                     </table>
@@ -51,10 +55,12 @@
            value="{{route('admin_promotion_update',['promotionId' => 'FAKE_ID'])}}">
     <input id="inp-url-delete" type="hidden"
            value="{{route('admin_promotion_delete',['promotionId' => 'FAKE_ID'])}}">
+    <input id="inp-url-show" type="hidden"
+           value="{{route('admin_promotion_show',['promotionId' => 'FAKE_ID'])}}" >
 
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="body-content"></div>

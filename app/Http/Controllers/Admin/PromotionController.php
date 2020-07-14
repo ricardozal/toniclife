@@ -46,8 +46,28 @@ class PromotionController extends Controller
 
     public function createPost(PromotionRequest $request)
     {
+
         $promotion = new Promotion();
         $promotion->fill($request->all());
+
+        $withPoints = $request->input('with_points');
+        $isAccumulative =$request->input('is_accumulative');
+
+        if($withPoints != null){
+            $promotion->with_points=$withPoints;
+        }else{
+            $promotion->with_points=0;
+
+        }
+
+        if($isAccumulative != null){
+            $promotion->is_accumulative=$isAccumulative;
+        }else{
+            $promotion->is_accumulative=0;
+
+        }
+
+
 
 
         if (!$promotion->save()) {
@@ -106,6 +126,15 @@ class PromotionController extends Controller
         }
         return response()->json([
             'success' => true,
+        ]);
+    }
+
+    public function show($promotionId)
+    {
+        $promotion = Promotion::find($promotionId);
+
+        return view('admin.promotion.show',[
+            'promotion' => $promotion
         ]);
     }
 

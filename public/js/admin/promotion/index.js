@@ -30,6 +30,8 @@ $(document).ready(function () {
                     var url2 = $inpUrlDelete.val();
                     url2 = url2.replace('FAKE_ID', data);
 
+
+
                     return "<a href='"+url+"' title='Editar' data-toggle='tooltip' class='update-btn' style='color: #2B6699'><span class='far fa-edit'></span></a>" +
                         "&nbsp;&nbsp;&nbsp;<a href='"+url2+"' title='Eliminar' data-toggle='tooltip' class='delete-btn' style='color: #2B6699'><span class='fas fa-trash'></span></a>";
                 },
@@ -51,6 +53,23 @@ $(document).ready(function () {
                 },
                 "targets": -1
             },
+            {
+                "data": "id",
+                render:function(data)
+                {
+                    var $inpUrlShow = $('#inp-url-show');
+                    if ($inpUrlShow.length === 0) {
+                        return '';
+                    }
+
+                    var url = $inpUrlShow.val();
+                    url = url.replace('FAKE_ID', data);
+
+                    return "<a href='"+url+"' title='Ver promoción' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='fas fa-exclamation-circle'></span></a>";
+                },
+                "targets": -1
+            },
+
         ],
         "language": {
             "search": "Buscar: ",
@@ -184,6 +203,15 @@ $(document).ready(function () {
 
             }
         })
+    });
+
+    $(document).on('click', '.show-btn', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        modalTools.renderView('modal-upsert', url, true,function () {
+
+        });
     });
 
 });
