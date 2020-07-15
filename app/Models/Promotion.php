@@ -49,8 +49,10 @@ class Promotion extends Model
         'name',
         'description',
         'min_amount',
+        'begin_date',
         'expiration_date',
-        'active'
+
+        'fk_id_country'
     ];
 
     public function distributors()
@@ -60,6 +62,14 @@ class Promotion extends Model
             'distributor_has_promotions',
             'fk_id_promotion',
             'fk_id_distributor'
+        );
+    }
+    public function country()
+    {
+        return $this->belongsTo(
+            Country::class,
+            'fk_id_country',
+            'id'
         );
     }
 

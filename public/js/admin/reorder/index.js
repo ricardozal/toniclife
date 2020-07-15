@@ -22,7 +22,7 @@ $(document).ready(function () {
                     var url = $inpUrlShow.val();
                     url = url.replace('FAKE_ID', data);
 
-                    return "<a href='"+url+"' title='Detalle Producto' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='far fa-eye'></span></a>";
+                    return "<a href='"+url+"' title='Detalle Producto' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='fas fa-exclamation-circle'></span></a>";
                 },
                 "targets": -1
             },

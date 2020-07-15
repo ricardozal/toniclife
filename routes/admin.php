@@ -121,6 +121,11 @@ Route::get('/promotion/{promotionId}/delete',
     'PromotionController@delete')
     ->name('admin_promotion_delete');
 
+Route::get('/promotion/{promotionId}/show',
+    'PromotionController@show')
+    ->name('admin_promotion_show');
+
+
 /***********************************
  * *******   Order  *************
  **********************************/
@@ -369,6 +374,7 @@ Route::get('/kits/{idNewDistributor}/showTicket',
  * *******   Category  *************
  **********************************/
 
+
 Route::get('/category',
     'CategoryController@index')
     ->name('admin_category_index');
@@ -439,3 +445,5 @@ Route::get('/shipping/shipping',
 Route::get('/shipping/shipping-content',
     'shipping\ShippingController@indexContent')
     ->name('admin_shipping_index_content');
+
+
