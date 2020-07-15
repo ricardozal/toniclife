@@ -6,7 +6,13 @@ $(document).ready(function () {
         "ajax": $('#inp-url-index-contentTableMovements').val(),
         "processing": true,
         "columns": [
-            { "data": "type" },
+            {
+                "data": "type",
+                render:function(data)
+                {
+                    return data ? 'Positivo' : 'Negativo';
+                }
+            },
             { "data": "comment" },
             { "data": "quantity" },
         ],

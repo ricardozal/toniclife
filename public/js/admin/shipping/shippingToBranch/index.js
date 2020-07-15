@@ -6,12 +6,13 @@ $(document).ready(function () {
         "ajax": $('#inp-url-index-content').val(),
         "processing": true,
         "columns": [
-            { "data": "code" },
-            { "data": "product_name" },
-            { "data": "country_name" },
-            { "data": "TOTAL" },
+            { "data": "branch.name" },
+            {"data": "distributor.name"},
+            {"data": "id"},
+            {"data": "created_at"},
+            {"data": "status.name"},
             {
-                "data": "fk_id_product",
+                "data": "id",
                 render:function(data)
                 {
                     var $inpUrlShow = $('#inp-url-show');
@@ -22,50 +23,31 @@ $(document).ready(function () {
                     var url = $inpUrlShow.val();
                     url = url.replace('FAKE_ID', data);
 
-                    return "<a href='"+url+"' title='Ver detalles' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='fas fa-info-circle'></span></a>";
+                    return "<a href='"+url+"' title='Ver ticket' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='far fa-eye'></span></a>";
                 },
                 "targets": -1
             },
             {
-                "data": "fk_id_product",
+                "data": "id",
                 render:function(data)
                 {
-                    var $inpUrlShowMovements = $('#inp-url-showMovements');
-                    if ($inpUrlShowMovements.length === 0) {
+                    var $inpUrlShowUpdateStatus = $('#inp-url-status');
+                    if ($inpUrlShowUpdateStatus.length === 0) {
                         return '';
                     }
 
-                    var url = $inpUrlShowMovements.val();
+                    var url = $inpUrlShowUpdateStatus.val();
                     url = url.replace('FAKE_ID', data);
 
-
-                    return "<a href='"+url+"' title='Ver movimientos' data-toggle='tooltip' class='show-btnMov' style='color: #2B6699'><span class='fas fa-truck-moving'></span></a>";
+                    return "<a href='"+url+"' title='Cambiar status' data-toggle='tooltip' class='update-btn' style='color: #2B6699'><span class='fas fa-exchange-alt'></span></a>";
                 },
                 "targets": -1
             },
-            {
-                "data": "fk_id_product",
-                render:function(data)
-                {
-                    var $inpUrlShowbranchToBranch = $('#inp-url-branchToBranch');
-                    if ($inpUrlShowbranchToBranch.length === 0) {
-                        return '';
-                    }
-
-                    var url = $inpUrlShowbranchToBranch.val();
-                    url = url.replace('FAKE_ID', data);
-
-
-                    return "<a href='"+url+"' title='Realizar movimiento' data-toggle='tooltip' class='insert-btn' style='color: #2B6699'><span class='fas fa-store'></span></a>";
-                },
-                "targets": -1
-            },
-
         ],
         "language": {
             "search": "Buscar: ",
             "zeroRecords": "No se encontró ningún registro.",
-            "info": "Total de productos en inventario: <strong>_TOTAL_</strong>",
+            "info": "Total de sucursales: <strong>_TOTAL_</strong>",
             infoEmpty: "Sin datos disponibles",
             emptyTable: "No se ha encontrado ningún registro.",
             processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> ',
@@ -75,10 +57,9 @@ $(document).ready(function () {
                 "next": "Siguiente",
                 "previous": "Anterior"
             },
-            "lengthMenu": "Mostrar _MENU_ productos"
+            "lengthMenu": "Mostrar _MENU_ usuarios"
         },
         "ordering": false
-
     });
 
     $(document).on('click', '.show-btn', function (e) {
@@ -90,7 +71,7 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click', '.insert-btn', function (e) {
+    $(document).on('click', '.update-btn', function (e) {
         e.preventDefault();
         var url = $(this).attr('href');
 
@@ -101,7 +82,4 @@ $(document).ready(function () {
             });
         });
     });
-
-
 });
-

@@ -269,6 +269,14 @@ Route::get('/inventory/{fk_id_product}/showTableMovements',
     'Inventory\InventoryGlobalController@showTableMovements')
     ->name('admin_inventory_global_showTableMovements');
 
+Route::get('/inventory/{fk_id_product}/createMovement',
+    'Inventory\InventoryGlobalController@createMovement')
+    ->name('admin_inventory_global_branchToBranch');
+
+Route::post('/inventory/{fk_id_product}/createMovement',
+    'Inventory\InventoryGlobalController@createPostMovement')
+    ->name('admin_inventory_global_showTableMovements_post');
+
 /***********************************
  * *******   Organization Chart ****
  **********************************/
@@ -409,6 +417,18 @@ Route::get('/shipping/shippingToBranch',
 Route::get('/shipping/shippingToBranch-content',
     'shipping\ShippingToBranchController@indexContent')
     ->name('admin_shippingToBranch_index_content');
+
+Route::get('/shipping/{orderId}/showShippingToBranch-ticket',
+    'shipping\ShippingToBranchController@show')
+    ->name('admin_shippingToBranch_show');
+
+Route::get('/shipping/{orderId}/showShippingToBranch-status',
+    'shipping\ShippingToBranchController@updateStatus')
+    ->name('admin_shippingToBranch_updateStatus');
+
+Route::post('/shipping/{orderId}/showShippingToBranch-statusUpdate',
+    'shipping\ShippingToBranchController@updatePostStatus')
+    ->name('admin_shippingToBranch_statusUpdatePost');
 
 /** Shipping **/
 

@@ -21,7 +21,8 @@
                             <th>País</th>
                             <th>Stock Global</th>
                             <th>Detalles</th>
-                            <th>Movimientos</th>
+                            <th>Ver movimientos</th>
+                            <th>Movimientos a sucursal</th>
                         </tr>
                         </thead>
                     </table>
@@ -34,6 +35,8 @@
            value="{{route('admin_inventory_global_index_content')}}">
     <input type="hidden" value="{{route('admin_inventory_global_show',['fk_id_product' => 'FAKE_ID'])}}" id="inp-url-show">
     <input type="hidden" value="{{route('admin_inventory_global_showMovements',['fk_id_product' => 'FAKE_ID'])}}" id="inp-url-showMovements">
+    <input id="inp-url-branchToBranch" type="hidden"
+           value="{{route('admin_inventory_global_branchToBranch',['fk_id_product' => 'FAKE_ID'])}}">
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">

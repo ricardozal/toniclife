@@ -64,5 +64,18 @@ class InventoryGlobalController extends Controller
         ]);
     }
 
+    public function createMovement($fk_id_product)
+    {
+        $product = Product::find($fk_id_product);
+        return view('admin.inventory.global.insertMovement',[
+            'product' => $product
+        ]);
+    }
+
+    public function createPostMovement()
+    {
+
+    }
+
 
 }
