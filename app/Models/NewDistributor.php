@@ -50,4 +50,30 @@ class NewDistributor extends Model
 {
     protected $table = 'new_distributor';
 
+
+    public function order(){
+        return $this->belongsTo(
+            Order::class,
+            'fk_id_order',
+            'id'
+        );
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(
+            Address::class,
+            'fk_id_address',
+            'id'
+        );
+    }
+
+    public function dataBank()
+    {
+        return $this->hasOne(
+            DataBank::class,
+            'fk_id_new_distributor',
+            'id'
+        );
+    }
 }

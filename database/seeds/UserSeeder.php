@@ -47,9 +47,9 @@ class UserSeeder extends Seeder
                 'street' => $this->faker->streetName,
                 'zip_code' => $this->faker->numberBetween(5000, 6000),
                 'ext_num' => $this->faker->numberBetween(100, 500),
-                'colony' => $this->faker->country,
+                'colony' => $this->faker->streetSuffix,
                 'city' => $this->faker->city,
-                'state' => 'CDMX',
+                'state' => $this->faker->state,
                 'fk_id_country' => 1
             ]);
 

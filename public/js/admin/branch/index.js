@@ -28,8 +28,7 @@ $(document).ready(function () {
                     var url2 = $inpUrlDelete.val();
                     url2 = url2.replace('FAKE_ID', data);
 
-                    return "<a href='"+url+"' title='Editar' data-toggle='tooltip' class='update-btn' style='color: #2B6699'><span class='far fa-edit'></span></a>" +
-                        "&nbsp;&nbsp;&nbsp;<a href='"+url2+"' title='Eliminar' data-toggle='tooltip' class='delete-btn' style='color: #2B6699'><span class='fas fa-trash'></span></a>";
+                    return "<a href='"+url+"' title='Editar' data-toggle='tooltip' class='update-btn' style='color: #2B6699'><span class='far fa-edit'></span></a>";
                 },
                 "targets": -1
             },
@@ -63,7 +62,7 @@ $(document).ready(function () {
                 "next": "Siguiente",
                 "previous": "Anterior"
             },
-            "lengthMenu": "Mostrar _MENU_ usuarios"
+            "lengthMenu": "Mostrar _MENU_ sucursales"
         },
         "ordering": false
     });
@@ -90,37 +89,6 @@ $(document).ready(function () {
                 table.ajax.reload();
             });
         });
-    });
-
-    $(document).on('click', '.delete-btn', function (e) {
-        e.preventDefault();
-        var url = $(this).attr('href');
-
-        Swal.fire({
-            title: '¿Estás seguro de eliminar permanentemente?',
-            text: "No podrá revertir esta acción!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, Borrarlo!'
-        }).then((result) => {
-            if (result.value) {
-
-                $.get( url, function( response ) {
-                    if(response.success)
-                    {
-                        table.ajax.reload();
-                        Swal.fire(
-                            'Sucursal eliminada!',
-                            'Ha eliminado una sucursal.',
-                            'success'
-                        );
-                    }
-                });
-
-            }
-        })
     });
 
     $(document).on('change', '#fk_id_address', function () {

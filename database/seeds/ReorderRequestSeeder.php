@@ -8,6 +8,14 @@ class ReorderRequestSeeder extends Seeder
 
     public function run()
     {
+        if (env('APP_DEBUG')) {
+            $this->reorder();
+        }
+
+    }
+
+    public function reorder()
+    {
         $product1 = \App\Models\Product::whereId(1)->first();
         $product2 = \App\Models\Product::whereId(2)->first();
         $distributor = \App\Models\Distributor::whereId(1)->first();
@@ -30,9 +38,5 @@ class ReorderRequestSeeder extends Seeder
             'fk_id_product' => $product2->id,
             'fk_id_reorder_request' => $reorderId
         ]);
-
-
-
-
     }
 }

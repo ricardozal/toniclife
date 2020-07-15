@@ -71,24 +71,9 @@ class CountryController extends Controller{
 
     public function active($countryId)
     {
-        $country = User::find($countryId);
+        $country = Country::find($countryId);
         $country->active = !$country->active;
         if (!$country->save()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'no se puede modificar el estatus en este momento'
-            ]);
-        }
-        return response()->json([
-            'success' => true,
-        ]);
-    }
-
-    public function delete($countryId)
-    {
-        $country = Country::find($countryId);
-
-        if (!$country->delete()) {
             return response()->json([
                 'success' => false,
                 'message' => 'no se puede modificar el estatus en este momento'

@@ -94,21 +94,6 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function delete($categoryId)
-    {
-        $category = Category::find($categoryId);
-
-        if (!$category->delete()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'no se puede modificar el estatus en este momento'
-            ]);
-        }
-        return response()->json([
-            'success' => true,
-        ]);
-    }
-
 
 
 }

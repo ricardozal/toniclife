@@ -164,6 +164,7 @@ class CreateToniclifeSchema extends Migration
         Schema::create('category', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->boolean('active')->default(true);
         });
 
         Schema::create('product', function (Blueprint $table) {

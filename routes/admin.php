@@ -255,12 +255,20 @@ Route::get('/inventory/local/{branchId}/delete',
 
 /** Inventory Global **/
 Route::get('/inventory/global',
-    'Inventory\InventoryGlobalController@index')
+    'Inventory\InventoryGlobalController@indexGlobal')
     ->name('admin_inventory_global_index');
 
 Route::get('/inventory/global-content',
     'Inventory\InventoryGlobalController@indexContent')
     ->name('admin_inventory_global_index_content');
+
+Route::get('/inventory/{fk_id_product}/show',
+    'Inventory\InventoryGlobalController@show')
+    ->name('admin_inventory_global_show');
+
+Route::get('/inventory/{fk_id_product}/showMovements',
+    'Inventory\InventoryGlobalController@showMovements')
+    ->name('admin_inventory_global_showMovements');
 
 
 /***********************************
@@ -333,6 +341,25 @@ Route::get('/reorder/{reorderId}/show',
     ->name('admin_reorder_show');
 
 /***********************************
+ * *******   Kits  **************
+ **********************************/
+
+Route::get('/kits',
+    'KitsController@index')
+    ->name('admin_kits_index');
+
+Route::get('/kits-content',
+    'KitsController@indexContent')
+    ->name('admin_kits_index_content');
+
+Route::get('/kits/{idNewDistributor}/showInformation',
+    'KitsController@showInformation')
+    ->name('admin_kits_show_information');
+
+Route::get('/kits/{idNewDistributor}/showTicket',
+    'KitsController@showTicket')
+    ->name('admin_kits_show_ticket');
+/***********************************
  * *******   Category  *************
  **********************************/
 
@@ -369,5 +396,27 @@ Route::get('/category/{categoryId}/delete',
     'CategoryController@delete')
     ->name('admin_category_delete');
 
+/***********************************
+ * *******   Shipping - Menu *****
+ **********************************/
+Route::get('/shipping',
+    'shipping\MenuController@index')
+    ->name('admin_shipping_index_menu');
+
+/** Shipping to branch **/
+
+Route::get('/shipping/shippingToBranch',
+    'shipping\ShippingToBranchController@indexShipping')
+    ->name('admin_shipping_branch_index');
+
+/** Shipping **/
+
+Route::get('/shipping/shipping',
+    'shipping\ShippingController@index')
+    ->name('admin_shipping_index');
+
+Route::get('/shipping/shipping-content',
+    'shipping\ShippingController@indexContent')
+    ->name('admin_shipping_index_content');
 
 
