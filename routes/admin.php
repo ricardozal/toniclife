@@ -270,6 +270,9 @@ Route::get('/inventory/{fk_id_product}/showMovements',
     'Inventory\InventoryGlobalController@showMovements')
     ->name('admin_inventory_global_showMovements');
 
+Route::get('/inventory/{fk_id_product}/showTableMovements',
+    'Inventory\InventoryGlobalController@showTableMovements')
+    ->name('admin_inventory_global_showTableMovements');
 
 /***********************************
  * *******   Organization Chart ****
@@ -408,6 +411,10 @@ Route::get('/shipping',
 Route::get('/shipping/shippingToBranch',
     'shipping\ShippingToBranchController@indexShipping')
     ->name('admin_shipping_branch_index');
+
+Route::get('/shipping/shippingToBranch-content',
+    'shipping\ShippingToBranchController@indexContent')
+    ->name('admin_shippingToBranch_index_content');
 
 /** Shipping **/
 

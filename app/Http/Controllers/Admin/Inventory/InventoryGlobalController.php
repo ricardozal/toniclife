@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Admin\Inventory;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\Country;
+use App\Models\Movement;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,12 +47,22 @@ class InventoryGlobalController extends Controller
 
     public function showMovements($fk_id_product)
     {
-
-        dd($fk_id_product);
         $product = Product::find($fk_id_product);
-
         return view('admin.inventory.global.showMovements',[
-            '$product' => $product
+            'product' => $product
         ]);
     }
+
+    public function showTableMovements($fk_id_product)
+    {
+        $product = Product::find($fk_id_product);
+        $movements = $product->movements;
+
+        $query = $movements;
+        return response()->json([
+            'data' => $query
+        ]);
+    }
+
+
 }

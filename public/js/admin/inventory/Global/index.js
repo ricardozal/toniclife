@@ -73,14 +73,6 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click', '.show-btnMov', function (e) {
-        e.preventDefault();
-        var url = $(this).attr('href');
-
-        modalTools.renderView('modal-upsert', url, true,function () {
-
-        });
-    });
 
 
 });
