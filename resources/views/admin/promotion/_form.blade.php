@@ -56,7 +56,7 @@
 <div class="row w-75">
     <div class="col-12">
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" name="with_points" class="custom-control-input" id="with_points" value="1" {{$promotion->with_points ? 'checked':''}}>
+            <input type="checkbox" name="with_points" class="custom-control-input" id="with_points" value="1"  {{isset($promotion) ? ($promotion->with_points ? 'checked':'') : ''}} >
             <label class="custom-control-label" for="with_points">Promoción con puntos </label>
             <span class="invalid-feedback">{{ $errors->first('with_points') }}</span>
         </div>
@@ -66,7 +66,7 @@
 <div class="row w-75">
     <div class="col-12">
         <div class="custom-control custom-checkbox">
-            <input type="checkbox"  name="is_accumulative" class="custom-control-input" id="is_accumulative" value="1" {{$promotion->is_accumulative ? 'checked':''}}>
+            <input type="checkbox"  name="is_accumulative" class="custom-control-input" id="is_accumulative" value="1" {{isset($promotion) ? ($promotion->is_accumulative ? 'checked':'') : ''}} >
             <label class="custom-control-label" for="is_accumulative">Acumulado </label>
             <span class="invalid-feedback">{{ $errors->first('is_accumulative') }}</span>
         </div>
