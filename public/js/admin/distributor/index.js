@@ -16,7 +16,13 @@ $(document).ready(function () {
                     return data.distributor !== null ? data.distributor.name : '';
                 },
             },
-            { "data": "accumulated_points" },
+            {
+                "data": null,
+                render:function(data, type, row )
+                {
+                    return data.current_points[0].accumulated_points;
+                },
+            },
             {
                 "data": "id",
                 render:function(data)

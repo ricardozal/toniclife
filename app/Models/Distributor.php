@@ -4,6 +4,7 @@
 namespace App\Models;
 
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -132,6 +133,16 @@ class Distributor extends Authenticatable
             'fk_id_distributor',
             'id'
         );
+    }
+
+    public function currentPoints()
+    {
+        return $this->hasMany(
+            PointsHistory::class,
+            'fk_id_distributor',
+            'id'
+        )->whereDate('begin_period', '<=', Carbon::now())
+         ->whereDate('end_period', '>=', Carbon::now());
     }
 
 }

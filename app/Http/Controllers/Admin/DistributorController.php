@@ -20,7 +20,7 @@ class DistributorController extends Controller
     public function indexContent(Request $request)
     {
 
-        $query = Distributor::with(['distributor'])->get();
+        $query = Distributor::with(['distributor','currentPoints'])->get();
 
         return response()->json([
             'data' => $query
@@ -42,7 +42,9 @@ class DistributorController extends Controller
         $distributor = new Distributor();
         $distributor->fill($request->all());
         $distributor->password = bcrypt($request->input('password'));
-        $distributor->accumulated_points = 0;
+
+        // TODO Update points history
+//        $distributor->accumulated_points = 0;
 
         if($request->input('fk_id_distributor') != null)
         {
