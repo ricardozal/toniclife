@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="form-group form-select focused">
             <label for="fk_id_branch" class="focused form-label">Por favor, elija la sucursal de origen</label>
-            <select class="form-control " id="fk_id_branch">
+            <select class="form-control " id="fk_id_branch" name="fk_id_branch">
                 <option value="0">-- Elegir sucursal --</option>
                 @foreach(\App\Models\Branch::asMap() as $id => $name)
                     <option value="{{$id}}">{{$name}}</option>
@@ -16,7 +16,7 @@
     <div class="col-12">
         <div class="form-group form-select focused">
             <label for="fk_id_branchDestination" class="focused form-label">Por favor, elija la sucursal de destino</label>
-            <select class="form-control " id="fk_id_branchDestination">
+            <select class="form-control " id="fk_id_branchDestination" name="fk_id_branchDestination">
                 <option value="0">-- Elegir sucursal --</option>
                 @foreach(\App\Models\Branch::asMap() as $id => $name)
                     <option value="{{$id}}">{{$name}}</option>

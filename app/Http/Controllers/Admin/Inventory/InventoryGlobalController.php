@@ -75,11 +75,8 @@ class InventoryGlobalController extends Controller
 
     public function createPostMovement(InventoryGlobalMovementsRequest $request, $fk_id_product)
     {
-        //$branchOrigin = $request->input('fk_id_branch');
-        //$branchDestination = $request->input('fk_id_branchDestination');
-
-        $branchOrigin = 1;
-        $branchDestination =2;
+        $branchOrigin = $request->input('fk_id_branch');
+        $branchDestination = $request->input('fk_id_branchDestination');
 
         $stock = $request->input('stock');
         $comment = $request->input('comment');
