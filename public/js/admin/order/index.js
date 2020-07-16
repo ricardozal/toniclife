@@ -11,7 +11,13 @@ $(document).ready(function () {
             { "data": "created_at" },
             { "data": "total_price" },
             { "data": "status.name" },
-            {"data": "shipping_address.FullAddress"},
+            {
+                "data": null,
+                render:function(data, type, row )
+                {
+                    return data.fk_id_shipping_address !== null ? data.shipping_address.FullAddress : 'Recoger en sucursal';
+                },
+            },
             {
                 "data": "id",
                 render:function(data)
