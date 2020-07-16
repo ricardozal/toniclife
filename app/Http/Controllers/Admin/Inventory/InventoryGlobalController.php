@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Inventory;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Request\InventoryGlobalMovementsRequest;
 use App\Models\Branch;
 use App\Models\Country;
 use App\Models\Movement;
@@ -72,10 +73,67 @@ class InventoryGlobalController extends Controller
         ]);
     }
 
-    public function createPostMovement()
+    public function createPostMovement(InventoryGlobalMovementsRequest $request, $fk_id_product)
     {
+        //$branchOrigin = $request->input('fk_id_branch');
+        //$branchDestination = $request->input('fk_id_branchDestination');
 
+        $branchOrigin = 1;
+        $branchDestination =2;
+
+        $stock = $request->input('stock');
+        $comment = $request->input('comment');
+        $branchOriginObj = Branch::findOrFail($branchOrigin);
+        $branchDestinationObj = Branch::findOrFail($branchDestination);
+
+        $stockOrigin = $branchOriginObj->products()->findOrFail($fk_id_product,['stock'])->pivot->stock;
+        $stockDestination = $branchDestinationObj->products()->findOrFail($fk_id_product,['stock'])->pivot->stock;
+
+        $totalStockOrigin = $stockOrigin - $stock;
+
+        $movement = new Movement();
+
+        if($stockOrigin<$stock){
+            return response()->json([
+                'errors' => ['stock' => ['No se cubre la cantidad de envío'] ]
+            ],422);
+        }
+
+        $totalStockDestination = $stockDestination + $stock;
+
+        try{
+            \DB::beginTransaction();
+
+            $movement->comment = $comment;
+            $movement->quantity  = $stock;
+            $movement->type  = 1;
+            $movement->fk_id_product  = $fk_id_product;
+
+            $movement->saveOrFail();
+
+            if($stock<1){
+                return response()->json([
+                    'errors' => ['stock' => ['El stock no puede ser menor a 1'] ]
+                ],422);
+            }else{
+                $branchOriginObj->products()->updateExistingPivot($fk_id_product,['stock'=> $totalStockOrigin]);
+                $branchDestinationObj->products()->updateExistingPivot($fk_id_product,['stock'=> $totalStockDestination]);
+            }
+            \DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'Proceso completado'
+            ]);
+        } catch (\Throwable $e) {
+            \DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Error durante el proceso',
+                'error' => $e
+            ]);
+        }
     }
+
 
 
 }

@@ -32,7 +32,6 @@ class OrderController extends Controller
     public function show($orderId)
     {
         $order = Order::find($orderId);
-        dd($order->products);
 
         return view('admin.order.show',[
             'order' => $order
