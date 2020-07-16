@@ -78,6 +78,14 @@ class InventoryGlobalController extends Controller
         $branchOrigin = $request->input('fk_id_branch');
         $branchDestination = $request->input('fk_id_branchDestination');
 
+        if($branchOrigin == $branchDestination){
+            return response()->json([
+                'errors' => ['fk_id_branch' => ['No se puede enviar producto a la misma sucursal'],
+                            'fk_id_branchDestination' => ['No se puede enviar producto a la misma sucursal']]
+            ],422);
+        }
+
+
         $stock = $request->input('stock');
         $comment = $request->input('comment');
         $branchOriginObj = Branch::findOrFail($branchOrigin);

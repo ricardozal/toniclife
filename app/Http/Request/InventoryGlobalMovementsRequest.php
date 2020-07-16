@@ -17,7 +17,9 @@ class InventoryGlobalMovementsRequest extends FormRequest
     {
         return [
             'stock' => 'required|min:1',
-            'comment' => 'required'
+            'comment' => 'required',
+            'fk_id_branch' => 'required',
+            'fk_id_branchDestination' => 'required'
         ];
     }
 
@@ -27,6 +29,7 @@ class InventoryGlobalMovementsRequest extends FormRequest
             'stock.required'=> 'El stock es necesario',
             'stock.min'=> 'Debe ser mayor a cero la cantidad del ajuste',
             'comment.required'=> 'Debe ingresar un comentario del movimiento',
+            'fk_id_branch' => 'No se puede enviar producto a la misma sucursal'
         ];
     }
 }
