@@ -25,5 +25,6 @@ Route::group([
 ], function() {
 
     Route::get('/products', 'ProductController@getProducts');
+    Route::get('/product/{productId}/details', 'ProductController@showDetails');
 
 });
