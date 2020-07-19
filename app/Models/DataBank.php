@@ -29,4 +29,14 @@ use Illuminate\Database\Eloquent\Model;
 class DataBank extends Model
 {
     protected $table = 'data_bank';
+
+    public function newDistributor()
+    {
+        return $this->belongsTo(
+            NewDistributor::class,
+            'fk_id_new_distributor',
+            'id'
+        );
+    }
+
 }

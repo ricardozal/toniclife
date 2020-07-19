@@ -5,8 +5,11 @@ use \Illuminate\Support\Facades\DB;
 class OrderSeeder extends Seeder
 {
 
+    public $faker;
+
     public function run()
     {
+        $this->faker = Faker\Factory::create();
         if (env('APP_DEBUG')) {
             $this->order();
         }
@@ -37,7 +40,6 @@ class OrderSeeder extends Seeder
             'shipping_price'=>50,
             'fk_id_distributor'=>$distributor->id,
             'fk_id_order_status' => 1,
-            'fk_id_shipping_address' => 1,
             'fk_id_branch' => 1,
             'fk_id_payment_method' => 1,
             'created_at'=>Carbon\Carbon::now()->toDateString()
@@ -93,6 +95,16 @@ class OrderSeeder extends Seeder
         $totalKitTaxes = (((($product4->country->tax_percentage*0.01)*($product4->distributor_price))));
         $pointsKit = ($product4->points);
 
+        $idAddress = DB::table('address')->insertGetId([
+            'street' => $this->faker->streetName,
+            'zip_code' => $this->faker->numberBetween(5000, 6000),
+            'ext_num' => $this->faker->numberBetween(100, 500),
+            'colony' => $this->faker->streetSuffix,
+            'city' => $this->faker->city,
+            'state' => $this->faker->state,
+            'fk_id_country' => 1
+        ]);
+
         $orderKitId = DB::table('order')->insertGetId([
             'total_price'=>$totalKitPrice,
             'total_taxes'=>$totalKitTaxes,
@@ -100,7 +112,7 @@ class OrderSeeder extends Seeder
             'shipping_price'=>50,
             'fk_id_distributor'=>$distributor->id,
             'fk_id_order_status' => 1,
-            'fk_id_shipping_address' => 1,
+            'fk_id_shipping_address' => $idAddress,
             'fk_id_branch' => 1,
             'fk_id_payment_method' => 1,
             'created_at'=>Carbon\Carbon::now()->toDateString()

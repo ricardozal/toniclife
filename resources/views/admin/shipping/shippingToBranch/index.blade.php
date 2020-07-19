@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12 justify-content-center d-flex align-items-center">
-                    <strong class="text-color-primary" style="font-size: 150%">Envíos</strong>
+                    <strong class="text-color-primary" style="font-size: 150%">Recoger en sucursal</strong>
                 </div>
             </div>
 
@@ -21,7 +21,7 @@
                             <th>No. orden</th>
                             <th>Fecha compra</th>
                             <th>Status</th>
-                            <th>Orden de compra</th>
+                            <th>Ticket</th>
                             <th>Status</th>
                         </tr>
                         </thead>

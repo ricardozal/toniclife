@@ -19,6 +19,7 @@ class PromotionRequest extends FormRequest
             'name' => 'required',
             'description' => 'required',
             'min_amount' => 'required',
+            'begin_date' => 'required',
             'expiration_date' => 'required'
         ];
     }
@@ -29,6 +30,7 @@ class PromotionRequest extends FormRequest
             'name.required' => 'Nombre necesario',
             'description.required' => 'Descripción necesario',
             'min_amount.required' => 'Monto minímo necesario',
+            'begin_date.required' => 'Ingrese una fecha de inicio',
             'expiration_date.required' => 'Ingrese una fecha de expiración'
 
         ];

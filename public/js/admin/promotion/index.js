@@ -7,8 +7,16 @@ $(document).ready(function () {
         "processing": true,
         "columns": [
             { "data": "name" },
-            { "data": "description" },
-            { "data": "min_amount" },
+            {
+                "data": null,
+                render:function(data, type, row )
+                {
+                    var value = data.with_points ? data.min_amount + ' puntos' : formatterMoney.format(data.min_amount);
+                    return value;
+                }
+            },
+            { "data": "country.name" },
+            { "data": "begin_date" },
             { "data": "expiration_date" },
             {
                 "data": "id",
@@ -212,6 +220,13 @@ $(document).ready(function () {
         modalTools.renderView('modal-upsert', url, true,function () {
 
         });
+    });
+
+
+    const formatterMoney = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
     });
 
 });

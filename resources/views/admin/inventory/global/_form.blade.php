@@ -29,7 +29,7 @@
 <div class="row w-75">
     <div class="col-12">
         <div class="form-group focused">
-            <label for="stock" class="focused form-label">Cantidad que se va a transpasar</label>
+            <label for="stock" class="focused form-label">Cantidad que se va a traspasar</label>
             <input type="number" min="1" class="form-control" id="stock" name="stock" value="" autocomplete="off">
             <span class="invalid-feedback">{{ $errors->first('stock') }}</span>
         </div>

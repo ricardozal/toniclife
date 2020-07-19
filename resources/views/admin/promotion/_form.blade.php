@@ -24,7 +24,7 @@
     <div class="col-12">
         <div class="form-group focused">
             <label for="min_amount" class="focused form-label">Cantidad minima</label>
-            <input type="number" class="form-control" autocomplete="off" id="min_amount" name="min_amount" value="{{ isset($prmotion) ? $promotion->min_amount : null}}">
+            <input type="number" class="form-control" autocomplete="off" id="min_amount" name="min_amount" value="{{ isset($promotion) ? $promotion->min_amount : null}}">
             <span class="invalid-feedback">{{ $errors->first('min_amount') }}</span>
         </div>
     </div>
@@ -63,21 +63,15 @@
     </div>
 </div>
 
-<div class="row w-75">
+<div class="row w-75 mb-5">
     <div class="col-12">
         <div class="custom-control custom-checkbox">
             <input type="checkbox"  name="is_accumulative" class="custom-control-input" id="is_accumulative" value="1" {{isset($promotion) ? ($promotion->is_accumulative ? 'checked':'') : ''}} >
-            <label class="custom-control-label" for="is_accumulative">Acumulado </label>
+            <label class="custom-control-label" for="is_accumulative">Promoción con monto mínimo acumulativo</label>
             <span class="invalid-feedback">{{ $errors->first('is_accumulative') }}</span>
         </div>
     </div>
 </div>
-
-<br/>
-
-
-
-
 
 <div class="row w-75">
     <div class="col-12">
@@ -85,7 +79,7 @@
             <label for="country" class="focused form-label">Seleccionar País para promoción</label>
             <select class="form-control" id="fk_id_country" name="fk_id_country">
                 @foreach(\App\Models\Country::asMap() as $id => $name)
-                    <option value="{{$id}}" {{isset($branch) ? ($branch->address->fk_id_country == $id ? 'selected' : '') : ''}}>{{$name}}</option>
+                    <option value="{{$id}}" {{isset($promotion) ? ($promotion->country->id == $id ? 'selected' : '') : ''}}>{{$name}}</option>
                 @endforeach
             </select>
         </div>

@@ -28,8 +28,9 @@
                         <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Cantidad mínima </th>
+                            <th>Cantidad mínima</th>
+                            <th>País</th>
+                            <th>Fecha de inicio</th>
                             <th>Fecha de expiración</th>
                             <th>Opciones</th>
                             <th>Desactivar/Activar</th>

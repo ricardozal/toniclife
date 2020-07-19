@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MovementSeeder::class);
         $this->call(NewDistributorSeeder::class);
         $this->call(CategorySeeder::class);
+        $this->call(PromotionSeeder::class);
     }
 
 }

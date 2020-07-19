@@ -11,11 +11,6 @@ use App\Http\Controllers\Controller;
 
 class PromotionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('admin.promotion.index');
@@ -25,14 +20,11 @@ class PromotionController extends Controller
 
     public function indexContent(Request $request)
     {
-            $promotion = Promotion::all();
-            $query = $promotion;
-            return response()->json([
+        $promotion = Promotion::with(['country'])->get();
+        $query = $promotion;
+        return response()->json([
             'data' => $query
-        ]);
-
-
-
+         ]);
     }
 
     public function update($promotionId){
