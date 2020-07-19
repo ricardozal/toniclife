@@ -10,6 +10,7 @@
             <img src="{{asset('img/logos/tonic-white.png')}}" style="width: 50%">
         </div>
     </div>
+    @if(Auth::user()->isAdmin())
     <a class="nav-link {{$routeName == 'admin_user_index' ? 'active' : ''}}"
        href="{{route('admin_user_index')}}">
         <span>
@@ -102,6 +103,30 @@
                     </span>
             <span class="sidebar-text">Kits de inscripción</span>
     </a>
+    @endif
+    @if(Auth::user()->isBranch())
+        <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
+           href="#">
+        <span>
+            <i class="fas fa-boxes"></i>
+        </span>
+            <span class="sidebar-text">Inventario</span>
+        </a>
+        <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
+           href="#">
+        <span>
+            <i class="fas fa-paper-plane"></i>
+        </span>
+            <span class="sidebar-text">Envíos</span>
+        </a>
+        <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
+           href="#">
+            <span>
+                <i class="fas fa-store"></i>
+            </span>
+            <span class="sidebar-text">Entregas</span>
+        </a>
+    @endif
     <a class="nav-link {{$routeName == 'login_logout' ? 'active' : ''}}"
        href="{{route('login_logout')}}">
         <span>

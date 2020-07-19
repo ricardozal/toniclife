@@ -53,12 +53,31 @@ class User extends Authenticatable
         );
     }
 
+    public function branch()
+    {
+        return $this->belongsTo(
+            Branch::class,
+            'fk_id_branch',
+            'id'
+        );
+    }
+
     public function hasRole($role)
     {
         if ($this->role()->where('name', $role)->first()) {
             return true;
         }
         return false;
+    }
+
+    public function isAdmin()
+    {
+        return $this->fk_id_role == Role::ADMIN;
+    }
+
+    public function isBranch()
+    {
+        return $this->fk_id_role == Role::BRANCH;
     }
 
 }

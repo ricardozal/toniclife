@@ -22,7 +22,7 @@
                         @include('components.navbar')
                     </div>
                 </div>
-                <div class="row">
+                <div class="row {{Auth::user()->isBranch() ? 'h-100' : ''}}">
                     <div class="col-md-2 p-0 d-none d-md-block">
                         @include('components.sidebar')
                     </div>
