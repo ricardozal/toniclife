@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $colony
  * @property string $city
  * @property string $state
- * @property string $country
  * @property string|null $latitude
  * @property string|null $longitude
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -44,6 +43,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $full_address
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Address whereFkIdCountry($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Address whereReferences($value)
+ * @property-read \App\Models\Country $country
  */
 class Address extends Model
 {

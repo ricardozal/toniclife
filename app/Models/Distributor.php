@@ -27,7 +27,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read int|null $distributors_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Address[] $products
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Address[] $addresses
  * @property-read int|null $products_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Promotion[] $promotions
  * @property-read int|null $promotions_count
@@ -56,6 +56,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  * @property-read int|null $tokens_count
+ * @property-read int|null $addresses_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PointsHistory[] $currentPoints
+ * @property-read int|null $current_points_count
  */
 class Distributor extends Authenticatable
 {
@@ -70,14 +73,14 @@ class Distributor extends Authenticatable
         'email',
     ];
 
-    public function products()
+    public function addresses()
     {
         return $this->belongsToMany(
             Address::class,
             'distributor_has_addresses',
             'fk_id_distributor',
             'fk_id_address'
-        );
+        )->withPivot(['alias', 'selected']);
     }
 
     public function distributors()

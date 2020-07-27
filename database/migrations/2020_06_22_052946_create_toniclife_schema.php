@@ -124,6 +124,8 @@ class CreateToniclifeSchema extends Migration
 
         Schema::create('distributor_has_addresses',function (Blueprint $table){
             $table->increments('id');
+            $table->string('alias');
+            $table->boolean('selected')->default(false);
             $table->unsignedInteger('fk_id_address');
             $table->unsignedInteger('fk_id_distributor');
 

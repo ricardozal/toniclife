@@ -45,6 +45,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\NewDistributor whereRfcOrItin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\NewDistributor whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Address $address
+ * @property-read \App\Models\DataBank|null $dataBank
+ * @property-read \App\Models\Order $order
  */
 class NewDistributor extends Model
 {

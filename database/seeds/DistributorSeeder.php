@@ -36,6 +36,26 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
                 'fk_id_distributor' => $id
             ]);
 
+            for($j = 0; $j<3;$j++)
+            {
+                $idAddress = DB::table('address')->insertGetId([
+                    'street' => $this->faker->streetName,
+                    'zip_code' => $this->faker->numberBetween(5000, 6000),
+                    'ext_num' => $this->faker->numberBetween(100, 500),
+                    'colony' => $this->faker->streetSuffix,
+                    'city' => $this->faker->city,
+                    'state' => $this->faker->state,
+                    'fk_id_country' => $i == 0 ? 1 : 2
+                ]);
+
+                DB::table('distributor_has_addresses')->insert([
+                    'alias' => 'Dirección '.($j+1),
+                    'selected' => $j == 0,
+                    'fk_id_distributor' => $id,
+                    'fk_id_address' => $idAddress
+                ]);
+            }
+
         }
 
         for($i = 2; $i<4 ;$i++){
@@ -55,6 +75,26 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
                 'fk_id_distributor' => $id
             ]);
 
+            for($j = 0; $j<3;$j++)
+            {
+                $idAddress = DB::table('address')->insertGetId([
+                    'street' => $this->faker->streetName,
+                    'zip_code' => $this->faker->numberBetween(5000, 6000),
+                    'ext_num' => $this->faker->numberBetween(100, 500),
+                    'colony' => $this->faker->streetSuffix,
+                    'city' => $this->faker->city,
+                    'state' => $this->faker->state,
+                    'fk_id_country' => 1
+                ]);
+
+                DB::table('distributor_has_addresses')->insert([
+                    'alias' => 'Dirección '.($j+1),
+                    'selected' => $j == 0,
+                    'fk_id_distributor' => $id,
+                    'fk_id_address' => $idAddress
+                ]);
+            }
+
         }
 
         for($i = 4; $i<6 ;$i++){
@@ -73,6 +113,26 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
                 'end_period' => Carbon\Carbon::now()->addMonth()->toDateString(),
                 'fk_id_distributor' => $id
             ]);
+
+            for($j = 0; $j<3;$j++)
+            {
+                $idAddress = DB::table('address')->insertGetId([
+                    'street' => $this->faker->streetName,
+                    'zip_code' => $this->faker->numberBetween(5000, 6000),
+                    'ext_num' => $this->faker->numberBetween(100, 500),
+                    'colony' => $this->faker->streetSuffix,
+                    'city' => $this->faker->city,
+                    'state' => $this->faker->state,
+                    'fk_id_country' => 2
+                ]);
+
+                DB::table('distributor_has_addresses')->insert([
+                    'alias' => 'Dirección '.($j+1),
+                    'selected' => $j == 0,
+                    'fk_id_distributor' => $id,
+                    'fk_id_address' => $idAddress
+                ]);
+            }
 
         }
 

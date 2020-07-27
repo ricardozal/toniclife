@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Promotion whereFkIdCountry($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Promotion whereIsAccumulative($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Promotion whereWithPoints($value)
+ * @property-read \App\Models\Country $country
  */
 class Promotion extends Model
 {

@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DataBank whereFkIdNewDistributor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DataBank whereId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\NewDistributor $newDistributor
  */
 class DataBank extends Model
 {
