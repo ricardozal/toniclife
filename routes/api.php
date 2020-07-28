@@ -30,4 +30,6 @@ Route::group([
     Route::get('/distributor/{distributorId}/addresses', 'DistributorController@getAddresses');
     Route::post('/distributor/select-address', 'DistributorController@setSelectedAddress');
 
+    Route::get('/all-branches', 'BranchController@getBranches');
+
 });

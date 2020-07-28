@@ -25,8 +25,8 @@ class AddressWS extends JsonResource
             'country' => $this->country->name,
             'references' => $this->references,
             'full_address' => $this->FullAddress,
-            'alias' => $this->pivot->alias,
-            'selected' => $this->pivot->selected == 1
+            'alias' => $this->pivot != null ? $this->pivot->alias : '',
+            'selected' => $this->pivot != null ? ($this->pivot->selected == 1) : ''
         ];
     }
 }
