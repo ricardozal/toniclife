@@ -35,7 +35,7 @@ class BranchController extends Controller
         $to = $address1->city.','.$address1->state;
         $from = urlencode($from);
         $to = urlencode($to);
-        $apiKey= "AIzaSyACXJt4njJfpHh8EjGQwCeSwGjF1Ln2QGI";
+        $apiKey= env('API_KEY_GOOGLE_MAPS');
         $data = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?origins=$from&destinations=$to&key=$apiKey&language=en-EN&sensor=false");
         $data = json_decode($data);
         dd($data);
