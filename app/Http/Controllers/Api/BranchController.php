@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BranchWS;
 use App\Models\Address;
 use App\Models\Branch;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class BranchController extends Controller
@@ -26,36 +27,109 @@ class BranchController extends Controller
     public function validateInventory(Request $request){
 
         $addressId = $request->input('address_id');
+        $productsOrder = $request->input('products');
+        $branchId = $request->input('branchId');
 
-        /** @var Address $address */
-        $address = Address::find($addressId);
-        $address1 = Address::find(22);
+        /** @var Branch $branch */
+        $branch = null;
 
-        $from = $address->city.','.$address->state;
-        $to = $address1->city.','.$address1->state;
-        $from = urlencode($from);
-        $to = urlencode($to);
-        $apiKey= env('API_KEY_GOOGLE_MAPS');
-        $data = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?origins=$from&destinations=$to&key=$apiKey&language=en-EN&sensor=false");
-        $data = json_decode($data);
-        dd($data);
-        $time = 0;
-        $distance = 0;
-        foreach($data->rows[0]->elements as $road) {
-            $time += $road->duration->value;
-            $distance += $road->distance->value;
+        if($branchId == null ){
+
+            /** @var Address $address */
+            $address = Address::find($addressId);
+            $from = $address->city.','.$address->state;
+
+//            dd($from);
+
+            $branches = Branch::whereActive(true)->get();
+
+//            dd($branches);
+
+            $distances = [];
+
+            foreach ($branches as $branchItem){
+
+                $to = $branchItem->address->city.','.$branchItem->address->state;
+                $distances[] = [
+                    'id' => $branchItem->id,
+                    'distance' => $this->calculateDistance($from, $to)
+                ];
+
+            }
+
+            usort($distances, function($a, $b) {return strcmp($a['distance'], $b['distance']);});
+
+            $nearestBranchItem = $distances[0];
+
+
+            $branch = Branch::find($nearestBranchItem['id']);
+
+        } else {
+
+            $branch = Branch::find($branchId);
+
+        }
+
+        // Calculate inventory
+
+        $lackOfOneProduct = [];
+
+        foreach ($productsOrder as $product){
+            $lackOfOneProduct[] = $this->checkAvailableStock($branch->id, $product);
+        }
+
+        foreach ($lackOfOneProduct as $lackOf){
+
+            if(!$lackOf['available']){
+
+                /** @var Product $product */
+                $product = Product::find($lackOf['productId']);
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Inventario insuficiente del producto '.$product->name,
+                    'data' => ''
+                ]);
+            }
         }
 
         return response()->json([
             'success' => true,
             'message' => 'Todo bien',
-            'data' => [
-                'to' => $data->destination_addresses[0],
-                'from' => $data->origin_addresses[0],
-                'time' => $time,
-                'distance' => $distance
-            ]
+            'data' => 'OK'
         ]);
 
     }
+
+    private function calculateDistance($from, $to){
+
+        $fromAddress = urlencode($from);
+        $toAddress = urlencode($to);
+        $apiKey= env('API_KEY_GOOGLE_MAPS');
+        $data = file_get_contents("https://maps.googleapis.com/maps/api/distancematrix/json?origins=$fromAddress&destinations=$toAddress&key=$apiKey&language=en-EN&sensor=false");
+        $data = json_decode($data);
+        $distance = 0;
+
+        foreach($data->rows[0]->elements as $road) {
+            $distance += $road->distance->value;
+        }
+
+        return $distance;
+    }
+
+    private function checkAvailableStock($branchId, $product){
+
+        /** @var Branch $branch */
+        $branch = Branch::find($branchId);
+
+        $productExists = $branch->products()->where('product.id', $product['id'])->first();
+
+        if($productExists != null){
+            return ['productId' => $product['id'], 'available' => $productExists->pivot->stock > $product['quantity']];
+        } else {
+            return ['productId' => $product['id'], 'available' => false];
+        }
+
+    }
+
 }
