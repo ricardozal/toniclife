@@ -6,10 +6,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
+use App\Models\Corporate;
 use App\Models\Distributor;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Product;
+use App\Notifications\OrderProcessed;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -77,8 +79,8 @@ class OrderController extends Controller
 
                     $month = $today->month;
                     $year = $today->year;
-                    $beginDate = Carbon::create($year,$month,25);
-                    $endDate = $beginDate->addMonth()->addDay();
+                    $beginDate = Carbon::create($year,$month,26);
+                    $endDate = Carbon::create($year,$month,25)->addMonth();
 
                     $point = new \App\Models\PointsHistory();
                     $point->begin_period = $beginDate;
@@ -104,7 +106,8 @@ class OrderController extends Controller
 
             \DB::commit();
 
-
+            $corporate = Corporate::whereId(1)->first();
+            $corporate->notify(new OrderProcessed($order));
 
         } catch (\Throwable $e){
             \DB::rollBack();

@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
     public function users()
     {
         $this->role();
+        $this->corporateData();
 
         if (env('APP_DEBUG')) {
             $this->admin();
@@ -25,6 +26,15 @@ class UserSeeder extends Seeder
         }else{
             $this->adminP();
         }
+
+    }
+
+    public function corporateData(){
+
+        DB::table('corporate_data')->insert([
+            'name' => 'Corporativo',
+            'phone' => '+527221666002',
+        ]);
 
     }
 

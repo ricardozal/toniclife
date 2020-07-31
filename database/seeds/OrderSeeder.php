@@ -1,4 +1,6 @@
 <?php
+
+use Carbon\Carbon;
 use \Illuminate\Database\Seeder;
 use \Illuminate\Support\Facades\DB;
 
@@ -42,23 +44,29 @@ class OrderSeeder extends Seeder
             'fk_id_order_status' => 1,
             'fk_id_branch' => 1,
             'fk_id_payment_method' => 1,
-            'created_at'=>Carbon\Carbon::now()->toDateString()
+            'created_at'=>Carbon::now()->toDateString()
         ]);
 
-        $today = \Carbon\Carbon::now();
+        $today = Carbon::now();
 
         foreach ($distributor->accumulatedPointsHistory as $point)
         {
-            $begin = \Carbon\Carbon::parse($point->begin_period);
-            $end = \Carbon\Carbon::parse($point->end_period);
+            $begin = Carbon::parse($point->begin_period);
+            $end = Carbon::parse($point->end_period);
             if ($today->between($begin,$end))
             {
                 $point->accumulated_points = $point->accumulated_points+$points;
                 $point->save();
             } else{
+
+                $month = $today->month;
+                $year = $today->year;
+                $beginDate = Carbon::create($year,$month,25);
+                $endDate = $beginDate->addMonth()->addDay();
+
                 $point = new \App\Models\PointsHistory();
-                $point->begin_period = $today;
-                $point->end_period = $today->addMonth();
+                $point->begin_period = $beginDate;
+                $point->end_period = $endDate;
                 $point->accumulated_points = $points;
                 $point->fk_id_distributor = $distributor->id;
                 $point->save();
@@ -115,24 +123,30 @@ class OrderSeeder extends Seeder
             'fk_id_shipping_address' => $idAddress,
             'fk_id_branch' => 1,
             'fk_id_payment_method' => 1,
-            'created_at'=>Carbon\Carbon::now()->toDateString()
+            'created_at'=>Carbon::now()->toDateString()
         ]);
 
-        $today = \Carbon\Carbon::now()->addDay();
+        $today = Carbon::now();
 
         foreach ($distributor->accumulatedPointsHistory as $point)
         {
-            $begin = \Carbon\Carbon::parse($point->begin_period);
-            $end = \Carbon\Carbon::parse($point->end_period);
+            $begin = Carbon::parse($point->begin_period);
+            $end = Carbon::parse($point->end_period);
             if ($today->between($begin,$end))
             {
-                $point->accumulated_points = $point->accumulated_points+$pointsKit;
+                $point->accumulated_points = $point->accumulated_points+$points;
                 $point->save();
             } else{
+
+                $month = $today->month;
+                $year = $today->year;
+                $beginDate = Carbon::create($year,$month,25);
+                $endDate = $beginDate->addMonth()->addDay();
+
                 $point = new \App\Models\PointsHistory();
-                $point->begin_period = $today;
-                $point->end_period = $today->addMonth();
-                $point->accumulated_points = $pointsKit;
+                $point->begin_period = $beginDate;
+                $point->end_period = $endDate;
+                $point->accumulated_points = $points;
                 $point->fk_id_distributor = $distributor->id;
                 $point->save();
             }

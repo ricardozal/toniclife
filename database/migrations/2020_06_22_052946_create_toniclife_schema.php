@@ -343,6 +343,12 @@ class CreateToniclifeSchema extends Migration
                 ->references('id')
                 ->on('new_distributor');
         });
+
+        Schema::create('corporate_data', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('phone');
+        });
     }
 
     /**
@@ -352,6 +358,7 @@ class CreateToniclifeSchema extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('corporate_data');
         Schema::dropIfExists('data_bank');
         Schema::dropIfExists('new_distributor');
         Schema::dropIfExists('reorder_request_product');

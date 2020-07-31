@@ -1,6 +1,7 @@
 <?php
 
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class DistributorSeeder extends \Illuminate\Database\Seeder
@@ -20,6 +21,12 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
     public function distributors()
     {
 
+        $today = Carbon::now();
+        $month = $today->month;
+        $year = $today->year;
+        $beginDate = Carbon::create($year,$month,26);
+        $endDate = Carbon::create($year,$month,25)->addMonth();
+
         for($i = 0; $i<2 ;$i++){
 
             $id = DB::table('distributor')->insertGetId([
@@ -31,8 +38,8 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
 
             DB::table('point_history')->insert([
                 'accumulated_points' => 0,
-                'begin_period' => Carbon\Carbon::now()->toDateString(),
-                'end_period' => Carbon\Carbon::now()->addMonth()->toDateString(),
+                'begin_period' => $beginDate,
+                'end_period' => $endDate,
                 'fk_id_distributor' => $id
             ]);
 
@@ -70,8 +77,8 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
 
             DB::table('point_history')->insert([
                 'accumulated_points' => 0,
-                'begin_period' => Carbon\Carbon::now()->toDateString(),
-                'end_period' => Carbon\Carbon::now()->addMonth()->toDateString(),
+                'begin_period' => $beginDate,
+                'end_period' => $endDate,
                 'fk_id_distributor' => $id
             ]);
 
@@ -109,8 +116,8 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
 
             DB::table('point_history')->insert([
                 'accumulated_points' => 0,
-                'begin_period' => Carbon\Carbon::now()->toDateString(),
-                'end_period' => Carbon\Carbon::now()->addMonth()->toDateString(),
+                'begin_period' => $beginDate,
+                'end_period' => $endDate,
                 'fk_id_distributor' => $id
             ]);
 
