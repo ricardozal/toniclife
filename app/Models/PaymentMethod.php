@@ -24,6 +24,8 @@ class PaymentMethod extends Model
 {
     protected $table = 'payment_method';
 
+    const PAYPAL = 1;
+    const CART = 2;
 
     protected $fillable = [
         'name'

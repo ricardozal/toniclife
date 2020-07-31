@@ -91,7 +91,7 @@ class BranchController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Todo bien',
-            'data' => 'OK'
+            'data' => BranchWS::make($branch)
         ]);
 
     }

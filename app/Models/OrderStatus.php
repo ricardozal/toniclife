@@ -22,7 +22,10 @@ class OrderStatus extends Model
 {
     protected $table = 'order_status';
 
-
+    const PAID = 1;
+    const SENT = 2;
+    const DELIVERED = 3;
+    const CANCELED = 4;
 
     protected $fillable = [
         'name'
