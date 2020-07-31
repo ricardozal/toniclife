@@ -28,7 +28,7 @@ class BranchController extends Controller
 
         $addressId = $request->input('address_id');
         $productsOrder = $request->input('products');
-        $branchId = $request->input('branchId');
+        $branchId = $request->input('branch_id');
 
         /** @var Branch $branch */
         $branch = null;
@@ -39,11 +39,7 @@ class BranchController extends Controller
             $address = Address::find($addressId);
             $from = $address->city.','.$address->state;
 
-//            dd($from);
-
             $branches = Branch::whereActive(true)->get();
-
-//            dd($branches);
 
             $distances = [];
 
@@ -60,7 +56,6 @@ class BranchController extends Controller
             usort($distances, function($a, $b) {return strcmp($a['distance'], $b['distance']);});
 
             $nearestBranchItem = $distances[0];
-
 
             $branch = Branch::find($nearestBranchItem['id']);
 
