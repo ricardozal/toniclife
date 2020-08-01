@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PaymentMethodWS;
 use App\Models\Branch;
 use App\Models\Corporate;
 use App\Models\Distributor;
 use App\Models\Order;
 use App\Models\OrderStatus;
+use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ReorderRequest;
 use App\Models\ReorderRequestStatus;
@@ -177,6 +179,18 @@ class OrderController extends Controller
             ]);
 
         }
+    }
+
+    public function getPaymentMethods(){
+
+        $paymentMethods = PaymentMethod::whereActive(true)->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Todo bien',
+            'data' => PaymentMethodWS::collection($paymentMethods)
+        ]);
+
     }
 
 }

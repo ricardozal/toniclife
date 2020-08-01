@@ -31,6 +31,7 @@ Route::group([
     Route::post('/distributor/select-address', 'DistributorController@setSelectedAddress');
 
     Route::get('/all-branches', 'BranchController@getBranches');
-    Route::get('/validate-branch-inventory', 'BranchController@validateInventory');
+    Route::post('/validate-branch-inventory', 'BranchController@validateInventory');
 
+    Route::get('/get-payment-methods', 'OrderController@getPaymentMethods');
 });

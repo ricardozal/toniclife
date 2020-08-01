@@ -33,7 +33,7 @@ class BranchController extends Controller
         /** @var Branch $branch */
         $branch = null;
 
-        if($branchId == null ){
+        if($branchId == 0 ){
 
             /** @var Address $address */
             $address = Address::find($addressId);
@@ -83,7 +83,7 @@ class BranchController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Inventario insuficiente del producto '.$product->name,
-                    'data' => ''
+                    'data' => null
                 ]);
             }
         }
