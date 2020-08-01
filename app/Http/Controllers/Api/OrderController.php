@@ -29,7 +29,7 @@ class OrderController extends Controller
         $productsOrder = $request->input('products');
         $distributorId = $request->input('distributor_id');
         $branchId = $request->input('branch_id');
-        $shippingAddressId = $request->input('address_id', null);
+        $shippingAddressId = $request->input('address_id', 0);
         $paymentMethodId = $request->input('payment_method_id');
 
         /** @var Branch $branch */
@@ -61,12 +61,12 @@ class OrderController extends Controller
             $order->total_price = $totalPrice;
             $order->total_taxes = $totalTaxes;
             $order->total_accumulated_points = $points;
-            $order->shipping_price = $shippingAddressId == null ? 0 : 50;
+            $order->shipping_price = $shippingAddressId == 0 ? 0 : 50;
             $order->fk_id_distributor = $distributor->id;
             $order->fk_id_order_status = OrderStatus::PAID;
             $order->fk_id_branch = $branch->id;
             $order->fk_id_payment_method = $paymentMethodId;
-            if($shippingAddressId != null){
+            if($shippingAddressId != 0){
                 $order->fk_id_shipping_address = $shippingAddressId;
             }
 
