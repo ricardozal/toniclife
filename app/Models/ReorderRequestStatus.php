@@ -22,6 +22,8 @@ class ReorderRequestStatus extends Model
 {
     protected $table = 'reorder_request_status';
 
+    const SENT_REQUEST = 1;
+    const DELIVERED = 2;
 
     protected $fillable = [
         'name'

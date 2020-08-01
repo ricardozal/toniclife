@@ -22,10 +22,18 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
     {
 
         $today = Carbon::now();
+        $day = $today->day;
         $month = $today->month;
         $year = $today->year;
-        $beginDate = Carbon::create($year,$month,26);
-        $endDate = Carbon::create($year,$month,25)->addMonth();
+        
+        if($day < 26){
+            $monthBefore = Carbon::now()->subMonth()->month;
+            $beginDate = Carbon::create($year,$monthBefore,26);
+            $endDate = Carbon::create($year,$monthBefore,25)->addMonth();
+        } else {
+            $beginDate = Carbon::create($year,$month,26);
+            $endDate = Carbon::create($year,$month,25)->addMonth();
+        }
 
         for($i = 0; $i<2 ;$i++){
 
@@ -45,13 +53,47 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
 
             for($j = 0; $j<3;$j++)
             {
+                $city = '';
+                $state = '';
+                if($i == 0){
+                    switch ($j){
+                        case 0:
+                            $city = 'Monterrey';
+                            $state = 'Nuevo León';
+                            break;
+                        case 1:
+                            $city = 'Morelia';
+                            $state = 'Michoacán';
+                            break;
+                        case 2:
+                            $city = 'Irapuato';
+                            $state = 'Guanajuato';
+                            break;
+                    }
+                } else {
+                    switch ($j){
+                        case 0:
+                            $city = 'Asheville';
+                            $state = 'North Carolina';
+                            break;
+                        case 1:
+                            $city = 'Charlotte';
+                            $state = 'North Carolina';
+                            break;
+                        case 2:
+                            $city = 'Greenville';
+                            $state = 'South Carolina';
+                            break;
+                    }
+                }
+
                 $idAddress = DB::table('address')->insertGetId([
-                    'street' => $this->faker->streetName,
+                    'street' => ($i == 0) ? 'Hidalgo' : 'Bo Glen',
                     'zip_code' => $this->faker->numberBetween(5000, 6000),
                     'ext_num' => $this->faker->numberBetween(100, 500),
-                    'colony' => $this->faker->streetSuffix,
-                    'city' => $this->faker->city,
-                    'state' => $this->faker->state,
+                    'colony' => ($i == 0) ? 'Universidad' : 'Port',
+                    'city' => $city,
+                    'state' => $state,
                     'fk_id_country' => $i == 0 ? 1 : 2
                 ]);
 

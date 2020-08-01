@@ -11,6 +11,8 @@ use App\Models\Distributor;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\Product;
+use App\Models\ReorderRequest;
+use App\Models\ReorderRequestStatus;
 use App\Notifications\OrderProcessed;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -77,10 +79,18 @@ class OrderController extends Controller
                     $point->save();
                 } else{
 
+                    $day = $today->day;
                     $month = $today->month;
                     $year = $today->year;
-                    $beginDate = Carbon::create($year,$month,26);
-                    $endDate = Carbon::create($year,$month,25)->addMonth();
+
+                    if($day < 26){
+                        $monthBefore = Carbon::now()->subMonth()->month;
+                        $beginDate = Carbon::create($year,$monthBefore,26);
+                        $endDate = Carbon::create($year,$monthBefore,25)->addMonth();
+                    } else {
+                        $beginDate = Carbon::create($year,$month,26);
+                        $endDate = Carbon::create($year,$month,25)->addMonth();
+                    }
 
                     $point = new \App\Models\PointsHistory();
                     $point->begin_period = $beginDate;
@@ -90,6 +100,11 @@ class OrderController extends Controller
                     $point->save();
                 }
             }
+
+            $reorder = new ReorderRequest();
+            $reorder->fk_id_distributor = $distributor->id;
+            $reorder->fk_id_reorder_request_status = ReorderRequestStatus::SENT_REQUEST;
+            $reorder->saveOrFail();
 
             foreach ($productsOrder as $productItem){
 
@@ -101,6 +116,10 @@ class OrderController extends Controller
                     'quantity' => $productItem['quantity'],
                 ]);
                 $order->saveOrFail();
+
+                $reorder->products()->attach($product->id, [
+                    'quantity' => $productItem['quantity'],
+                ]);
 
             }
 
