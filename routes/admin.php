@@ -80,6 +80,10 @@ Route::get('/branch/{branchId}/active',
     'BranchController@active')
     ->name('admin_branch_active');
 
+Route::get('/branch/{branchId}/is-matrix',
+    'BranchController@isMatrix')
+    ->name('admin_branch_is_matrix');
+
 Route::get('/branch/{branchId}/delete',
     'BranchController@delete')
     ->name('admin_branch_delete');
@@ -330,7 +334,7 @@ Route::get('/product/{productId}/image',
     'ProductController@image')
     ->name('admin_product_image');
 
-Route::get('/product/search',
+Route::get('/product/{countryId}/search',
     'ProductController@search')
     ->name('admin_product_search');
 

@@ -68,8 +68,20 @@ class InventoryGlobalController extends Controller
     public function createMovement($fk_id_product)
     {
         $product = Product::find($fk_id_product);
+
+        $originBranches = Branch::whereActive(true)->whereHas('products',function ($q) use ($product) {
+            $q->where('product.id',$product->id);
+        })->get();
+
+        $destinationBranches = Branch::whereActive(true)->whereHas('address.country',function ($q) use ($product) {
+            $q->where('country.id',$product->country->id);
+            $q->orWhere('branch.is_matrix',true);
+        })->get();
+
         return view('admin.inventory.global.insertMovement',[
-            'product' => $product
+            'product' => $product,
+            'originBranches' => $originBranches,
+            'destinationBranches' => $destinationBranches
         ]);
     }
 
@@ -77,6 +89,7 @@ class InventoryGlobalController extends Controller
     {
         $branchOrigin = $request->input('fk_id_branch');
         $branchDestination = $request->input('fk_id_branchDestination');
+        $stock = $request->input('stock');
 
         if($branchOrigin == $branchDestination){
             return response()->json([
@@ -85,18 +98,13 @@ class InventoryGlobalController extends Controller
             ],422);
         }
 
-
-        $stock = $request->input('stock');
-        $comment = $request->input('comment');
+        /** @var Branch $branchOriginObj */
         $branchOriginObj = Branch::findOrFail($branchOrigin);
+        /** @var Branch $branchDestinationObj */
         $branchDestinationObj = Branch::findOrFail($branchDestination);
 
-        $stockOrigin = $branchOriginObj->products()->findOrFail($fk_id_product,['stock'])->pivot->stock;
-        $stockDestination = $branchDestinationObj->products()->findOrFail($fk_id_product,['stock'])->pivot->stock;
-
+        $stockOrigin = $branchOriginObj->products()->where('product.id',$fk_id_product)->first()->pivot->stock;
         $totalStockOrigin = $stockOrigin - $stock;
-
-        $movement = new Movement();
 
         if($stockOrigin<$stock){
             return response()->json([
@@ -104,26 +112,40 @@ class InventoryGlobalController extends Controller
             ],422);
         }
 
-        $totalStockDestination = $stockDestination + $stock;
+        if($stock<1){
+            return response()->json([
+                'errors' => ['stock' => ['El stock no puede ser menor a 1'] ]
+            ],422);
+        }
 
         try{
             \DB::beginTransaction();
 
-            $movement->comment = $comment;
-            $movement->quantity  = $stock;
-            $movement->type  = 1;
-            $movement->fk_id_product  = $fk_id_product;
+            $productStockDestination = $branchDestinationObj->products()->where('product.id',$fk_id_product)->first();
+            $stockDestination = 0;
+            if($productStockDestination != null){
 
+                $stockDestination = $productStockDestination->pivot->stock;
+
+            }else{
+
+                $branchDestinationObj->products()->attach($fk_id_product,['stock'=>  $stockDestination]);
+                $branchDestinationObj->saveOrFail();
+
+            }
+
+            $totalStockDestination = $stockDestination + $stock;
+
+            $branchOriginObj->products()->updateExistingPivot($fk_id_product,['stock'=> $totalStockOrigin]);
+            $branchDestinationObj->products()->updateExistingPivot($fk_id_product,['stock'=> $totalStockDestination]);
+
+            $movement = new Movement();
+            $movement->comment = 'Traspaso de producto de '.$branchOriginObj->name.' a '.$branchDestinationObj->name;
+            $movement->quantity  = $stock;
+            $movement->type = 1;
+            $movement->fk_id_product  = $fk_id_product;
             $movement->saveOrFail();
 
-            if($stock<1){
-                return response()->json([
-                    'errors' => ['stock' => ['El stock no puede ser menor a 1'] ]
-                ],422);
-            }else{
-                $branchOriginObj->products()->updateExistingPivot($fk_id_product,['stock'=> $totalStockOrigin]);
-                $branchDestinationObj->products()->updateExistingPivot($fk_id_product,['stock'=> $totalStockDestination]);
-            }
             \DB::commit();
             return response()->json([
                 'success' => true,

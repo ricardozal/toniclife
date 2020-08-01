@@ -17,7 +17,6 @@ class InventoryGlobalMovementsRequest extends FormRequest
     {
         return [
             'stock' => 'required|min:1',
-            'comment' => 'required',
             'fk_id_branch' => 'required',
             'fk_id_branchDestination' => 'required'
         ];

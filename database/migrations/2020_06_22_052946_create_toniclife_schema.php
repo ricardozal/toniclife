@@ -49,6 +49,7 @@ class CreateToniclifeSchema extends Migration
             $table->increments('id');
             $table->string('name');
             $table->boolean('active')->default(true);
+            $table->boolean('is_matrix')->default(false);
             $table->unsignedInteger('fk_id_address');
             $table->timestamps();
 

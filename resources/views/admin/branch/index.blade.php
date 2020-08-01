@@ -26,6 +26,7 @@
                             <th>Dirección</th>
                             <th>Opciones</th>
                             <th>Activar/Desactivar</th>
+                            <th>Es Matriz</th>
                         </tr>
                         </thead>
                     </table>
@@ -38,6 +39,8 @@
            value="{{route('admin_branch_index_content')}}">
     <input id="inp-url-active" type="hidden"
            value="{{route('admin_branch_active',['branchId' => 'FAKE_ID'])}}">
+    <input id="inp-url-is-matrix" type="hidden"
+           value="{{route('admin_branch_is_matrix',['branchId' => 'FAKE_ID'])}}">
     <input id="inp-url-update" type="hidden"
            value="{{route('admin_branch_update',['branchId' => 'FAKE_ID'])}}">
     <input id="inp-url-delete" type="hidden"

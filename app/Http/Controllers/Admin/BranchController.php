@@ -111,4 +111,28 @@ class BranchController extends Controller
             'success' => true,
         ]);
     }
+
+    public function isMatrix($branchId)
+    {
+        $branches = Branch::all();
+
+        foreach ($branches as $branchItem){
+
+            $branchItem->is_matrix = false;
+            $branchItem->save();
+
+        }
+
+        $branch = Branch::find($branchId);
+        $branch->is_matrix = !$branch->is_matrix;
+        if (!$branch->save()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'no se puede modificar el estatus en este momento'
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+        ]);
+    }
 }

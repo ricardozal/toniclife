@@ -132,7 +132,7 @@ class ProductController extends Controller
         return view('admin.product.image',['product' => $product]);
     }
 
-    public function search(Request $request){
+    public function search(Request $request, $countryId){
 
         $query = $request->input('query', '');
         $response = [
@@ -140,8 +140,11 @@ class ProductController extends Controller
             'query' => $query
         ];
 
-
-        $query2 = Product::where('name','like','%'.$query.'%');
+        if($countryId != null){
+            $query2 = Product::whereFkIdCountry($countryId)->where('name','like','%'.$query.'%')->limit(5);
+        } else {
+            $query2 = Product::where('name','like','%'.$query.'%')->limit(5);
+        }
 
         $products = $query2->get();
 
