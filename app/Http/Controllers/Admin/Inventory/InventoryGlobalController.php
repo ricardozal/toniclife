@@ -11,6 +11,7 @@ use App\Models\Country;
 use App\Models\Movement;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class InventoryGlobalController extends Controller
@@ -56,8 +57,9 @@ class InventoryGlobalController extends Controller
 
     public function showTableMovements($fk_id_product)
     {
+        /** @var Product $product */
         $product = Product::find($fk_id_product);
-        $movements = $product->movements;
+        $movements = $product->movements()->with(['user'])->get();
 
         $query = $movements;
         return response()->json([
@@ -144,6 +146,7 @@ class InventoryGlobalController extends Controller
             $movement->quantity  = $stock;
             $movement->type = 1;
             $movement->fk_id_product  = $fk_id_product;
+            $movement->fk_id_user = Auth::user()->id;
             $movement->saveOrFail();
 
             \DB::commit();

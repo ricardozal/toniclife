@@ -3,7 +3,7 @@
         <div class="form-group form-select focused">
             <label for="fk_id_branch" class="focused form-label">Por favor, elija la sucursal de origen</label>
             <select class="form-control " id="fk_id_branch" name="fk_id_branch">
-                <option value="0">-- Elegir sucursal --</option>
+                <option value="">-- Elegir sucursal --</option>
                 @foreach($originBranches as $branch)
                     <option value="{{$branch->id}}">{{$branch->name}}</option>
                 @endforeach
@@ -17,7 +17,7 @@
         <div class="form-group form-select focused">
             <label for="fk_id_branchDestination" class="focused form-label">Por favor, elija la sucursal de destino</label>
             <select class="form-control " id="fk_id_branchDestination" name="fk_id_branchDestination">
-                <option value="0">-- Elegir sucursal --</option>
+                <option value="">-- Elegir sucursal --</option>
                 @foreach($destinationBranches as $branch)
                     <option value="{{$branch->id}}">{{$branch->name}}</option>
                 @endforeach

@@ -12,6 +12,7 @@ use App\Models\BranchHasProduct;
 use App\Models\Movement;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InventoryLocalController extends Controller
 {
@@ -113,13 +114,14 @@ class InventoryLocalController extends Controller
         $branchFormId  = Branch::findOrFail($branchId);
         $stock = $request->input('stock');
         $productId = $request->input('fk_id_product');
-
+        /** @var Product $productNew */
+        $productNew = Product::find($productId);
 
         $products = $branchFormId->products;
 
         foreach($products as $product)
         {
-            if($product->id == $productId)
+            if($product->id == $productNew->id)
             {
                 return response()->json([
                     'errors' => ['name' => ['El producto ya se encuentra agregado en el inventario'] ]
@@ -128,6 +130,14 @@ class InventoryLocalController extends Controller
         }
 
         $branchFormId->products()->attach($productId,['stock'=>  $stock]);
+
+        $movement = new Movement();
+        $movement->comment = 'Se agregó el producto '.$productNew->name.' a la sucursal'.' '.$branchFormId->name;
+        $movement->quantity  = $stock;
+        $movement->type = 1;
+        $movement->fk_id_product  = $productNew->id;
+        $movement->fk_id_user = Auth::user()->id;
+        $movement->save();
 
         if (!$branchFormId->save()) {
             return response()->json([

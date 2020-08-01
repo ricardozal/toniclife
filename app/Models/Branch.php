@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $is_matrix
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Branch whereIsMatrix($value)
  */
 class Branch extends Model
 {

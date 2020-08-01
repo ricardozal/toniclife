@@ -212,11 +212,16 @@ class CreateToniclifeSchema extends Migration
             $table->boolean('type');
             $table->integer('quantity');
             $table->unsignedInteger('fk_id_product');
+            $table->unsignedInteger('fk_id_user');
             $table->timestamps();
 
             $table->foreign('fk_id_product')
                 ->references('id')
                 ->on('product');
+
+            $table->foreign('fk_id_user')
+                ->references('id')
+                ->on('user');
         });
 
         Schema::create('order', function (Blueprint $table) {

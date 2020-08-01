@@ -15,6 +15,8 @@ $(document).ready(function () {
             },
             { "data": "comment" },
             { "data": "quantity" },
+            { "data": "user.name" },
+            { "data": "created_at" },
         ],
         "language": {
             "search": "Buscar: ",

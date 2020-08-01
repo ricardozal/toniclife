@@ -20,6 +20,8 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Corporate whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Corporate wherePhone($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
  */
 class Corporate extends Model
 {

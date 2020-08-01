@@ -23,6 +23,8 @@
                             <th>Movimiento</th>
                             <th>Comentario</th>
                             <th>Cantidad</th>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
                         </tr>
                         </thead>
                     </table>

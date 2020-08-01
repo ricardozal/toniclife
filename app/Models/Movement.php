@@ -28,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Movement whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Movement whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $fk_id_user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Movement whereFkIdUser($value)
  */
 class Movement extends Model
 {
@@ -41,5 +43,15 @@ class Movement extends Model
             'id'
         );
     }
+
+    public function user()
+    {
+        return $this->belongsTo(
+            User::class,
+            'fk_id_user',
+            'id'
+        );
+    }
+
 
 }
