@@ -151,7 +151,7 @@ class OrderController extends Controller
     {
 
         $amount = floatval($request->input('amount'));
-        $currency = $request->input('currency'); // mxn,us
+        $currency = $request->input('currency'); // mxn,usd
 
         Stripe::setApiKey(env('STRIPE_SCREED_KEY'));
 
