@@ -34,4 +34,5 @@ Route::group([
     Route::post('/validate-branch-inventory', 'BranchController@validateInventory');
 
     Route::get('/get-payment-methods', 'OrderController@getPaymentMethods');
+    Route::post('/generate-intent', 'OrderController@generateIntent');
 });
