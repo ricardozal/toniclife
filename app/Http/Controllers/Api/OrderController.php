@@ -16,6 +16,9 @@ use App\Models\ReorderRequestStatus;
 use App\Notifications\OrderProcessed;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Stripe\PaymentIntent;
+use Stripe\Stripe;
+use Stripe\Exception\ApiErrorException;
 
 class OrderController extends Controller
 {
@@ -143,4 +146,37 @@ class OrderController extends Controller
         ]);
 
     }
+
+    public function generateIntent(Request $request)
+    {
+
+        $amount = floatval($request->input('amount'));
+        $currency = $request->input('currency'); // mxn,us
+
+        Stripe::setApiKey(env('STRIPE_SCREED_KEY'));
+
+        try {
+            $intent = PaymentIntent::create([
+                'amount' => ($amount * 100),
+                'currency' => $currency,
+                'metadata' => ['integration_check' => 'accept_a_payment'],
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Correcto',
+                'data' => $intent->client_secret
+            ], 200);
+
+        } catch (ApiErrorException $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'data' => null
+            ]);
+
+        }
+    }
+
 }
