@@ -43,7 +43,7 @@
     <input id="inp-url-delete" type="hidden"
            value="{{route('admin_inventory_local_delete',['branchId' => $branch->id, 'productId'=> 'FAKE_ID'])}}">
     <input id="inp-url-product-search" type="hidden"
-           value="{{route('admin_product_search', ['countryId' => $branch->is_matrix ? null : $branch->address->country->id])}}">
+           value="{{route('admin_product_search', ['countryId' => $branch->is_matrix ? '0' : $branch->address->country->id])}}">
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">

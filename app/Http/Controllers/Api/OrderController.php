@@ -138,13 +138,13 @@ class OrderController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error durante el proceso',
-                'error' => $e->getMessage()
+                'error' => 'La compra no pudo completarse correctamente'
             ]);
         }
         return response()->json([
             'success' => true,
             'message' => 'Compra completada',
-            'data' => $order->id
+            'data' => 'Tu compra con folio: '.$order->id.' fue realizada con éxito'
         ]);
 
     }

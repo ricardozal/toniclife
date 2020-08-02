@@ -140,7 +140,7 @@ class ProductController extends Controller
             'query' => $query
         ];
 
-        if($countryId != null){
+        if($countryId != '0'){
             $query2 = Product::whereFkIdCountry($countryId)->where('name','like','%'.$query.'%')->limit(5);
         } else {
             $query2 = Product::where('name','like','%'.$query.'%')->limit(5);

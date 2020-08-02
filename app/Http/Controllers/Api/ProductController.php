@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProductDetailsWS;
 use App\Http\Resources\ProductWS;
 use App\Models\Product;
 
@@ -25,7 +24,7 @@ class ProductController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Todo bien',
-            'data' => $productList
+            'data' => ProductWS::collection($products)
         ]);
     }
 
