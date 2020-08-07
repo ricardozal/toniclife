@@ -62,7 +62,7 @@
         <div class="row" >
             <div class="col-12 border-top ">
                 <p class="py-2">
-                    <strong>Dirección de envío:</strong> {{$order->shippingAddress->FullAddress }}
+                    <strong>{{$order->shippingAddress != null ? 'Dirección de envío' : 'Recoger en sucursal'}}: </strong> {{$order->shippingAddress != null ? $order->shippingAddress->FullAddress : $order->branch->name }}
                 </p>
             </div>
         </div>

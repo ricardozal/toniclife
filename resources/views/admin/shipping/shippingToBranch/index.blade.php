@@ -33,8 +33,8 @@
 
     <input id="inp-url-index-content" type="hidden"
            value="{{route('admin_shippingToBranch_index_content')}}">
-    <input type="hidden" value="{{route('admin_shippingToBranch_show',['orderId' => 'FAKE_ID'])}}" id="inp-url-show">
-    <input type="hidden" value="{{route('admin_shippingToBranch_updateStatus',['orderId' => 'FAKE_ID'])}}" id="inp-url-status">
+    <input type="hidden" value="{{route('admin_order_show',['orderId' => 'FAKE_ID'])}}" id="inp-url-show">
+    <input type="hidden" value="{{route('admin_pickup_at_branch_deliver',['orderId' => 'FAKE_ID'])}}" id="inp-url-deliver">
 
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

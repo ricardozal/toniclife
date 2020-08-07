@@ -28,18 +28,20 @@ $(document).ready(function () {
                 "targets": -1
             },
             {
-                "data": "id",
-                render:function(data)
+                "data": null,
+                render:function(data, type, row )
                 {
-                    var $inpUrlShowUpdateStatus = $('#inp-url-status');
+                    var $inpUrlShowUpdateStatus = $('#inp-url-deliver');
                     if ($inpUrlShowUpdateStatus.length === 0) {
                         return '';
                     }
 
                     var url = $inpUrlShowUpdateStatus.val();
-                    url = url.replace('FAKE_ID', data);
+                    url = url.replace('FAKE_ID', data.id);
 
-                    return "<a href='"+url+"' title='Cambiar status' data-toggle='tooltip' class='update-btn' style='color: #2B6699'><span class='fas fa-exchange-alt'></span></a>";
+                    var ret = "<a href='"+url+"' title='Entregar' data-toggle='tooltip' class='deliver-btn' style='color: #2B6699'><span class='fas fa-box-open'></span></a>";
+                    var check = "<span title='Entregado' data-toggle='tooltip' style='color: #2B6699'><i class='fas fa-check'></i></span>";
+                    return data.fk_id_order_status !== 3 ? ret : check;
                 },
                 "targets": -1
             },
@@ -71,15 +73,49 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click', '.update-btn', function (e) {
+    $(document).on('click', '.deliver-btn', function (e) {
         e.preventDefault();
         var url = $(this).attr('href');
 
-        modalTools.renderView('modal-upsert', url, true,function () {
-            formTools.useAjaxOnSubmit('form-upsert', function () {
-                $('#modal-upsert').modal('hide');
-                table.ajax.reload();
-            });
+        var $this = $(this);
+
+        $.ajax({
+            url: url,
+            beforeSend: function(){
+                $this.children().removeClass('fa-toggle-on');
+                $this.children().removeClass('fa-toggle-off');
+                $this.children().removeClass('fas');
+                $this.children().addClass('fa');
+                $this.children().addClass('fa-spinner');
+                $this.children().addClass('fa-spin');
+            },
+            success: function (response) {
+                if(response.success)
+                {
+                    Swal.fire(
+                        'Produtos entregados',
+                        'Los productos han sido entregados al distribuidor',
+                        'success'
+                    );
+                    table.ajax.reload();
+                } else {
+                    Swal.fire(
+                        'Algo salió mal',
+                        response.message,
+                        'error'
+                    );
+                }
+            },
+            error: function () {
+                Swal.fire(
+                    'Algo salió mal',
+                    'Inténtelo de nuevo más tarde',
+                    'error'
+                );
+            }
         });
+
     });
+
+
 });

@@ -34,5 +34,16 @@
 
     <input id="inp-url-index-content" type="hidden"
            value="{{route('admin_shipping_index_content')}}">
-    <input type="hidden" value="" id="inp-url-shipping">
+    <input type="hidden" value="{{route('admin_shipping_guide_number', ['orderId' => 'FAKE_ID'])}}" id="inp-url-shipping">
+    <input type="hidden" value="{{route('admin_order_show',['orderId' => 'FAKE_ID'])}}" id="inp-url-show">
+
+    <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="body-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

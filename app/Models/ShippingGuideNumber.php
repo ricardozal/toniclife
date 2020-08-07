@@ -30,6 +30,11 @@ class ShippingGuideNumber extends Model
 {
     protected $table = 'shipping_guide_number';
 
+    protected $fillable = [
+        'value',
+        'fk_id_office_parcel'
+    ];
+
     protected  $appends = ['guide_number_data'];
 
     public function getGuideNumberDataAttribute()

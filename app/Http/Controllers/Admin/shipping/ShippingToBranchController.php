@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin\shipping;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\Branch;
+use App\Models\Movement;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ShippingToBranchController extends Controller
@@ -28,37 +31,59 @@ class ShippingToBranchController extends Controller
         ]);
     }
 
-    public function show($orderId)
-    {
+    public function deliver($orderId){
+
+        /** @var Order $order */
         $order = Order::find($orderId);
 
-        return view('admin.shipping.shippingToBranch.show',[
-            'order' => $order
-        ]);
-    }
+        /** @var Branch $branch */
+        $branch = Branch::find($order->fk_id_branch);
 
-    public function updateStatus($orderId){
-        $order = Order::find($orderId);
-        return view('admin.shipping.shippingToBranch.update',['order' => $order]);
-    }
+        try{
+            \DB::beginTransaction();
 
-    public function updatePostStatus(Request $request, $orderId)
-    {
-        $order = Order::find($orderId);
+            $order->fk_id_order_status = OrderStatus::DELIVERED;
+            $order->saveOrFail();
 
-        $order->fk_id_order_status = $request->input('fk_id_order_status');
-        //$order->fill($request->input('fk_id_order_status'));
+            foreach ($order->products as $product){
 
-        if (!$order->saveOrFail()) {
+                $currentStock = $branch->products()->where('product.id', $product->id)->first()->pivot->stock;
+                $quantity = $product->pivot->quantity;
+                $newStock = $currentStock - $quantity;
+
+                if($newStock < 0){
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Sin stock disponible',
+                    ]);
+                } else {
+                    $branch->products()->updateExistingPivot($product->id,['stock'=> $newStock]);
+                    $branch->saveOrFail();
+
+                    $movement = new Movement();
+                    $movement->comment = 'Venta de producto, orden con folio '.$order->id;
+                    $movement->type = 0;
+                    $movement->quantity = $quantity;
+                    $movement->fk_id_product = $product->id;
+                    $movement->fk_id_user = Auth::user()->id;
+                    $movement->saveOrFail();
+
+                }
+            }
+
+            \DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'Proceso completado'
+            ]);
+        } catch (\Throwable $e){
+            \DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => 'No se pudo guardar es status'
+                'message' => $e->getMessage(),
+                'error' => $e
             ]);
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Guardado correctamente'
-        ]);
     }
 }

@@ -25,7 +25,16 @@ $(document).ready(function () {
                     var url = $inpUrl.val();
                     url = url.replace('FAKE_ID', data);
 
-                    return "<a href='"+url+"' title='Número de Guía' data-toggle='tooltip' class='guide-number-btn' style='color: #2B6699'><span class='fas fa-shipping-fast'></span></a>";
+                    var $inpUrlShow = $('#inp-url-show');
+                    if ($inpUrlShow.length === 0) {
+                        return '';
+                    }
+
+                    var urlTicket = $inpUrlShow.val();
+                    urlTicket = urlTicket.replace('FAKE_ID', data);
+
+                    return "<a href='"+url+"' title='Número de Guía' data-toggle='tooltip' class='guide-number-btn' style='color: #2B6699'><span class='fas fa-shipping-fast'></span></a>&nbsp;&nbsp;&nbsp;"+
+                           "<a href='"+urlTicket+"' title='Ver ticket' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='far fa-eye'></span></a>";
                 },
                 "targets": -1
             },
@@ -48,6 +57,25 @@ $(document).ready(function () {
         "ordering": false
     });
 
+    $(document).on('click', '.guide-number-btn', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
 
+        modalTools.renderView('modal-upsert', url, true,function () {
+            formTools.useAjaxOnSubmit('form-upsert', function () {
+                $('#modal-upsert').modal('hide');
+                table.ajax.reload();
+            });
+        });
+    });
+
+    $(document).on('click', '.show-btn', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        modalTools.renderView('modal-upsert', url, true,function () {
+
+        });
+    });
 
 });

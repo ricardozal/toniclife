@@ -24,5 +24,9 @@ class OfficeParcel extends Model
 {
     protected $table = 'office_parcel';
 
+    public static function asMap()
+    {
+        return self::pluck('name', 'id');
+    }
 
 }

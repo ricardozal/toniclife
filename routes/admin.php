@@ -428,17 +428,9 @@ Route::get('/shipping/shippingToBranch-content',
     'shipping\ShippingToBranchController@indexContent')
     ->name('admin_shippingToBranch_index_content');
 
-Route::get('/shipping/{orderId}/showShippingToBranch-ticket',
-    'shipping\ShippingToBranchController@show')
-    ->name('admin_shippingToBranch_show');
-
-Route::get('/shipping/{orderId}/showShippingToBranch-status',
-    'shipping\ShippingToBranchController@updateStatus')
-    ->name('admin_shippingToBranch_updateStatus');
-
-Route::post('/shipping/{orderId}/showShippingToBranch-statusUpdate',
-    'shipping\ShippingToBranchController@updatePostStatus')
-    ->name('admin_shippingToBranch_statusUpdatePost');
+Route::get('/shipping/{orderId}/pick-at-branch',
+    'shipping\ShippingToBranchController@deliver')
+    ->name('admin_pickup_at_branch_deliver');
 
 /** Shipping **/
 
@@ -449,5 +441,13 @@ Route::get('/shipping/shipping',
 Route::get('/shipping/shipping-content',
     'shipping\ShippingController@indexContent')
     ->name('admin_shipping_index_content');
+
+Route::get('/shipping/{orderId}/guide-number',
+    'shipping\ShippingController@guideNumber')
+    ->name('admin_shipping_guide_number');
+
+Route::post('/shipping/{orderId}/guide-number',
+    'shipping\ShippingController@guideNumberPost')
+    ->name('admin_shipping_guide_number_post');
 
 
