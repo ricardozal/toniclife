@@ -25,9 +25,6 @@ $(document).ready(function () {
                         return '';
                     }
 
-                    var url2 = $inpUrlDelete.val();
-                    url2 = url2.replace('FAKE_ID', data);
-
                     return "<a href='"+url+"' title='Editar' data-toggle='tooltip' class='update-btn' style='color: #2B6699'><span class='far fa-edit'></span></a>";
                 },
                 "targets": -1

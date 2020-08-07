@@ -11,10 +11,21 @@ class OrderSeeder extends Seeder
 
     public function run()
     {
+        $this->officeParcel();
         $this->faker = Faker\Factory::create();
         if (env('APP_DEBUG')) {
             $this->order();
         }
+    }
+
+    public function officeParcel(){
+
+        DB::table('office_parcel')->insert([
+            ['name' => 'FedEx'],
+            ['name' => 'UPS'],
+            ['name' => 'DHL'],
+        ]);
+
     }
 
     public function order()
@@ -103,15 +114,21 @@ class OrderSeeder extends Seeder
         $totalKitTaxes = (((($product4->country->tax_percentage*0.01)*($product4->distributor_price))));
         $pointsKit = ($product4->points);
 
+        $shippingNumber = DB::table('shipping_guide_number')->insertGetId([
+            'value' => '789456123852',
+            'fk_id_office_parcel' => 1
+        ]);
+
         $orderKitId = DB::table('order')->insertGetId([
             'total_price'=>$totalKitPrice,
             'total_taxes'=>$totalKitTaxes,
             'total_accumulated_points'=>$pointsKit,
             'shipping_price'=>50,
             'fk_id_distributor'=>$distributor->id,
-            'fk_id_order_status' => 1,
+            'fk_id_order_status' => 2,
             'fk_id_shipping_address' => $distributor->addresses[1]->id,
-            'fk_id_branch' => 2,
+            'fk_id_shipping_guide_number' => $shippingNumber,
+            'fk_id_branch' => 1,
             'fk_id_payment_method' => 1,
             'created_at'=>Carbon::now()->toDateString()
         ]);

@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property int $fk_id_user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Movement whereFkIdUser($value)
+ * @property-read \App\Models\User $user
  */
 class Movement extends Model
 {

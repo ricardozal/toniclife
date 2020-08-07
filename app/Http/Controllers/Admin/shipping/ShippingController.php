@@ -18,7 +18,7 @@ class ShippingController extends Controller
     public function indexContent(Request $request)
     {
 
-        $order = Order::with(['distributor','status','shippingAddress','branch.address', 'branch'])
+        $order = Order::with(['distributor','status','shippingAddress','branch.address', 'branch', 'guideNumber'])
             ->where('fk_id_shipping_address', '!=', null)
             ->get();
 

@@ -46,6 +46,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereTotalTaxes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $fk_id_shipping_guide_number
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFkIdShippingGuideNumber($value)
  */
 class Order extends Model
 {
@@ -119,6 +121,16 @@ class Order extends Model
             'fk_id_order',
             'fk_id_product'
         )->withPivot(['price','quantity']);
+    }
+
+    public function guideNumber(){
+
+        return$this->belongsTo(
+            ShippingGuideNumber::class,
+            'fk_id_shipping_guide_number',
+            'id'
+        );
+
     }
 
 }

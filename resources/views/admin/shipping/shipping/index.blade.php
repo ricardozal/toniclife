@@ -19,9 +19,11 @@
                             <th>Sucursal</th>
                             <th>Origen</th>
                             <th>Destino</th>
-                            <th>No. orden</th>
+                            <th>Folio orden de compra</th>
                             <th>Fecha compra</th>
+                            <th>Número de guía</th>
                             <th>Status</th>
+                            <th>Opciones</th>
                         </tr>
                         </thead>
                     </table>
@@ -32,4 +34,5 @@
 
     <input id="inp-url-index-content" type="hidden"
            value="{{route('admin_shipping_index_content')}}">
+    <input type="hidden" value="" id="inp-url-shipping">
 @endsection

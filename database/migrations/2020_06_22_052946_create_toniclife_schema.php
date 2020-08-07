@@ -224,6 +224,25 @@ class CreateToniclifeSchema extends Migration
                 ->on('user');
         });
 
+        Schema::create('office_parcel', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->boolean('active')->default(true);
+        });
+
+        Schema::create('shipping_guide_number', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('value');
+            $table->boolean('active')->default(true);
+            $table->unsignedInteger('fk_id_office_parcel');
+            $table->timestamps();
+
+            $table->foreign('fk_id_office_parcel')
+                ->references('id')
+                ->on('office_parcel');
+
+        });
+
         Schema::create('order', function (Blueprint $table) {
             $table->increments('id');
             $table->double('total_price');
@@ -234,6 +253,7 @@ class CreateToniclifeSchema extends Migration
             $table->unsignedInteger('fk_id_distributor');
             $table->unsignedInteger('fk_id_order_status');
             $table->unsignedInteger('fk_id_shipping_address')->nullable();
+            $table->unsignedInteger('fk_id_shipping_guide_number')->nullable();
             $table->unsignedInteger('fk_id_branch');
             $table->unsignedInteger('fk_id_payment_method');
             $table->timestamps();
@@ -249,6 +269,10 @@ class CreateToniclifeSchema extends Migration
             $table->foreign('fk_id_shipping_address')
                 ->references('id')
                 ->on('address');
+
+            $table->foreign('fk_id_shipping_guide_number')
+                ->references('id')
+                ->on('shipping_guide_number');
 
             $table->foreign('fk_id_branch')
                 ->references('id')
@@ -372,6 +396,8 @@ class CreateToniclifeSchema extends Migration
         Schema::dropIfExists('reorder_request_status');
         Schema::dropIfExists('order_product');
         Schema::dropIfExists('order');
+        Schema::dropIfExists('shipping_guide_number');
+        Schema::dropIfExists('office_parcel');
         Schema::dropIfExists('movement');
         Schema::dropIfExists('branch_has_products');
         Schema::dropIfExists('product');

@@ -78,9 +78,9 @@
     <a class="nav-link {{$routeName == 'admin_shipping_index' ? 'active' : ''}}"
        href="{{route('admin_shipping_index_menu')}}">
         <span>
-            <i class="fas fa-shipping-fast"></i>
+            <i class="fas fa-box-open"></i>
         </span>
-        <span class="sidebar-text">Envíos</span>
+        <span class="sidebar-text">Entregas</span>
     </a>
     <a class="nav-link {{$routeName == 'admin_org_chart_index' ? 'active' : ''}}"
        href="{{route('admin_org_chart_index')}}">

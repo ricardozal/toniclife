@@ -84,9 +84,9 @@
                 <a class="nav-link {{$routeName == 'admin_shipping_index_menu' ? 'active' : ''}}"
                    href="#">
                     <span>
-                        <i class="fas fa-shipping-fast"></i>
+                        <i class="fas fa-box-open"></i>
                     </span>
-                    <span class="sidebar-text">Envíos</span>
+                    <span class="sidebar-text">Entregas</span>
                 </a>
             </li>
             <li class="nav-item">
