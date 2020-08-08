@@ -252,10 +252,6 @@ Route::post('/inventory/local/{branchId}/update',
     'Inventory\InventoryLocalController@updatePost')
     ->name('admin_inventory_local_update_post');
 
-Route::get('/inventory/local/{branchId}/delete',
-    'Inventory\InventoryLocalController@delete')
-    ->name('admin_inventory_local_delete');
-
 
 /** Inventory Global **/
 Route::get('/inventory/global',

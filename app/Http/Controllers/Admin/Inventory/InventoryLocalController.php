@@ -47,24 +47,15 @@ class InventoryLocalController extends Controller
         $productId = $request->input('productId');
         $branchId = $request->input('branchId');
         $stock = $request->input('stock');
-        $comment = $request->input('comment');
         $type = $request->input('type');
 
         $branchFormId  = Branch::findOrFail($branchId);
-
-        $movement = new Movement();
 
         $stockBP = $branchFormId->products()->findOrFail($productId,['stock'])->pivot->stock;
 
         try{
             \DB::beginTransaction();
 
-            $movement->comment = $comment;
-            $movement->type = $type;
-            $movement->quantity = $stock;
-            $movement->fk_id_product = $productId;
-
-            $movement->saveOrFail();
 
             if (!$type)
             {
@@ -81,6 +72,14 @@ class InventoryLocalController extends Controller
                 $totalStock = $stockBP + $stock;
                 $branchFormId->products()->updateExistingPivot($productId,['stock'=> $totalStock]);
             }
+
+            $movement = new Movement();
+            $movement->comment = 'Reajuste manual de stock de sucursal '.$branchFormId->name;
+            $movement->type = $type;
+            $movement->quantity = $stock;
+            $movement->fk_id_product = $productId;
+            $movement->fk_id_user = Auth::user()->id;
+            $movement->saveOrFail();
 
             \DB::commit();
             return response()->json([
@@ -151,30 +150,5 @@ class InventoryLocalController extends Controller
             'message' => 'Guardado correctamente'
         ]);
 
-    }
-
-    public function delete(Request $request, $branchId)
-    {
-        //dd($branchId);
-        /*$branchFormId  = Branch::findOrFail($branchId);
-        $branchFormId->products()->detach(4);
-
-        return response()->json([
-            'success' => true,
-        ]);*/
-        $branchFormId = Branch::find($branchId);
-        $productId = $request->input('productId');
-        $branchFormId->products()->detach($productId);
-
-
-        if (!$branchFormId->save()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No se pudo eliminar'
-            ]);
-        }
-        return response()->json([
-            'success' => true,
-        ]);
     }
 }

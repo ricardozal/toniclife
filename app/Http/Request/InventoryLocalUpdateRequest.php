@@ -18,7 +18,6 @@ class InventoryLocalUpdateRequest extends FormRequest
         return [
             'stock' => 'required|min:1',
             'type' => 'required',
-            'comment' => 'required'
         ];
     }
 
@@ -28,7 +27,6 @@ class InventoryLocalUpdateRequest extends FormRequest
             'stock.required'=> 'El stock es necesario',
             'stock.min'=> 'Debe ser mayor a cero la cantidad del ajuste',
             'type.required'=> 'Se debe de seleccionar un tipo de movimiento',
-            'comment.required'=> 'Debe ingresar un comentario del movimiento',
         ];
     }
 }

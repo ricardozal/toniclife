@@ -40,8 +40,6 @@
            value="{{route('admin_inventory_local_index_content',['branchId' => $branch->id])}}">
     <input id="inp-url-update" type="hidden"
            value="{{route('admin_inventory_local_update',['branchId' => $branch->id, 'productId'=> 'FAKE_ID'])}}">
-    <input id="inp-url-delete" type="hidden"
-           value="{{route('admin_inventory_local_delete',['branchId' => $branch->id, 'productId'=> 'FAKE_ID'])}}">
     <input id="inp-url-product-search" type="hidden"
            value="{{route('admin_product_search', ['countryId' => $branch->is_matrix ? '0' : $branch->address->country->id])}}">
 
