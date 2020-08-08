@@ -10,9 +10,9 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    public function getProducts()
+    public function getProducts($countryId)
     {
-        $products = Product::whereFkIdCountry(1)->where('active',1)->limit(10)->get();
+        $products = Product::whereFkIdCountry($countryId)->where('active',1)->limit(10)->get();
 
         $productList = [];
 

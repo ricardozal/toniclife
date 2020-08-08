@@ -24,7 +24,7 @@ Route::group([
     'middleware' => 'auth:api'
 ], function() {
 
-    Route::get('/products', 'ProductController@getProducts');
+    Route::get('/products/{countryId}', 'ProductController@getProducts');
     Route::get('/product/{productId}/details', 'ProductController@showDetails');
 
     Route::get('/distributor/{distributorId}/addresses', 'DistributorController@getAddresses');
