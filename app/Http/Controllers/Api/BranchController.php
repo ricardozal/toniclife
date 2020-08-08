@@ -37,7 +37,7 @@ class BranchController extends Controller
 
             /** @var Address $address */
             $address = Address::find($addressId);
-            $from = $address->city.','.$address->state;
+            $from = $address->city.','.$address->state.','.$address->country->name;
 
             $branches = Branch::whereActive(true)->get();
 
@@ -45,7 +45,7 @@ class BranchController extends Controller
 
             foreach ($branches as $branchItem){
 
-                $to = $branchItem->address->city.','.$branchItem->address->state;
+                $to = $branchItem->address->city.','.$branchItem->address->state.','.$branchItem->address->country->name;
                 $distances[] = [
                     'id' => $branchItem->id,
                     'distance' => $this->calculateDistance($from, $to)
@@ -53,7 +53,8 @@ class BranchController extends Controller
 
             }
 
-            usort($distances, function($a, $b) {return strcmp($a['distance'], $b['distance']);});
+            $temp = array_column($distances, 'distance');
+            array_multisort($temp, SORT_ASC, $distances);
 
             $nearestBranchItem = $distances[0];
 
