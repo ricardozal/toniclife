@@ -15,7 +15,13 @@ $(document).ready(function () {
             },
             { "data": "comment" },
             { "data": "quantity" },
-            { "data": "user.name" },
+            {
+                "data": "user",
+                render:function(data)
+                {
+                    return data !== null ? data.name : 'Sistema';
+                }
+            },
             { "data": "created_at" },
         ],
         "language": {

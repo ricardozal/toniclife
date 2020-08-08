@@ -212,7 +212,7 @@ class CreateToniclifeSchema extends Migration
             $table->boolean('type');
             $table->integer('quantity');
             $table->unsignedInteger('fk_id_product');
-            $table->unsignedInteger('fk_id_user');
+            $table->unsignedInteger('fk_id_user')->nullable();
             $table->timestamps();
 
             $table->foreign('fk_id_product')

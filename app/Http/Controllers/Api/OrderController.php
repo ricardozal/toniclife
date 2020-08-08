@@ -139,7 +139,6 @@ class OrderController extends Controller
                 $movement->type = 0;
                 $movement->quantity = $productItem['quantity'];
                 $movement->fk_id_product = $product->id;
-                $movement->fk_id_user = 1;
                 $movement->saveOrFail();
 
             }
