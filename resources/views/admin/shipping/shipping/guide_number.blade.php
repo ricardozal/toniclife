@@ -11,7 +11,7 @@
             <div class="col-12">
                 <div class="form-group focused">
                     <label for="name"  class="focused form-label">Número de guía</label>
-                    <input type="text" class="form-control" autocomplete="off" id="value" name="value" value="{{ isset($order) ? $order->guideNumber->value : null}}">
+                    <input type="text" class="form-control" autocomplete="off" id="value" name="value" value="{{ isset($order->guideNumber) ? $order->guideNumber->value : null}}">
                     <span class="invalid-feedback">{{ $errors->first('value') }}</span>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     <label for="fk_id_role" class="focused form-label">Paquetería</label>
                     <select class="form-control" id="fk_id_office_parcel" name="fk_id_office_parcel">
                         @foreach(\App\Models\OfficeParcel::asMap() as $id => $name)
-                            <option value="{{$id}}" {{isset($order) ? ($order->guideNumber->fk_id_office_parcel == $id ? 'selected' : '') : ''}}>{{$name}}</option>
+                            <option value="{{$id}}" {{isset($order->guideNumber) ? ($order->guideNumber->fk_id_office_parcel == $id ? 'selected' : '') : ''}}>{{$name}}</option>
                         @endforeach
                     </select>
                 </div>

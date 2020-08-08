@@ -11,7 +11,14 @@ $(document).ready(function () {
             {"data": "shipping_address.FullAddress"},
             {"data": "id"},
             {"data": "created_at"},
-            {"data": "guide_number.guide_number_data"},
+            {
+                "data": null,
+                render:function(data, type, row )
+                {
+                    return data.guide_number !== null ? data.guide_number.guide_number_data : 'Sin número de guía';
+                },
+                "targets": -1
+            },
             {"data": "status.name"},
             {
                 "data": "id",

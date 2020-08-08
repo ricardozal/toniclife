@@ -105,8 +105,8 @@
     </a>
     @endif
     @if(Auth::user()->isBranch())
-        <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-           href="#">
+        <a class="nav-link {{$routeName == 'branch_inventory_index' ? 'active' : ''}}"
+           href="{{route('branch_inventory_index')}}">
         <span>
             <i class="fas fa-boxes"></i>
         </span>
