@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Admin\shipping;
+
+namespace App\Http\Controllers\Branch;
+
 
 use App\Http\Controllers\Controller;
-
 use App\Http\Request\GuideNumberRequest;
 use App\Models\Branch;
 use App\Models\Movement;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\ShippingGuideNumber;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ShippingController extends Controller
 {
@@ -21,11 +20,12 @@ class ShippingController extends Controller
         return view('admin.shipping.shipping.index');
     }
 
-    public function indexContent(Request $request)
+    public function indexContent()
     {
 
         $order = Order::with(['distributor','status','shippingAddress','branch.address', 'branch', 'guideNumber'])
             ->where('fk_id_shipping_address', '!=', null)
+            ->where('fk_id_branch', Auth::user()->branch->id)
             ->get();
 
         $query = $order;
@@ -48,9 +48,6 @@ class ShippingController extends Controller
 
         /** @var Order $order */
         $order = Order::find($orderId);
-
-        /** @var Branch $branch */
-        $branch = Branch::find($order->fk_id_branch);
 
         try{
             \DB::beginTransaction();
@@ -87,5 +84,14 @@ class ShippingController extends Controller
             ]);
         }
 
+    }
+
+    public function show($orderId)
+    {
+        $order = Order::find($orderId);
+
+        return view('admin.order.show',[
+            'order' => $order
+        ]);
     }
 }

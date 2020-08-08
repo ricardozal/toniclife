@@ -2,7 +2,7 @@
     <h4 class="text-header mt-2">Número de guía de envío</h4>
 </div>
 <div class="row">
-    <form id="form-upsert" action="{{route('admin_shipping_guide_number_post',['orderId' => $order->id])}}"
+    <form id="form-upsert" action="{{Auth::user()->isBranch() ? route('branch_shipping_guide_number_post',['orderId' => $order->id]) : route('admin_shipping_guide_number_post',['orderId' => $order->id])}}"
           class="d-flex flex-column align-items-center w-100"
           method="post">
         @csrf

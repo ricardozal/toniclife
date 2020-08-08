@@ -41,3 +41,39 @@ Route::post('/inventory/update',
 Route::get('/product/{countryId}/search',
     'ProductController@search')
     ->name('branch_product_search');
+
+/** Shipping **/
+
+Route::get('/shipping',
+    'ShippingController@index')
+    ->name('branch_shipping_index');
+
+Route::get('/shipping-content',
+    'ShippingController@indexContent')
+    ->name('branch_shipping_index_content');
+
+Route::get('/shipping/{orderId}/guide-number',
+    'ShippingController@guideNumber')
+    ->name('branch_shipping_guide_number');
+
+Route::post('/shipping/{orderId}/guide-number',
+    'ShippingController@guideNumberPost')
+    ->name('branch_shipping_guide_number_post');
+
+Route::get('/order/{orderId}/show',
+    'ShippingController@show')
+    ->name('branch_order_show');
+
+/** Pick up */
+
+Route::get('/pickup',
+    'PickupController@index')
+    ->name('branch_pickup_index');
+
+Route::get('/pickup-content',
+    'PickupController@indexContent')
+    ->name('branch_pickup_index_content');
+
+Route::get('/pickup/{orderId}/pick-at-branch',
+    'PickupController@deliver')
+    ->name('branch_pickup_deliver');

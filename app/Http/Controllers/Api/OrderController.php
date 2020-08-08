@@ -9,6 +9,7 @@ use App\Http\Resources\PaymentMethodWS;
 use App\Models\Branch;
 use App\Models\Corporate;
 use App\Models\Distributor;
+use App\Models\Movement;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\PaymentMethod;
@@ -18,6 +19,7 @@ use App\Models\ReorderRequestStatus;
 use App\Notifications\OrderProcessed;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
 use Stripe\Exception\ApiErrorException;
@@ -125,6 +127,20 @@ class OrderController extends Controller
                 $reorder->products()->attach($product->id, [
                     'quantity' => $productItem['quantity'],
                 ]);
+
+                $currentStock = $branch->products()->where('product.id', $product->id)->first()->pivot->stock;
+                $newStock = $currentStock - $productItem['quantity'];
+
+                $branch->products()->updateExistingPivot($product->id,['stock'=> $newStock]);
+                $branch->saveOrFail();
+
+                $movement = new Movement();
+                $movement->comment = 'Venta de producto, orden con folio '.$order->id;
+                $movement->type = 0;
+                $movement->quantity = $productItem['quantity'];
+                $movement->fk_id_product = $product->id;
+                $movement->fk_id_user = 1;
+                $movement->saveOrFail();
 
             }
 

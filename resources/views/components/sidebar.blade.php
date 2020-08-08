@@ -112,15 +112,15 @@
         </span>
             <span class="sidebar-text">Inventario</span>
         </a>
-        <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-           href="#">
+        <a class="nav-link {{$routeName == 'branch_shipping_index' ? 'active' : ''}}"
+           href="{{route('branch_shipping_index')}}">
         <span>
             <i class="fas fa-paper-plane"></i>
         </span>
             <span class="sidebar-text">Envíos</span>
         </a>
-        <a class="nav-link {{$routeName == '' ? 'active' : ''}}"
-           href="#">
+        <a class="nav-link {{$routeName == 'branch_pickup_index' ? 'active' : ''}}"
+           href="{{route('branch_pickup_index')}}">
             <span>
                 <i class="fas fa-store"></i>
             </span>

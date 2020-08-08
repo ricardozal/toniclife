@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin\shipping;
+
+namespace App\Http\Controllers\Branch;
+
 
 use App\Http\Controllers\Controller;
-
 use App\Models\Branch;
 use App\Models\Movement;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class ShippingToBranchController extends Controller
+class PickupController extends Controller
 {
-    public  function indexShipping()
+    public  function index()
     {
         return view('admin.shipping.shippingToBranch.index');
     }
@@ -23,6 +23,7 @@ class ShippingToBranchController extends Controller
     {
         $order = Order::with(['distributor','status','shippingAddress','branch.address', 'branch'])
             ->where('fk_id_shipping_address', '=', null)
+            ->where('fk_id_branch', Auth::user()->branch->id)
             ->get();
 
         $query = $order;

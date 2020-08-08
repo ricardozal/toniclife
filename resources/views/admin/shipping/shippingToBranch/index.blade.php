@@ -32,9 +32,9 @@
     </div>
 
     <input id="inp-url-index-content" type="hidden"
-           value="{{route('admin_shippingToBranch_index_content')}}">
-    <input type="hidden" value="{{route('admin_order_show',['orderId' => 'FAKE_ID'])}}" id="inp-url-show">
-    <input type="hidden" value="{{route('admin_pickup_at_branch_deliver',['orderId' => 'FAKE_ID'])}}" id="inp-url-deliver">
+           value="{{Auth::user()->isBranch() ? route('branch_pickup_index_content') : route('admin_shippingToBranch_index_content')}}">
+    <input type="hidden" value="{{Auth::user()->isBranch() ? route('branch_order_show', ['orderId' => 'FAKE_ID']) : route('admin_order_show',['orderId' => 'FAKE_ID'])}}" id="inp-url-show">
+    <input type="hidden" value="{{Auth::user()->isBranch() ? route('branch_pickup_deliver',['orderId' => 'FAKE_ID']) : route('admin_pickup_at_branch_deliver',['orderId' => 'FAKE_ID'])}}" id="inp-url-deliver">
 
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
