@@ -23,10 +23,12 @@ use Illuminate\Database\Eloquent\Model;
 class OfficeParcel extends Model
 {
     protected $table = 'office_parcel';
+    public $timestamps = false;
+    protected $fillable = ['name'];
 
     public static function asMap()
     {
-        return self::pluck('name', 'id');
+        return self::whereActive(true)->pluck('name', 'id');
     }
 
 }

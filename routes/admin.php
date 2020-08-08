@@ -446,4 +446,34 @@ Route::post('/shipping/{orderId}/guide-number',
     'shipping\ShippingController@guideNumberPost')
     ->name('admin_shipping_guide_number_post');
 
+/** Office Parcel **/
+
+Route::get('/office-parcel',
+    'OfficeParcelController@index')
+    ->name('admin_office_parcel_index');
+
+Route::get('/office-parcel-content',
+    'OfficeParcelController@indexContent')
+    ->name('admin_office_parcel_index_content');
+
+Route::get('/office-parcel/create',
+    'OfficeParcelController@create')
+    ->name('admin_office_parcel_create');
+
+Route::post('/office-parcel/create',
+    'OfficeParcelController@createPost')
+    ->name('admin_office_parcel_create_post');
+
+Route::get('/office-parcel/{officeParcelId}/update',
+    'OfficeParcelController@update')
+    ->name('admin_office_parcel_update');
+
+Route::post('/office-parcel/{officeParcelId}/update',
+    'OfficeParcelController@updatePost')
+    ->name('admin_office_parcel_update_post');
+
+Route::get('/office-parcel/{officeParcelId}/active',
+    'OfficeParcelController@active')
+    ->name('admin_office_parcel_active');
+
 

@@ -22,8 +22,10 @@ class OrderSeeder extends Seeder
 
         DB::table('office_parcel')->insert([
             ['name' => 'FedEx'],
+            ['name' => 'UsPS'],
             ['name' => 'UPS'],
             ['name' => 'DHL'],
+            ['name' => 'Estafeta'],
         ]);
 
     }

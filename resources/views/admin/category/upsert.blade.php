@@ -9,7 +9,7 @@
         @include('admin.category._form')
         <div class="form-group text-center w-75">
             <button type="submit" class="btn btn-primary">
-                {{isset($category) ? 'Guardar' : 'Guardar'}}
+                {{isset($category) ? 'Modificar' : 'Guardar'}}
             </button>
         </div>
     </form>

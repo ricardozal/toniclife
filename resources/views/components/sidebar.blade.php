@@ -103,6 +103,13 @@
                     </span>
             <span class="sidebar-text">Kits de inscripción</span>
     </a>
+    <a class="nav-link {{$routeName == 'admin_office_parcel_index' ? 'active' : ''}}"
+       href="{{route('admin_office_parcel_index')}}">
+                <span>
+                    <i class="fab fa-ups"></i>
+                </span>
+        <span class="sidebar-text">Paqueterías</span>
+    </a>
     @endif
     @if(Auth::user()->isBranch())
         <a class="nav-link {{$routeName == 'branch_inventory_index' ? 'active' : ''}}"
