@@ -8,6 +8,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown" style="margin-top: 10%">
         <ul class="navbar-nav">
+            @if(Auth::user()->isAdmin())
             <li class="nav-item">
                 <a class="nav-link {{$routeName == 'admin_user_index' ? 'active' : ''}}"
                    href="{{route('admin_user_index')}}">
@@ -33,6 +34,15 @@
                         <i class="fas fa-users"></i>
                     </span>
                     <span class="sidebar-text">Distribuidores</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{$routeName == 'admin_category_index' ? 'active' : ''}}"
+                   href="{{route('admin_category_index')}}">
+                    <span>
+                        <i class="fas fa-book"></i>
+                    </span>
+                    <span class="sidebar-text">Categorias</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -116,6 +126,45 @@
                     <span class="sidebar-text">Kits de inscripción</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{$routeName == 'admin_office_parcel_index' ? 'active' : ''}}"
+                   href="{{route('admin_office_parcel_index')}}">
+                    <span>
+                        <i class="fab fa-ups"></i>
+                    </span>
+                    <span class="sidebar-text">Paqueterías</span>
+                </a>
+            </li>
+            @endif
+            @if(Auth::user()->isBranch())
+            <li class="nav-item">
+                <a class="nav-link {{$routeName == 'branch_inventory_index' ? 'active' : ''}}"
+                   href="{{route('branch_inventory_index')}}">
+                    <span>
+                        <i class="fas fa-boxes"></i>
+                    </span>
+                    <span class="sidebar-text">Inventario</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{$routeName == 'branch_shipping_index' ? 'active' : ''}}"
+                   href="{{route('branch_shipping_index')}}">
+                    <span>
+                        <i class="fas fa-paper-plane"></i>
+                    </span>
+                    <span class="sidebar-text">Envíos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{$routeName == 'branch_pickup_index' ? 'active' : ''}}"
+                   href="{{route('branch_pickup_index')}}">
+                    <span>
+                        <i class="fas fa-store"></i>
+                    </span>
+                    <span class="sidebar-text">Entregas</span>
+                </a>
+            </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link {{$routeName == 'login_logout' ? 'active' : ''}}"
                    href="{{route('login_logout')}}">
