@@ -48,6 +48,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property int|null $fk_id_shipping_guide_number
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFkIdShippingGuideNumber($value)
+ * @property-read \App\Models\ShippingGuideNumber|null $guideNumber
  */
 class Order extends Model
 {

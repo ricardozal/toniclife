@@ -25,6 +25,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShippingGuideNumber whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShippingGuideNumber whereValue($value)
  * @mixin \Eloquent
+ * @property-read mixed $guide_number_data
+ * @property-read \App\Models\OfficeParcel $officeParcel
  */
 class ShippingGuideNumber extends Model
 {
