@@ -66,7 +66,16 @@
                 @endforeach
             </select>
         </div>
+    </div>
+</div>
 
+<div class="row w-75 mb-3">
+    <div class="col-12">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" name="is_kit" class="custom-control-input" id="is_kit" value="1"  {{isset($product) ? ($product->is_kit ? 'checked':'') : ''}} >
+            <label class="custom-control-label" for="is_kit">Este producto es un kit de inscripción </label>
+            <span class="invalid-feedback">{{ $errors->first('is_kit') }}</span>
+        </div>
     </div>
 </div>
 

@@ -212,6 +212,7 @@ class CreateToniclifeSchema extends Migration
             $table->string('image_url');
             $table->double('distributor_price');
             $table->double('points');
+            $table->boolean('is_kit')->default(false);
             $table->boolean('active')->default(true);
             $table->unsignedInteger('fk_id_country');
             $table->unsignedInteger('fk_id_category')->nullable();

@@ -44,6 +44,8 @@ class ProductController extends Controller
         $products = Product::whereFkIdCountry($request->input('fk_id_country'))->get();
         $category = Country::whereId($request->input('fk_id_country'))->first();
 
+        $isKit = $request->input('is_kit');
+
         foreach ($products as $product)
         {
             if($request->input('code') == $product->code)
@@ -55,6 +57,12 @@ class ProductController extends Controller
         }
 
         $product->fill($request->all());
+
+        if($isKit != null){
+            $product->with_points=$isKit;
+        }else{
+            $product->with_points=0;
+        }
 
         $image = $request->file('file');
         if ($image != null) {
@@ -76,7 +84,7 @@ class ProductController extends Controller
     public function updatePost(UpdateProductRequest $request, $productId)
     {
         $product = Product::find($productId);
-
+        $isKit = $request->input('is_kit');
         if($product->id != $productId)
         {
             $products = Product::whereFkIdCountry($request->input('fk_id_country'))->get();
@@ -94,6 +102,12 @@ class ProductController extends Controller
         }
 
         $product->fill($request->all());
+
+        if($isKit != null){
+            $product->with_points=$isKit;
+        }else{
+            $product->with_points=0;
+        }
 
         $image = $request->file('file');
         if ($image != null) {
