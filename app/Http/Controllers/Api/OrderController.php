@@ -162,13 +162,10 @@ class OrderController extends Controller
                 $amount = $distributor->currentPoints[0]->accumulated_points;
             }
 
-            $message = "La compra con el folio ".$order->id." fue realizada con éxito.\n".
-                "\n".
-                $distributor->name.", alcanzaste un puntaje de ".$amount."\n".
-                "Periodo: ".Carbon::parse($distributor->currentPoints[0]->begin_period)->diffForHumans()." - ".Carbon::parse($distributor->currentPoints[0]->end_period)->diffForHumans()."\n".
-                "\n".
-                "Semáforo: ".$distributor->currentPoints[0]->accumulatedPointsStatus->trafficLight->name."\n".
-                "\n".
+            $message = "La compra con el folio ".$order->id." fue realizada con éxito. ".
+                $distributor->name.", alcanzaste un puntaje de ".$amount.". ".
+                "Periodo: ".$distributor->currentPoints[0]->begin_period." - ".$distributor->currentPoints[0]->end_period.". ".
+                "Semáforo: ".$distributor->currentPoints[0]->accumulatedPointsStatus->trafficLight->name.". ".
                 $indication;
 
             \DB::commit();
@@ -227,9 +224,12 @@ class OrderController extends Controller
                     }
 
                     if($amount >= $promotion->min_amount ){
-                        $distributor->promotions()->attach($promotion->id);
-                        $distributor->save();
-                        $promosAccumulative[] = 'Obtuviste la promoción '.$promotion->name. '. Detalles: '.$promotion->description;
+                        $promoAssigned = $distributor->promotions()->where('promotion.id',$promotion->id)->first();
+                        if($promoAssigned == null){
+                            $distributor->promotions()->attach($promotion->id);
+                            $distributor->save();
+                            $promosAccumulative[] = 'Obtuviste la promoción '.$promotion->name. '. Detalles: '.$promotion->description.'. ';
+                        }
                     }
 
                 } else { // Promoción de una compra
@@ -243,9 +243,12 @@ class OrderController extends Controller
                     }
 
                     if($amount >= $promotion->min_amount ){
-                        $distributor->promotions()->attach($promotion->id);
-                        $distributor->save();
-                        $promosSingleOrder[] = 'Obtuviste la promoción '.$promotion->name. '. Detalles: '.$promotion->description;
+                        $promoAssigned = $distributor->promotions()->where('promotion.id',$promotion->id)->first();
+                        if($promoAssigned == null){
+                            $distributor->promotions()->attach($promotion->id);
+                            $distributor->save();
+                            $promosSingleOrder[] = 'Obtuviste la promoción '.$promotion->name. '. Detalles: '.$promotion->description.'. ';
+                        }
                     }
 
                 }
@@ -254,7 +257,7 @@ class OrderController extends Controller
             if(count($promosAccumulative) > 0){
                foreach ($promosAccumulative as $promoMessage){
 
-                   $message .= $promoMessage."\n";
+                   $message .= $promoMessage;
 
                }
             } else {
@@ -271,9 +274,7 @@ class OrderController extends Controller
 
                 if($amount < $limit){
                     $points = $limit - $amount;
-                    $message .= "Atención: Te falta ".$points." para alcanzar la cuota."."\n";
-                } else{
-                    $message .= "Atención: Podrías estar cerca de alcanzar una promoción, continua comprando."."\n";
+                    $message .= "Atención: Te falta ".$points." para alcanzar la cuota. ";
                 }
 
             }
@@ -282,7 +283,7 @@ class OrderController extends Controller
 
                 foreach ($promosSingleOrder as $promoMessage){
 
-                    $message .= $promoMessage."\n";
+                    $message .= $promoMessage;
 
                 }
 
@@ -302,9 +303,7 @@ class OrderController extends Controller
 
             if($amount < $limit){
                 $points = $limit - $amount;
-                $message .= "Atención: Te falta ".$points." para alcanzar la cuota."."\n";
-            } else{
-                $message .= "Atención: Podrías estar cerca de alcanzar una promoción, continua comprando."."\n";
+                $message .= "Atención: Te falta ".$points." para alcanzar la cuota. ";
             }
 
         }
