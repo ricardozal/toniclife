@@ -24,6 +24,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PointsHistory whereFkIdDistributor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PointsHistory whereId($value)
  * @mixin \Eloquent
+ * @property float $accumulated_money
+ * @property int $fk_id_accumulated_points_status
+ * @property-read \App\Models\AccumulatedPointsStatus $accumulatedPointsStatus
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PointsHistory whereAccumulatedMoney($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PointsHistory whereFkIdAccumulatedPointsStatus($value)
  */
 class PointsHistory extends Model
 {
@@ -37,6 +42,16 @@ class PointsHistory extends Model
             'fk_id_distributor',
             'id'
         );
+    }
+
+    public function accumulatedPointsStatus(){
+
+        return $this->belongsTo(
+            AccumulatedPointsStatus::class,
+            'fk_id_accumulated_points_status',
+            'id'
+        );
+
     }
 
 }

@@ -6,16 +6,20 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PaymentMethodWS;
+use App\Models\AccumulatedPointsStatus;
 use App\Models\Branch;
 use App\Models\Corporate;
+use App\Models\Country;
 use App\Models\Distributor;
 use App\Models\Movement;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\PaymentMethod;
 use App\Models\Product;
+use App\Models\Promotion;
 use App\Models\ReorderRequest;
 use App\Models\ReorderRequestStatus;
+use App\Models\TrafficLights;
 use App\Notifications\OrderProcessed;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -83,6 +87,9 @@ class OrderController extends Controller
                 if ($today->between($begin,$end))
                 {
                     $point->accumulated_points = $point->accumulated_points+$points;
+                    $point->accumulated_money = $point->accumulated_money+$totalPrice;
+                    $point->save();
+                    $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
                     $point->save();
                 } else{
 
@@ -103,6 +110,8 @@ class OrderController extends Controller
                     $point->begin_period = $beginDate;
                     $point->end_period = $endDate;
                     $point->accumulated_points = $points;
+                    $point->accumulated_money = $totalPrice;
+                    $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
                     $point->fk_id_distributor = $distributor->id;
                     $point->save();
                 }
@@ -143,6 +152,25 @@ class OrderController extends Controller
 
             }
 
+            $indication = $this::getPromos($order->id);
+            $countryId = $order->branch->address->country->id;
+            $amount = 0;
+
+            if($countryId == Country::USA){
+                $amount = $distributor->currentPoints[0]->accumulated_money;
+            } elseif ($countryId == Country::MEX){
+                $amount = $distributor->currentPoints[0]->accumulated_points;
+            }
+
+            $message = "La compra con el folio ".$order->id." fue realizada con éxito.\n".
+                "\n".
+                $distributor->name.", alcanzaste un puntaje de ".$amount."\n".
+                "Periodo: ".Carbon::parse($distributor->currentPoints[0]->begin_period)->diffForHumans()." - ".Carbon::parse($distributor->currentPoints[0]->end_period)->diffForHumans()."\n".
+                "\n".
+                "Semáforo: ".$distributor->currentPoints[0]->accumulatedPointsStatus->trafficLight->name."\n".
+                "\n".
+                $indication;
+
             \DB::commit();
 
             $corporate = Corporate::whereId(1)->first();
@@ -153,14 +181,135 @@ class OrderController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error durante el proceso',
-                'error' => 'La compra no pudo completarse correctamente'
+                'data' => 'La compra no pudo completarse correctamente'
             ]);
         }
         return response()->json([
             'success' => true,
             'message' => 'Compra completada',
-            'data' => 'Tu compra con folio: '.$order->id.' fue realizada con éxito'
+            'data' => $message
         ]);
+
+    }
+
+    private function getPromos($orderId){
+
+        $message = "";
+
+        /** @var Order $order */
+        $order = Order::find($orderId);
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($order->distributor->id);
+
+        $currentPointsPeriod = $distributor->currentPoints[0];
+        $countryId = $order->branch->address->country->id;
+
+        $promotions = Promotion::whereFkIdCountry($countryId)
+                                ->whereDate('begin_date', '<=', Carbon::now())
+                                ->whereDate('expiration_date', '>=', Carbon::now())->get();
+
+        if($promotions != null){
+
+            $promosAccumulative = [];
+            $promosSingleOrder = [];
+
+            foreach ($promotions as $promotion){
+
+                if($promotion->is_accumulative){ //Promoción con monto mínimo acumulativo
+
+                    $amount = 0;
+
+                    if($countryId == Country::USA){
+                        $amount = $currentPointsPeriod->accumulated_money;
+                    } elseif ($countryId == Country::MEX){
+                        $amount = $currentPointsPeriod->accumulated_points;
+                    }
+
+                    if($amount >= $promotion->min_amount ){
+                        $distributor->promotions()->attach($promotion->id);
+                        $distributor->save();
+                        $promosAccumulative[] = 'Obtuviste la promoción '.$promotion->name. '. Detalles: '.$promotion->description;
+                    }
+
+                } else { // Promoción de una compra
+
+                    $amount = 0;
+
+                    if($countryId == Country::USA){
+                        $amount = $order->total_price;
+                    } elseif ($countryId == Country::MEX){
+                        $amount = $promotion->with_points ? $order->total_accumulated_points : $order->total_price;
+                    }
+
+                    if($amount >= $promotion->min_amount ){
+                        $distributor->promotions()->attach($promotion->id);
+                        $distributor->save();
+                        $promosSingleOrder[] = 'Obtuviste la promoción '.$promotion->name. '. Detalles: '.$promotion->description;
+                    }
+
+                }
+            }
+
+            if(count($promosAccumulative) > 0){
+               foreach ($promosAccumulative as $promoMessage){
+
+                   $message .= $promoMessage."\n";
+
+               }
+            } else {
+
+                $limit = AccumulatedPointsStatus::where('fk_id_country', $countryId)->where('fk_id_traffic_lights', TrafficLights::GREEN)->first()->limit;
+
+                $amount = 0;
+
+                if($countryId == Country::USA){
+                    $amount = $currentPointsPeriod->accumulated_money;
+                } elseif ($countryId == Country::MEX){
+                    $amount = $currentPointsPeriod->accumulated_points;
+                }
+
+                if($amount < $limit){
+                    $points = $limit - $amount;
+                    $message .= "Atención: Te falta ".$points." para alcanzar la cuota."."\n";
+                } else{
+                    $message .= "Atención: Podrías estar cerca de alcanzar una promoción, continua comprando."."\n";
+                }
+
+            }
+
+            if(count($promosSingleOrder ) > 0){
+
+                foreach ($promosSingleOrder as $promoMessage){
+
+                    $message .= $promoMessage."\n";
+
+                }
+
+            }
+
+        } else {
+
+            $limit = AccumulatedPointsStatus::where('fk_id_country', $countryId)->where('fk_id_traffic_lights', TrafficLights::GREEN)->first()->limit;
+
+            $amount = 0;
+
+            if($countryId == Country::USA){
+                $amount = $currentPointsPeriod->accumulated_money;
+            } elseif ($countryId == Country::MEX){
+                $amount = $currentPointsPeriod->accumulated_points;
+            }
+
+            if($amount < $limit){
+                $points = $limit - $amount;
+                $message .= "Atención: Te falta ".$points." para alcanzar la cuota."."\n";
+            } else{
+                $message .= "Atención: Podrías estar cerca de alcanzar una promoción, continua comprando."."\n";
+            }
+
+        }
+
+        return $message;
 
     }
 

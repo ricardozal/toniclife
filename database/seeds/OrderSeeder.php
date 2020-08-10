@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use \Illuminate\Database\Seeder;
 use \Illuminate\Support\Facades\DB;
+use App\Models\AccumulatedPointsStatus;
 
 class OrderSeeder extends Seeder
 {
@@ -69,6 +70,9 @@ class OrderSeeder extends Seeder
             if ($today->between($begin,$end))
             {
                 $point->accumulated_points = $point->accumulated_points+$points;
+                $point->accumulated_money = $point->accumulated_money+$totalPrice;
+                $point->save();
+                $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
                 $point->save();
             } else{
 
@@ -81,6 +85,8 @@ class OrderSeeder extends Seeder
                 $point->begin_period = $beginDate;
                 $point->end_period = $endDate;
                 $point->accumulated_points = $points;
+                $point->accumulated_money = $totalPrice;
+                $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
                 $point->fk_id_distributor = $distributor->id;
                 $point->save();
             }
@@ -143,7 +149,10 @@ class OrderSeeder extends Seeder
             $end = Carbon::parse($point->end_period);
             if ($today->between($begin,$end))
             {
-                $point->accumulated_points = $point->accumulated_points+$points;
+                $point->accumulated_points = $point->accumulated_points+$pointsKit;
+                $point->accumulated_money = $point->accumulated_money+$totalKitPrice;
+                $point->save();
+                $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
                 $point->save();
             } else{
 
@@ -156,6 +165,8 @@ class OrderSeeder extends Seeder
                 $point->begin_period = $beginDate;
                 $point->end_period = $endDate;
                 $point->accumulated_points = $points;
+                $point->accumulated_money = $totalPrice;
+                $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
                 $point->fk_id_distributor = $distributor->id;
                 $point->save();
             }

@@ -31,6 +31,9 @@ class Country extends Model
     protected $table = 'country';
     public $timestamps = false;
 
+    const MEX = 1;
+    const USA = 2;
+
     protected $fillable = [
         'name','tax_percentage'
     ];

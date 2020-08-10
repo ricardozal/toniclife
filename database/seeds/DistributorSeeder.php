@@ -25,7 +25,7 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
         $day = $today->day;
         $month = $today->month;
         $year = $today->year;
-        
+
         if($day < 26){
             $monthBefore = Carbon::now()->subMonth()->month;
             $beginDate = Carbon::create($year,$monthBefore,26);
@@ -41,11 +41,14 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
                 'name' => $this->faker->firstNameMale,
                 'tonic_life_id' => 'DIST-'.$i,
                 'email' => $this->faker->email,
+                'fk_id_country' => $i == 0 ? 1 : 2,
                 'password' => bcrypt('prueba'),
             ]);
 
             DB::table('point_history')->insert([
                 'accumulated_points' => 0,
+                'accumulated_money' => 0,
+                'fk_id_accumulated_points_status' => $i == 0 ? 1 : 2,
                 'begin_period' => $beginDate,
                 'end_period' => $endDate,
                 'fk_id_distributor' => $id
@@ -114,11 +117,14 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
                 'tonic_life_id' => 'DIST-'.$i,
                 'email' => $this->faker->email,
                 'password' => bcrypt('prueba'),
+                'fk_id_country' => 1,
                 'fk_id_distributor' => 1
             ]);
 
             DB::table('point_history')->insert([
                 'accumulated_points' => 0,
+                'accumulated_money' => 0,
+                'fk_id_accumulated_points_status' => 1,
                 'begin_period' => $beginDate,
                 'end_period' => $endDate,
                 'fk_id_distributor' => $id
@@ -153,11 +159,14 @@ class DistributorSeeder extends \Illuminate\Database\Seeder
                 'tonic_life_id' => 'DIST-'.$i,
                 'email' => $this->faker->email,
                 'password' => bcrypt('prueba'),
+                'fk_id_country' => 2,
                 'fk_id_distributor' => 2
             ]);
 
             DB::table('point_history')->insert([
                 'accumulated_points' => 0,
+                'accumulated_money' => 0,
+                'fk_id_accumulated_points_status' => 2,
                 'begin_period' => $beginDate,
                 'end_period' => $endDate,
                 'fk_id_distributor' => $id

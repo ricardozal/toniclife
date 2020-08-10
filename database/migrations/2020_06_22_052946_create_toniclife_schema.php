@@ -86,23 +86,58 @@ class CreateToniclifeSchema extends Migration
             $table->string('password');
             $table->boolean('active')->default(true);
             $table->unsignedInteger('fk_id_distributor')->nullable();
+            $table->unsignedInteger('fk_id_country');
             $table->timestamps();
+
+            $table->foreign('fk_id_country')
+                ->references('id')
+                ->on('country');
 
             $table->foreign('fk_id_distributor')
                 ->references('id')
                 ->on('distributor');
         });
 
+        Schema::create('traffic_lights', function (Blueprint $table){
+
+            $table->increments('id');
+            $table->string('name');
+            $table->string('color');
+
+        });
+
+        Schema::create('accumulated_points_status', function (Blueprint $table){
+            $table->increments('id');
+            $table->integer('limit');
+            $table->boolean('with_points');
+            $table->unsignedInteger('fk_id_country');
+            $table->unsignedInteger('fk_id_traffic_lights');
+
+            $table->foreign('fk_id_country')
+                ->references('id')
+                ->on('country');
+
+            $table->foreign('fk_id_traffic_lights')
+                ->references('id')
+                ->on('traffic_lights');
+        });
+
         Schema::create('point_history', function (Blueprint $table) {
             $table->increments('id');
             $table->double('accumulated_points');
+            $table->double('accumulated_money');
             $table->date('begin_period');
             $table->date('end_period');
-            $table->unsignedInteger('fk_id_distributor')->nullable();
+            $table->unsignedInteger('fk_id_accumulated_points_status');
+            $table->unsignedInteger('fk_id_distributor');
 
             $table->foreign('fk_id_distributor')
                 ->references('id')
                 ->on('distributor');
+
+            $table->foreign('fk_id_accumulated_points_status')
+                ->references('id')
+                ->on('accumulated_points_status');
         });
 
         Schema::create('promotion', function (Blueprint $table) {
@@ -408,6 +443,8 @@ class CreateToniclifeSchema extends Migration
         Schema::dropIfExists('distributor_has_addresses');
         Schema::dropIfExists('promotion');
         Schema::dropIfExists('point_history');
+        Schema::dropIfExists('accumulated_points_status');
+        Schema::dropIfExists('traffic_lights');
         Schema::dropIfExists('distributor');
         Schema::dropIfExists('user');
         Schema::dropIfExists('branch');
