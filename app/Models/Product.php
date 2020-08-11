@@ -42,6 +42,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product wherePoints($value)
  * @mixin \Eloquent
  * @property-read mixed $absolute_image_url
+ * @property int $is_kit
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereIsKit($value)
  */
 class Product extends Model
 {
