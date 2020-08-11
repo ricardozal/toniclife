@@ -569,7 +569,7 @@ class ProductsSeeder extends Seeder
                 'code'=>'5304',
                 'name'=>'24 SHAKE PIÑA COLADA (ENERLIFE)',
                 'image_url'=>'products/5304.jpg',
-                'distributor_price'=>2461,
+                'distributor_price'=>24.61,
                 'points'=>42,
                 'fk_id_country' => 2,
 
@@ -653,7 +653,7 @@ class ProductsSeeder extends Seeder
                 'code'=>'5052',
                 'name'=>'ABY LIFE TONICO',
                 'image_url'=>'products/5052.jpg',
-                'distributor_price'=>16.90,
+                'distributor_price'=>23.54,
                 'points'=>46,
                 'fk_id_country' => 2,
 
@@ -845,7 +845,7 @@ class ProductsSeeder extends Seeder
                 'code'=>'6722',
                 'name'=>'ENERGY GOLD 30 CAPS',
                 'image_url'=>'products/6722.jpg',
-                'distributor_price'=>2.0223,
+                'distributor_price'=>19.26,
                 'points'=>38,
                 'fk_id_country' => 2,
 

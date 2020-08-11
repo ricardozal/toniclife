@@ -167,6 +167,19 @@ class Products3Seeder extends Seeder
 
         DB::table('product')->insert([
             [
+                'code'=>'9903',
+                'name'=>'HOUTH MASCARILLA 10 SOBRES',
+                'image_url'=>'products/9903.jpg',
+                'distributor_price'=>53.5,
+                'points'=>1177,
+                'fk_id_country' => 2,
+
+
+            ]
+        ]);
+
+        DB::table('product')->insert([
+            [
                 'code'=>'5359',
                 'name'=>'JABIL CREMA 60 GR',
                 'image_url'=>'products/5359.jpg',
@@ -739,7 +752,7 @@ class Products3Seeder extends Seeder
                 'code'=>'6715',
                 'name'=>'ZUCA GOLD 60 CAPS',
                 'image_url'=>'products/6715.jpg',
-                'distributor_price'=>17.25,
+                'distributor_price'=>17.12,
                 'points'=>377,
                 'fk_id_country' => 2,
 

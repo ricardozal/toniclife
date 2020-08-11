@@ -216,7 +216,7 @@ class ProductsMexSeeder extends Seeder
 
         DB::table('product')->insert([
             'code'=>'8173',
-            'name'=>'G-DOL GEL 250 G $ 165.52',
+            'name'=>'G-DOL GEL 250 G ',
             'image_url'=>'products/8173.jpg',
             'distributor_price'=>165.52,
             'points'=>166,
@@ -225,7 +225,7 @@ class ProductsMexSeeder extends Seeder
 
         DB::table('product')->insert([
             'code'=>'8159',
-            'name'=>'G&C 60 CAPS $ 268.97',
+            'name'=>'G&C 60 CAPS ',
             'image_url'=>'products/8159.jpg',
             'distributor_price'=>268.97,
             'points'=>269,
