@@ -21,6 +21,7 @@ class ProductWS extends JsonResource
             'tax' => round(($this->country->tax_percentage*0.01)*($this->distributor_price), 2),
             'total' => round(($this->country->tax_percentage*0.01)*($this->distributor_price) + $this->distributor_price, 2),
             'points' => $this->points,
+            'is_kit' => $this->is_kit == 1
         ];
     }
 }

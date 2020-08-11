@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrgChart;
 use App\Models\Distributor;
 
 class OrganizationChartController extends Controller
@@ -33,7 +34,13 @@ class OrganizationChartController extends Controller
 //            $dataset[] = $this->getChildren($distributor);
 //        }
 
-        return response()->json($distributors);
+        return response()->json([
+            'head' => 'Alejandra',
+            'id' => 0,
+            'contents' => 'Raíz',
+            'children' => OrgChart::collection($distributors)
+        ]);
+
     }
 
 //    public function getChildren($distributor)
