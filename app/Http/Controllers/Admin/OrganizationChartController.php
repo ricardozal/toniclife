@@ -23,11 +23,12 @@ class OrganizationChartController extends Controller
             ->get();
 
         return response()->json([
-            'head' => 'Alejandra',
+        ['head' => 'Alejandra',
             'id' => 0,
-            'contents' => 'Raíz',
-            'children' => OrgChart::collection($distributors)
+            'contents' => '<strong>Raíz</strong>',
+            'children' => OrgChart::collection($distributors)]
         ]);
 
     }
+
 }

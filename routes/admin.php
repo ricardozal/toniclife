@@ -290,7 +290,7 @@ Route::get('/org-chart',
     'OrganizationChartController@index')
     ->name('admin_org_chart_index');
 
-Route::post('/org-chart-content',
+Route::get('/org-chart-content',
     'OrganizationChartController@indexContent')
     ->name('admin_org_chart_index_content');
 
