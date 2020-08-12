@@ -73,6 +73,7 @@ class Distributor extends Authenticatable
         'name',
         'tonic_life_id',
         'email',
+        'fk_id_country'
     ];
 
     public function addresses()

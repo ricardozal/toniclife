@@ -171,7 +171,7 @@ class OrderController extends Controller
             \DB::commit();
 
             $corporate = Corporate::whereId(1)->first();
-            $corporate->notify(new OrderProcessed($order));
+            $corporate->notify(new OrderProcessed($order, null));
 
         } catch (\Throwable $e){
             \DB::rollBack();

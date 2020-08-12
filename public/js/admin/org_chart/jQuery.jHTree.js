@@ -209,7 +209,7 @@
                         //---------------
                         $(draggableObj).fadeOut("slow", function () {
                             $(this).appendTo($ItemUL).fadeIn('slow')
-                            .effect('shake', { direction: 'down', mode: 'effect' }, 'slow');
+                                .effect('shake', { direction: 'down', mode: 'effect' }, 'slow');
                             $(this).find("> .trcont").addClass(thisparent.options.afterDropClass);
 
 
@@ -363,18 +363,35 @@
                 }
             });
 
+        },
+
+        _zoomer: function (treeDiv) {
+            var zmr = '<div class="zmrcntr"><input type="text" id="zmrval" class="zomrval"><div id="zmrslidr" style="height:200px;"></div></div>';
+            $(zmr).insertBefore($(treeDiv));
+
+            var brwstp = navigator.userAgent.match(/Mozilla/);
+            $("#zmrslidr").slider({
+                orientation: "vertical",
+                range: "min",
+                min: 10,
+                animate: 'slow',
+                max: 200,
+                value: 100,
+                slide: function (event, ui) {
+                    $("#zmrval").val(ui.value);
+                    if (brwstp == true) {
+
+                        $('.tree').css('MozTransform', 'scale(' + ui.value + ')');
+                    } else {
+
+                        $('.tree').css('zoom', ' ' + ui.value + '%');
+                    }
+                }
+            });
+            $("#zmrval").val($("#zmrslidr").slider("value"));
+
         }
 
-    });
-
-    $("#tree").jHTree({
-        callType: 'url',
-        url: $('#inp-url-index-content').val(),
-        nodeDropComplete: function (event, data) {
-            //----- Do Something @ Server side or client side -----------
-            //alert("Node ID: " + data.nodeId + " Parent Node ID: " + data.parentNodeId);
-            //-----------------------------------------------------------
-        }
     });
 
 })(jQuery);

@@ -7,9 +7,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AddressWS;
 use App\Models\Address;
+use App\Models\Corporate;
 use App\Models\DataBank;
 use App\Models\Distributor;
 use App\Models\NewDistributor;
+use App\Notifications\OrderProcessed;
 use Illuminate\Http\Request;
 
 class DistributorController extends Controller
@@ -128,6 +130,10 @@ class DistributorController extends Controller
             $bankData->saveOrFail();
 
             \DB::commit();
+
+            $corporate = Corporate::whereId(1)->first();
+            $corporate->notify(new OrderProcessed(null, $newDistributor));
+
         } catch (\Throwable $e){
             \DB::rollBack();
             return response()->json([

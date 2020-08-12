@@ -58,3 +58,18 @@
         <input type="hidden" value="{{ isset($distributor) ? ($distributor->distributor != null ? $distributor->distributor->id : null ) : null }}" id="fk_id_distributor" name="fk_id_distributor">
     </div>
 </div>
+
+
+<div class="row w-75">
+    <div class="col-12">
+        <div class="form-group form-select focused">
+            <label for="country" class="focused form-label">País</label>
+            <select class="form-control" id="fk_id_country" name="fk_id_country">
+                @foreach(\App\Models\Country::asMap() as $id => $name)
+                    <option value="{{$id}}" {{isset($distributor) ? ($distributor->fk_id_country == $id ? 'selected' : '') : ''}}>{{$name}}</option>
+                @endforeach
+            </select>
+        </div>
+
+    </div>
+</div>
