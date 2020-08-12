@@ -111,7 +111,7 @@ class OrderController extends Controller
                     $point->end_period = $endDate;
                     $point->accumulated_points = $points;
                     $point->accumulated_money = $totalPrice;
-                    $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
+                    $point->fk_id_accumulated_points_status = $distributor->fk_id_country == Country::MEX ? 1 : 2;
                     $point->fk_id_distributor = $distributor->id;
                     $point->save();
                 }
