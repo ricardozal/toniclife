@@ -36,4 +36,6 @@ Route::group([
     Route::get('/get-payment-methods', 'OrderController@getPaymentMethods');
     Route::post('/generate-intent', 'OrderController@generateIntent');
     Route::post('/save-order', 'OrderController@saveOrder');
+
+    Route::post('/save-new-distributor', 'DistributorController@saveNewDistributor');
 });

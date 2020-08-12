@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 class DataBank extends Model
 {
     protected $table = 'data_bank';
+    public $timestamps = false;
 
     public function newDistributor()
     {

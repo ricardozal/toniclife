@@ -16,7 +16,7 @@ class OrgChart extends JsonResource
         return [
             'head' => $this->name,
             'id' => $this->id,
-            'contents' => $this->currentPoints[0]->accumulated_points,
+            'contents' => '<div style="background-color: '.$this->currentPoints[0]->accumulatedPointsStatus->trafficLight->color.'">'.$this->currentPoints[0]->accumulated_points.'</div>',
             'children' => OrgChart::collection($this->distributors)
         ];
     }
