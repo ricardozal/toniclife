@@ -13,7 +13,7 @@ class Products3Seeder extends Seeder
                 'name'=>'FORMULA COLOIDAL SPRAY',
                 'image_url'=>'products/6821.jpg',
                 'distributor_price'=>17.12,
-                'points'=>35,
+                'points'=>377,
                 'fk_id_country' => 2,
 
 
@@ -27,7 +27,7 @@ class Products3Seeder extends Seeder
                 'name'=>'G & C 60 TAB',
                 'image_url'=>'products/6661.jpg',
                 'distributor_price'=>26.75,
-                'points'=>54,
+                'points'=>589,
                 'fk_id_country' => 2,
 
 
@@ -40,7 +40,7 @@ class Products3Seeder extends Seeder
                 'name'=>'G DOL 250 GR',
                 'image_url'=>'products/6685.jpg',
                 'distributor_price'=>18.19,
-                'points'=>36,
+                'points'=>400,
                 'fk_id_country' => 2,
 
 
@@ -53,7 +53,7 @@ class Products3Seeder extends Seeder
                 'name'=>'GANFICOL 60 CAPS',
                 'image_url'=>'products/5458.jpg',
                 'distributor_price'=>34.24,
-                'points'=>56,
+                'points'=>753,
                 'fk_id_country' => 2,
 
 
@@ -66,7 +66,7 @@ class Products3Seeder extends Seeder
                 'name'=>'GINKGO TONIC 60 CAPS',
                 'image_url'=>'products/8678.jpg',
                 'distributor_price'=>17.12,
-                'points'=>35,
+                'points'=>377,
                 'fk_id_country' => 2,
 
 
@@ -79,7 +79,7 @@ class Products3Seeder extends Seeder
                 'name'=>'GUBI SHAKE 625 GR',
                 'image_url'=>'products/8906.jpg',
                 'distributor_price'=>32.1,
-                'points'=>64,
+                'points'=>706,
                 'fk_id_country' => 2,
 
 
@@ -92,7 +92,7 @@ class Products3Seeder extends Seeder
                 'name'=>'HAIR TONIC SHAMPOO 350 ML',
                 'image_url'=>'products/5144.jpg',
                 'distributor_price'=>20.33,
-                'points'=>40,
+                'points'=>447,
                 'fk_id_country' => 2,
 
 
@@ -106,7 +106,7 @@ class Products3Seeder extends Seeder
                 'name'=>'HEMORRIS CURE 45G',
                 'image_url'=>'products/8852.jpg',
                 'distributor_price'=>19.26,
-                'points'=>38,
+                'points'=>424,
                 'fk_id_country' => 2,
 
 

@@ -513,7 +513,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'24 SHAKE CAPPUCCINO (ENERLIFE)',
                 'image_url'=>'products/2311.jpg',
                 'distributor_price'=>24.61,
-                'points'=>42,
+                'points'=>541,
                 'fk_id_country' => 2,
 
 
@@ -528,7 +528,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'24 SHAKE CHOCOLATE (ENERLIFE)',
                 'image_url'=>'products/6739.jpg',
                 'distributor_price'=>24.61,
-                'points'=>42,
+                'points'=>541,
                 'fk_id_country' => 2,
 
 
@@ -541,7 +541,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'24 SHAKE FRESA (ENERLIFE)',
                 'image_url'=>'products/5342.jpg',
                 'distributor_price'=>24.61,
-                'points'=>42,
+                'points'=>541,
                 'fk_id_country' => 2,
 
 
@@ -555,7 +555,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'24 SHAKE GALLETA (ENERLIFE)',
                 'image_url'=>'products/5298.jpg',
                 'distributor_price'=>24.61,
-                'points'=>42,
+                'points'=>541,
                 'fk_id_country' => 2,
 
 
@@ -570,7 +570,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'24 SHAKE PIÑA COLADA (ENERLIFE)',
                 'image_url'=>'products/5304.jpg',
                 'distributor_price'=>24.61,
-                'points'=>42,
+                'points'=>541,
                 'fk_id_country' => 2,
 
 
@@ -584,7 +584,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'24 SHAKE VAINILLA (ENERLIFE)',
                 'image_url'=>'products/5335.jpg',
                 'distributor_price'=>24.61,
-                'points'=>42,
+                'points'=>541,
                 'fk_id_country' => 2,
 
 
@@ -598,7 +598,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'ABILTIY',
                 'image_url'=>'products/6456.jpg',
                 'distributor_price'=>58.85,
-                'points'=>94,
+                'points'=>1295,
                 'fk_id_country' => 2,
 
 
@@ -613,7 +613,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'ABILTIY - 3 CAPS-',
                 'image_url'=>'products/M012.jpg',
                 'distributor_price'=>6.42,
-                'points'=>12,
+                'points'=>141,
                 'fk_id_country' => 2,
 
 
@@ -627,7 +627,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'ABY LIFE 60 CAPS',
                 'image_url'=>'products/6890.jpg',
                 'distributor_price'=>17.6,
-                'points'=>35,
+                'points'=>387,
                 'fk_id_country' => 2,
 
 
@@ -640,7 +640,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'ABY LIFE TE 200 G',
                 'image_url'=>'products/8692.jpg',
                 'distributor_price'=>17.12,
-                'points'=>35,
+                'points'=>377,
                 'fk_id_country' => 2,
 
 
@@ -654,7 +654,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'ABY LIFE TONICO',
                 'image_url'=>'products/5052.jpg',
                 'distributor_price'=>23.54,
-                'points'=>46,
+                'points'=>518,
                 'fk_id_country' => 2,
 
 
@@ -667,7 +667,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'BABA DE CARACOL 150 GR',
                 'image_url'=>'products/6678.jpg',
                 'distributor_price'=>23.54,
-                'points'=>46,
+                'points'=>518,
                 'fk_id_country' => 2,
 
 
@@ -681,7 +681,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'BP & SIZE 0 30 CAPS',
                 'image_url'=>'products/5250.jpg',
                 'distributor_price'=>38.52,
-                'points'=>63,
+                'points'=>847,
                 'fk_id_country' => 2,
 
 
@@ -694,7 +694,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'BRONIX COUGH SYRUP 240 ML',
                 'image_url'=>'products/8357.jpg',
                 'distributor_price'=>17.12,
-                'points'=>35,
+                'points'=>377,
                 'fk_id_country' => 2,
 
 
@@ -707,7 +707,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'CATALOGO',
                 'image_url'=>'products/8371.jpg',
                 'distributor_price'=>2.14,
-                'points'=>2,
+                'points'=>47,
                 'fk_id_country' => 2,
 
 
@@ -721,7 +721,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'CINERARIA MARITIMA 20 ML',
                 'image_url'=>'products/5038.jpg',
                 'distributor_price'=>9.416,
-                'points'=>18,
+                'points'=>207,
                 'fk_id_country' => 2,
 
 
@@ -734,7 +734,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'COLAGENO 30 CAPS',
                 'image_url'=>'products/5243.jpg',
                 'distributor_price'=>18.19,
-                'points'=>36,
+                'points'=>400,
                 'fk_id_country' => 2,
 
 
@@ -748,7 +748,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'COLAGENO MALTEADA BLUE BERRY',
                 'image_url'=>'products/5267.jpg',
                 'distributor_price'=>33.17,
-                'points'=>64,
+                'points'=>730,
                 'fk_id_country' => 2,
 
 
@@ -762,7 +762,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'COLAGENO MALTEADA FRUTAS TROPICALES',
                 'image_url'=>'products/5274.jpg',
                 'distributor_price'=>33.17,
-                'points'=>64,
+                'points'=>730,
                 'fk_id_country' => 2,
 
 
@@ -776,7 +776,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'COLAGENO TONIC LIFE 120 CAPS',
                 'image_url'=>'products/5151.jpg',
                 'distributor_price'=>47.08,
-                'points'=>84,
+                'points'=>1036,
                 'fk_id_country' => 2,
 
 
@@ -790,7 +790,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'COURE TONIC -SOBRE 3 CAPS-',
                 'image_url'=>'products/8661M.jpg',
                 'distributor_price'=>1.605,
-                'points'=>3,
+                'points'=>35,
                 'fk_id_country' => 2,
 
 
@@ -804,7 +804,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'COURE TONIC 60 CAPS',
                 'image_url'=>'products/6937.jpg',
                 'distributor_price'=>17.12,
-                'points'=>35,
+                'points'=>377,
                 'fk_id_country' => 2,
 
 
@@ -817,7 +817,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'DONNA LIFE 60 CAPS',
                 'image_url'=>'products/6654.jpg',
                 'distributor_price'=>17.12,
-                'points'=>35,
+                'points'=>377,
                 'fk_id_country' => 2,
 
 
@@ -832,7 +832,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'ENERGY GOLD -SOBRE 3 CAPS-',
                 'image_url'=>'products/8210M.jpg',
                 'distributor_price'=>2.14,
-                'points'=>4,
+                'points'=>47,
                 'fk_id_country' => 2,
 
 
@@ -846,7 +846,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'ENERGY GOLD 30 CAPS',
                 'image_url'=>'products/6722.jpg',
                 'distributor_price'=>19.26,
-                'points'=>38,
+                'points'=>424,
                 'fk_id_country' => 2,
 
 
@@ -862,7 +862,7 @@ class ProductsSeeder extends Seeder
                 'name'=>'FEBLIFE ',
                 'image_url'=>'products/6906.jpg',
                 'distributor_price'=>17.12,
-                'points'=>35,
+                'points'=>377,
                 'fk_id_country' => 2,
 
 
