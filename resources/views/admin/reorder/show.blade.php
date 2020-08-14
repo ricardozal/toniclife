@@ -24,7 +24,7 @@
         </div>
 
         <div class="row">
-            <table class="table table-borderless color-light-dark table-responsive">
+            <table class="table table-borderless color-light-dark t-resp">
                 <thead class="border-bottom">
                 <tr>
                     <th class="text-center" scope="col">Código del prodcuto</th>

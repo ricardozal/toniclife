@@ -185,6 +185,10 @@ Route::get('/distributor/search',
     'DistributorController@search')
     ->name('admin_distributor_search');
 
+Route::get('/distributor/{distributorId}/points-history',
+    'DistributorController@pointsHistory')
+    ->name('admin_distributor_points_history');
+
 /***********************************
  * *******   Country *************
  **********************************/

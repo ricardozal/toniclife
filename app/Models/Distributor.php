@@ -151,4 +151,13 @@ class Distributor extends Authenticatable
          ->whereDate('end_period', '>=', Carbon::now());
     }
 
+    public function country()
+    {
+        return $this->belongsTo(
+            Country::class,
+            'fk_id_country',
+            'id'
+        );
+    }
+
 }

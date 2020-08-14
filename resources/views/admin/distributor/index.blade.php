@@ -28,7 +28,8 @@
                             <th>Nombre</th>
                             <th>Correo electrónico</th>
                             <th>Distribuidor líder</th>
-                            <th>Puntos acumulados</th>
+                            <th>Puntos acumulados periodo actual</th>
+                            <th>País</th>
                             <th>Opciones</th>
                             <th>Activar/Desactivar</th>
                         </tr>

@@ -23,6 +23,7 @@ $(document).ready(function () {
                     return data.current_points[0].accumulated_points;
                 },
             },
+            { "data": "country.name" },
             {
                 "data": "id",
                 render:function(data)

@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="row w-75 text-center mx-auto">
-            <table class="table table-borderless color-light-dark table-responsive">
+            <table class="table table-borderless color-light-dark t-resp">
                 <thead class="border-bottom">
                 <tr>
                     <th class="text-center" scope="col">Sucursal</th>

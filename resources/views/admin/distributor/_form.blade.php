@@ -59,7 +59,7 @@
     </div>
 </div>
 
-
+@if($distributor == null)
 <div class="row w-75">
     <div class="col-12">
         <div class="form-group form-select focused">
@@ -73,3 +73,4 @@
 
     </div>
 </div>
+@endif

@@ -24,7 +24,7 @@ class DistributorController extends Controller
     public function indexContent(Request $request)
     {
 
-        $query = Distributor::with(['distributor','currentPoints'])->get();
+        $query = Distributor::with(['distributor','currentPoints','country'])->get();
 
         return response()->json([
             'data' => $query
@@ -173,6 +173,16 @@ class DistributorController extends Controller
         }
 
         return response()->json($response);
+
+    }
+
+    public  function pointsHistory($distributorId){
+
+        $distributor = Distributor::find($distributorId);
+
+        return view('admin.distributor.points_history',[
+            'distributor' => $distributor
+        ]);
 
     }
 }

@@ -44,7 +44,7 @@ class AccumulatedPoitsStatusSeeder extends Seeder
 
         DB::table('traffic_lights')->insert([
             'name' => 'Azúl oscuro',
-            'color' => '#023891'
+            'color' => '#0C5394'
         ]);
 
     }

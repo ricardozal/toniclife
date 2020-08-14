@@ -22,9 +22,11 @@ use App\Models\ReorderRequest;
 use App\Models\ReorderRequestStatus;
 use App\Models\TrafficLights;
 use App\Notifications\OrderProcessed;
+use App\Services\DateFormatterService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
 use Stripe\Exception\ApiErrorException;
@@ -165,7 +167,7 @@ class OrderController extends Controller
 
             $message = "La compra con el folio ".$order->id." fue realizada con éxito. ".
                 $distributor->name.", alcanzaste un puntaje de ".$amount.". ".
-                "Periodo: ".$distributor->currentPoints[0]->begin_period." - ".$distributor->currentPoints[0]->end_period.". ".
+                "Periodo: ".DateFormatterService::fullDatetime(Carbon::parse($distributor->currentPoints[0]->begin_period))." al ".DateFormatterService::fullDatetime(Carbon::parse($distributor->currentPoints[0]->end_period)).". ".
                 "Semáforo: ".$distributor->currentPoints[0]->accumulatedPointsStatus->trafficLight->name.". ".
                 $indication;
 

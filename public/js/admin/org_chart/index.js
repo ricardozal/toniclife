@@ -11,4 +11,13 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on('click', '.btn-node', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        modalTools.renderView('modal-show', url, true,function () {
+
+        });
+    });
+
 });

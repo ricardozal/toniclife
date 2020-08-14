@@ -4,6 +4,7 @@
 namespace App\Http\Resources;
 
 
+use App\Models\Country;
 use App\Models\Distributor;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,9 +15,9 @@ class OrgChart extends JsonResource
         /** @var Distributor $this */
 
         return [
-            'head' => $this->name,
+            'head' => '<div style="overflow: hidden">'.$this->name.'</div>',
             'id' => $this->id,
-            'contents' => '<div style="background-color: '.$this->currentPoints[0]->accumulatedPointsStatus->trafficLight->color.'">'.$this->currentPoints[0]->accumulated_points.'</div>',
+            'contents' => '<div style="background-color: '.$this->currentPoints[0]->accumulatedPointsStatus->trafficLight->color.'"><a class="btn-node" href="'.route('admin_distributor_points_history', ['distributorId' => $this->id]).'" style="color: black; text-decoration: none;">'.($this->fk_id_country == Country::MEX ? 'MEX' : 'USA').': '.($this->fk_id_country == Country::MEX ? $this->currentPoints[0]->accumulated_points : $this->currentPoints[0]->accumulated_money).'</a></div>',
             'children' => OrgChart::collection($this->distributors)
         ];
     }
