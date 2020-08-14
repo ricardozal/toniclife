@@ -35,7 +35,7 @@ class OrderProcessed extends Notification
 
         $message = "";
 
-        if($this->order != null){
+        if($this->order->id != null){
             $distributor = $this->order->distributor;
 
             $listOfProducts = '';
@@ -56,7 +56,7 @@ class OrderProcessed extends Notification
                 "Precio distribuidor: ".$currency.number_format($this->order->total_price,2)."\n".
                 "Tax: ".$currency.number_format($this->order->total_taxes,2)."\n".
                 "Puntos: ".$this->order->total_accumulated_points;
-        } else if ($this->newDistributor != null) {
+        } else if ($this->newDistributor->id != null) {
             $message = "Datos de inscripción de nuevo distribuidor\n".
                 "\n".
                 "Datos personales\n".
@@ -87,7 +87,7 @@ class OrderProcessed extends Notification
                 "Datos bancarios\n".
                 "\n".
                 "Nombre del banco: ".$this->newDistributor->dataBank->bank_name."\n".
-                "Nombre del proietario: ".$this->newDistributor->dataBank->account_name."\n".
+                "Nombre del propietario: ".$this->newDistributor->dataBank->account_name."\n".
                 "Número de cuenta: ".$this->newDistributor->dataBank->bank_account_number."\n".
                 "CLABE: ".$this->newDistributor->dataBank->clabe_routing_bank."\n";
         }

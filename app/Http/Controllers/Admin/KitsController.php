@@ -44,7 +44,7 @@ class KitsController extends Controller
 
         $order = Order::find($idOrder);
 
-        return view('admin.kits.ticket',[
+        return view('admin.order.show',[
             'order' => $order
         ]);
     }

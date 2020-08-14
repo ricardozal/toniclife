@@ -12,6 +12,7 @@ use App\Models\Corporate;
 use App\Models\Country;
 use App\Models\Distributor;
 use App\Models\Movement;
+use App\Models\NewDistributor;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\PaymentMethod;
@@ -171,7 +172,7 @@ class OrderController extends Controller
             \DB::commit();
 
             $corporate = Corporate::whereId(1)->first();
-            $corporate->notify(new OrderProcessed($order, null));
+            $corporate->notify(new OrderProcessed($order, new NewDistributor()));
 
         } catch (\Throwable $e){
             \DB::rollBack();
@@ -179,7 +180,7 @@ class OrderController extends Controller
                 'success' => false,
                 'message' => 'Error durante el proceso',
                 'data' => [
-                    'message' => 'La compra no pudo completarse correctamente',
+                    'message' => $e->getMessage(),
                     'order_id' => 0
                 ]
             ]);

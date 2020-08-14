@@ -11,6 +11,7 @@ use App\Models\Corporate;
 use App\Models\DataBank;
 use App\Models\Distributor;
 use App\Models\NewDistributor;
+use App\Models\Order;
 use App\Notifications\OrderProcessed;
 use Illuminate\Http\Request;
 
@@ -132,7 +133,7 @@ class DistributorController extends Controller
             \DB::commit();
 
             $corporate = Corporate::whereId(1)->first();
-            $corporate->notify(new OrderProcessed(null, $newDistributor));
+            $corporate->notify(new OrderProcessed(new Order(), $newDistributor));
 
         } catch (\Throwable $e){
             \DB::rollBack();
