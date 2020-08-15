@@ -38,4 +38,7 @@ Route::group([
     Route::post('/save-order', 'OrderController@saveOrder');
 
     Route::post('/save-new-distributor', 'DistributorController@saveNewDistributor');
+
+    Route::get('/order/{orderId}/show', 'OrderController@show');
+    Route::get('/distributor/{distributorId}/orders', 'DistributorController@getOrders');
 });

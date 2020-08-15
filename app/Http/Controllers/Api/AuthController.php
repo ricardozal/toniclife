@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Distributor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -61,6 +62,8 @@ class AuthController extends Controller
                 'name' => $distributor->name,
                 'email' => $distributor->email,
                 'tonic_life_id' => $distributor->tonic_life_id,
+                'current_points' => $distributor->fk_id_country == Country::MEX ? $distributor->currentPoints[0]->accumulated_points : $distributor->currentPoints[0]->accumulated_money,
+                'distributor_country' => $distributor->fk_id_country,
                 'access_token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
                 'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()

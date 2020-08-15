@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderWS;
 use App\Http\Resources\PaymentMethodWS;
 use App\Models\AccumulatedPointsStatus;
 use App\Models\Branch;
@@ -183,7 +184,8 @@ class OrderController extends Controller
                 'message' => 'Error durante el proceso',
                 'data' => [
                     'message' => $e->getMessage(),
-                    'order_id' => 0
+                    'order_id' => 0,
+                    'current_points' => 0,
                 ]
             ]);
         }
@@ -192,7 +194,9 @@ class OrderController extends Controller
             'message' => 'Compra completada',
             'data' => [
                 'message' => $message,
-                'order_id' => $order->id
+                'order_id' => $order->id,
+                'current_points' => $distributor->fk_id_country == Country::MEX ? $distributor->currentPoints[0]->accumulated_points : $distributor->currentPoints[0]->accumulated_money,
+
             ]
         ]);
 
@@ -361,6 +365,19 @@ class OrderController extends Controller
             'success' => true,
             'message' => 'Todo bien',
             'data' => PaymentMethodWS::collection($paymentMethods)
+        ]);
+
+    }
+
+    public function show($orderId){
+
+        /** @var Order $order */
+        $order = Order::find($orderId);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Todo bien',
+            'data' => OrderWS::make($order)
         ]);
 
     }

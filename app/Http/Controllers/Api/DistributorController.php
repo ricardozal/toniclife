@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AddressWS;
+use App\Http\Resources\OrderItemWS;
 use App\Models\Address;
 use App\Models\Corporate;
 use App\Models\DataBank;
@@ -28,6 +29,20 @@ class DistributorController extends Controller
             'success' => true,
             'message' => 'Todo bien',
             'data' => AddressWS::collection($addresses)
+        ]);
+    }
+
+    public function getOrders($distributorId){
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+
+        $orders = $distributor->orders;
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Todo bien',
+            'data' => OrderItemWS::collection($orders)
         ]);
 
     }
