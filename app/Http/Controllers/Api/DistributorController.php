@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AddressWS;
 use App\Http\Resources\OrderItemWS;
+use App\Http\Resources\PromotionWS;
 use App\Models\Address;
 use App\Models\Corporate;
 use App\Models\DataBank;
@@ -43,6 +44,21 @@ class DistributorController extends Controller
             'success' => true,
             'message' => 'Todo bien',
             'data' => OrderItemWS::collection($orders)
+        ]);
+
+    }
+
+    public function getPromotions($distributorId){
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+
+        $orders = $distributor->promotions;
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Todo bien',
+            'data' => PromotionWS::collection($orders)
         ]);
 
     }

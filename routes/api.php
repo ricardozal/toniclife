@@ -41,4 +41,5 @@ Route::group([
 
     Route::get('/order/{orderId}/show', 'OrderController@show');
     Route::get('/distributor/{distributorId}/orders', 'DistributorController@getOrders');
+    Route::get('/distributor/{distributorId}/promotions', 'DistributorController@getPromotions');
 });
