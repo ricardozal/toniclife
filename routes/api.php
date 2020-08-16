@@ -44,5 +44,5 @@ Route::group([
     Route::get('/distributor/{distributorId}/promotions', 'DistributorController@getPromotions');
 
     Route::get('/distributor/{distributorId}/address/{addressId}/show', 'DistributorController@getAddress');
-    Route::post('/distributor/save-address', 'DistributorController@saveAddress');
+    Route::post('/distributor/{distributorId}/save-address', 'DistributorController@saveAddress');
 });

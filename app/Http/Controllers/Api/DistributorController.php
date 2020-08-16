@@ -248,7 +248,7 @@ class DistributorController extends Controller
                 $address->fk_id_country = $countryId;
                 $address->saveOrFail();
 
-                $distributor->addresses()->attach($addressId,['alias'=> $alias, 'selected' => false]);
+                $distributor->addresses()->attach($address->id,['alias'=> $alias, 'selected' => false]);
                 $distributor->saveOrFail();
 
             }
