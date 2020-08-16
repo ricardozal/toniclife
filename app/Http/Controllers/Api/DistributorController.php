@@ -179,6 +179,95 @@ class DistributorController extends Controller
             'message' => 'Registro exitoso',
             'data' => 'Nuevo distribuidor registrado'
         ]);
+    }
+
+    public function getAddress($distributorId,$addressId){
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+
+        $address = $distributor->addresses()->where('address.id', $addressId)->first();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Todo bien',
+            'data' => AddressWS::make($address)
+        ]);
+
+    }
+
+    public function saveAddress(Request $request, $distributorId){
+
+        $alias = $request->get('alias');
+        $street = $request->get('street');
+        $zipCode = $request->get('zip_code');
+        $extNum = $request->get('ext_num');
+        $intNum = $request->get('int_num');
+        $colony = $request->get('colony');
+        $city = $request->get('city');
+        $state = $request->get('state');
+        $countryId = $request->get('fk_id_country');
+        $addressId = $request->get('addressId');
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+
+        try {
+            \DB::beginTransaction();
+
+            if($addressId != 0){
+
+                /** @var Address $address */
+                $address = Address::find($addressId);
+
+                $address->street = $street;
+                $address->zip_code = $zipCode;
+                $address->ext_num = $extNum;
+                $address->int_num = $intNum;
+                $address->colony = $colony;
+                $address->city = $city;
+                $address->state = $state;
+                $address->fk_id_country = $countryId;
+                $address->saveOrFail();
+
+                $distributor->addresses()->updateExistingPivot($addressId,['alias'=> $alias]);
+                $distributor->saveOrFail();
+
+            } else {
+
+                /** @var Address $address */
+                $address = new Address();
+
+                $address->street = $street;
+                $address->zip_code = $zipCode;
+                $address->ext_num = $extNum;
+                $address->int_num = $intNum;
+                $address->colony = $colony;
+                $address->city = $city;
+                $address->state = $state;
+                $address->fk_id_country = $countryId;
+                $address->saveOrFail();
+
+                $distributor->addresses()->attach($addressId,['alias'=> $alias, 'selected' => false]);
+                $distributor->saveOrFail();
+
+            }
+
+            \DB::commit();
+
+        } catch (\Throwable $e){
+            \DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Error durante el proceso',
+                'data' => 'Intentelo más tarde'
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Bien hecho',
+            'data' => 'Dirección guardada'
+        ]);
 
     }
 }
