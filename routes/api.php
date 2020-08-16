@@ -30,8 +30,8 @@ Route::group([
     Route::get('/distributor/{distributorId}/addresses', 'DistributorController@getAddresses');
     Route::post('/distributor/select-address', 'DistributorController@setSelectedAddress');
 
-    Route::get('/all-branches', 'BranchController@getBranches');
-    Route::post('/validate-branch-inventory', 'BranchController@validateInventory');
+    Route::get('/distributor/{distributorId}/all-branches', 'BranchController@getBranches');
+    Route::post('/distributor/{distributorId}/validate-branch-inventory', 'BranchController@validateInventory');
 
     Route::get('/get-payment-methods', 'OrderController@getPaymentMethods');
     Route::post('/generate-intent', 'OrderController@generateIntent');

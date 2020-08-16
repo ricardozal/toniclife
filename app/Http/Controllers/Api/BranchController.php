@@ -8,14 +8,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BranchWS;
 use App\Models\Address;
 use App\Models\Branch;
+use App\Models\Distributor;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
-    public function getBranches()
+    public function getBranches($distributorId)
     {
-        $branches = Branch::with(['address'])->where('active',true)->get();
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+        $countryId = $distributor->fk_id_country;
+
+        $branches = Branch::with(['address'])->where('active',true)->whereHas('address',function ($q) use ($countryId) {
+            $q->where('fk_id_country',$countryId);
+        })->get();
 
         return response()->json([
             'success' => true,
@@ -24,11 +32,27 @@ class BranchController extends Controller
         ]);
     }
 
-    public function validateInventory(Request $request){
+    public function validateInventory(Request $request, $distributorId){
 
         $addressId = $request->input('address_id');
         $productsOrder = $request->input('products');
         $branchId = $request->input('branch_id');
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+
+        foreach ($productsOrder as $product){
+
+            /** @var Product $productValidate */
+            $productValidate = Product::find($product['id']);
+            if($distributor->fk_id_country != $productValidate->fk_id_country){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No está permitido comprar productos de un catalogo diferente al de tu país',
+                    'data' => null
+                ]);
+            }
+        }
 
         /** @var Branch $branch */
         $branch = null;
