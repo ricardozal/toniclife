@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\shipping;
 use App\Http\Controllers\Controller;
 
 use App\Models\Branch;
+use App\Models\Distributor;
 use App\Models\Movement;
 use App\Models\Order;
 use App\Models\OrderStatus;
@@ -43,6 +44,22 @@ class ShippingToBranchController extends Controller
                 'error' => 'Error al cambiar de estado'
             ]);
         }
+
+        $title = 'Tu orden fue entregada';
+        $body = 'Tu orden con folio '.$order->id.' acaba de ser entregada en la sucursal '.$order->branch->name;
+
+        $recipients = Distributor::whereActive(true)
+            ->where('firebase_token', '!=', null)
+            ->where('id', $order->fk_id_distributor)
+            ->pluck('firebase_token')->toArray();
+
+        fcm()
+            ->to($recipients) // $recipients must an array
+            ->notification([
+                'title' => $title,
+                'body' => $body,
+            ])
+            ->send();
 
         return response()->json([
             'success' => true,

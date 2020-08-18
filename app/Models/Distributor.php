@@ -61,6 +61,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read int|null $current_points_count
  * @property int $fk_id_country
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereFkIdCountry($value)
+ * @property string|null $firebase_token
+ * @property-read \App\Models\Country $country
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereFirebaseToken($value)
  */
 class Distributor extends Authenticatable
 {

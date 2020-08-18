@@ -270,4 +270,27 @@ class DistributorController extends Controller
         ]);
 
     }
+
+    public function saveFirebaseToken(Request $request, $distributorId){
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+
+        $distributor->firebase_token = $request->get('firebase_token');
+
+        if(!$distributor->save()){
+            return response()->json([
+                'success' => false,
+                'message' => 'Error durante el proceso',
+                'data' => 'Intentelo más tarde'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Bien hecho',
+            'data' => 'Token guardado'
+        ]);
+
+    }
 }
