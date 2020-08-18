@@ -22,7 +22,7 @@ class OrderItemWS extends JsonResource
             'total_points' => number_format($this->total_accumulated_points,2),
             'total_products' => $this->products->count(),
             'status' => $this->status->name,
-            'delivery' => $this->shippingAddress != null ? 'Dirección de envío: '.$this->shippingAddress->FullAddress : 'Recoger en sucursal: '.$this->branch->name
+            'delivery' => $this->shippingAddress != null ? ($this->guideNumber != null ? 'Tu orden ha sido enviada, no. guía: '.$this->guideNumber->value.' de '.$this->guideNumber->officeParcel->name :'Dirección de envío: '.$this->shippingAddress->FullAddress) : 'Recoger en sucursal: '.$this->branch->name
         ];
     }
 }
