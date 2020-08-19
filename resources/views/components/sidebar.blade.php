@@ -133,7 +133,16 @@
             </span>
             <span class="sidebar-text">Entregas</span>
         </a>
-   
+        <div class="text-center m-md-auto">
+            <span class="sidebar-text " style="color: white">Seleccione un idioma</span>
+            <a class="nav-link "
+               href="">
+
+                <img src="{{asset('img/icons/mexico.png')}}" style="height: 30px">
+                <img src="{{asset('img/icons/eu2.png')}} " style="height: 30px" >
+
+            </a>
+        </div>
 
     @endif
     <a class="nav-link {{$routeName == 'login_logout' ? 'active' : ''}}"
