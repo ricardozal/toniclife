@@ -26,7 +26,7 @@ class OrderWS extends JsonResource
             'products' => ProductOrderWS::collection($this->products),
             'status' => $this->status->name,
             'payment_method' => 'Método de pago: '.$this->paymentMethod->name,
-            'delivery' => $this->shippingAddress != null ? 'Dirección de envío: '.$this->shippingAddress->FullAddress : 'Recoger en sucursal: '.$this->branch->name
+            'delivery' => $this->shippingAddress != null ? ($this->guideNumber != null ? 'Dirección de envío: '.$this->shippingAddress->FullAddress.' Tu orden ha sido enviada, no. guía: '.$this->guideNumber->value.' de '.$this->guideNumber->officeParcel->name :'Dirección de envío: '.$this->shippingAddress->FullAddress) : 'Recoger en sucursal: '.$this->branch->name
         ];
     }
 }

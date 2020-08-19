@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Country;
+use App\Models\Distributor;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
 use App\Http\Request\PromotionRequest;
@@ -66,15 +67,28 @@ class PromotionController extends Controller
 
         }
 
-
-
-
         if (!$promotion->save()) {
             return response()->json([
                 'success' => false,
                 'message' => 'No se pudo guardar al usuario'
             ]);
         }
+
+        $recipients = Distributor::whereActive(true)
+            ->where('firebase_token', '!=', null)
+            ->where('fk_id_country', $promotion->fk_id_country)
+            ->pluck('firebase_token')->toArray();
+
+        $title = 'Nueva promoción: '.$promotion->name;
+        $body = $promotion->description;
+
+        fcm()
+            ->to($recipients) // $recipients must an array
+            ->notification([
+                'title' => $title,
+                'body' => $body,
+            ])
+            ->send();
 
         return response()->json([
             'success' => true,

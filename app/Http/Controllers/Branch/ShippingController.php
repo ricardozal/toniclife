@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Branch;
 use App\Http\Controllers\Controller;
 use App\Http\Request\GuideNumberRequest;
 use App\Models\Branch;
+use App\Models\Distributor;
 use App\Models\Movement;
 use App\Models\Order;
 use App\Models\OrderStatus;
@@ -61,6 +62,9 @@ class ShippingController extends Controller
                 $shippingGuideNumber->fill($request->all());
                 $shippingGuideNumber->saveOrFail();
 
+                $title = 'Tu número de guía fue cambiado';
+                $body = 'Tu nuevo número de guía es: '.$order->guideNumber->value.' de '.$order->guideNumber->officeParcel->name;
+
             } else {
                 $shippingGuideNumber = new ShippingGuideNumber();
                 $shippingGuideNumber->fill($request->all());
@@ -68,7 +72,23 @@ class ShippingController extends Controller
                 $order->fk_id_shipping_guide_number = $shippingGuideNumber->id;
                 $order->fk_id_order_status = OrderStatus::SENT;
                 $order->saveOrFail();
+
+                $title = 'Tu compra ha sido enviada';
+                $body = 'Tu compra con folio '.$order->id.' ha sido enviada, pronto estará en tus manos. Tu número de guía es: '.$order->guideNumber->value.' de '.$order->guideNumber->officeParcel->name;
             }
+
+            $recipients = Distributor::whereActive(true)
+                ->where('firebase_token', '!=', null)
+                ->where('id', $order->fk_id_distributor)
+                ->pluck('firebase_token')->toArray();
+
+            fcm()
+                ->to($recipients) // $recipients must an array
+                ->notification([
+                    'title' => $title,
+                    'body' => $body,
+                ])
+                ->send();
 
             \DB::commit();
             return response()->json([
