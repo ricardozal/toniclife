@@ -7,24 +7,24 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductWS;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function getProducts($countryId)
+    public function getProducts($countryId, $productName)
     {
-        $products = Product::whereFkIdCountry($countryId)->where('active',1)->limit(10)->get();
 
-        $productList = [];
+        $products = Product::whereFkIdCountry($countryId)
+            ->where('active',1);
 
-        foreach ($products as $product)
-        {
-            $productList[] = new ProductWS($product);
+        if($productName != null || $productName != '0'){
+            $products->where('name','like','%'.$productName.'%');
         }
 
         return response()->json([
             'success' => true,
             'message' => 'Todo bien',
-            'data' => ProductWS::collection($products)
+            'data' => ProductWS::collection($products->get())
         ]);
     }
 
