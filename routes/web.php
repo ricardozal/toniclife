@@ -18,3 +18,15 @@ Route::post('/login',
 Route::get('/logout',
     'Auth\LoginController@logout')
     ->name('login_logout');
+
+/***********************************
+ * *******   Organization Chart ****
+ **********************************/
+
+Route::get('/{tonic_life_id}/org-chart-dist',
+    'Web\OrganizationChartDistributorsController@index')
+    ->name('web_org_chart_index');
+
+Route::get('/{tonic_life_id}/org-chart-content-dist',
+    'Web\OrganizationChartDistributorsController@indexContent')
+    ->name('web_org_chart_index_content');
