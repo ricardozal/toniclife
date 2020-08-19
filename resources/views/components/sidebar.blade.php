@@ -1,4 +1,4 @@
-{{--<a href="{{route('login_logout')}}">cerrar seion</a>--}}
+    {{--<a href="{{route('login_logout')}}">cerrar seion</a>--}}
 
 @php
     $routeName= Route::current()->getName();
@@ -133,6 +133,8 @@
             </span>
             <span class="sidebar-text">Entregas</span>
         </a>
+   
+
     @endif
     <a class="nav-link {{$routeName == 'login_logout' ? 'active' : ''}}"
        href="{{route('login_logout')}}">
