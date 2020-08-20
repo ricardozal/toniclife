@@ -29,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\AccumulatedPointsStatus $accumulatedPointsStatus
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PointsHistory whereAccumulatedMoney($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PointsHistory whereFkIdAccumulatedPointsStatus($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\PointsHistory[] $externalPoints
+ * @property-read int|null $external_points_count
  */
 class PointsHistory extends Model
 {
@@ -49,6 +51,16 @@ class PointsHistory extends Model
         return $this->belongsTo(
             AccumulatedPointsStatus::class,
             'fk_id_accumulated_points_status',
+            'id'
+        );
+
+    }
+
+    public function externalPoints(){
+
+        return $this->hasMany(
+            PointsHistory::class,
+            'fk_id_point_history',
             'id'
         );
 

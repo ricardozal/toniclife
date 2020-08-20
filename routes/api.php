@@ -47,4 +47,6 @@ Route::group([
     Route::post('/distributor/{distributorId}/save-address', 'DistributorController@saveAddress');
 
     Route::post('/distributor/{distributorId}/save-firebase-token', 'DistributorController@saveFirebaseToken');
+
+    Route::get('/distributor/{distributorId}/order/{orderId}/my-distributors','DistributorController@getMyDistributors');
 });

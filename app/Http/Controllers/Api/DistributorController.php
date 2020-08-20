@@ -6,15 +6,20 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AddressWS;
+use App\Http\Resources\DistributorWS;
 use App\Http\Resources\OrderItemWS;
 use App\Http\Resources\PromotionWS;
+use App\Models\AccumulatedPointsStatus;
 use App\Models\Address;
 use App\Models\Corporate;
+use App\Models\Country;
 use App\Models\DataBank;
 use App\Models\Distributor;
+use App\Models\ExternalGainedPoint;
 use App\Models\NewDistributor;
 use App\Models\Order;
 use App\Notifications\OrderProcessed;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DistributorController extends Controller
@@ -291,6 +296,99 @@ class DistributorController extends Controller
             'message' => 'Bien hecho',
             'data' => 'Token guardado'
         ]);
+
+    }
+
+    public function getMyDistributors($distributorId, $orderId){
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+
+        /** @var Order $order */
+        $order = Order::find($orderId);
+
+        $distributors = $distributor->distributors()->where('fk_id_country',$order->branch->address->fk_id_country)->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Bien hecho',
+            'data' => DistributorWS::collection($distributors)
+        ]);
+    }
+
+    public function registerPoints(Request $request, $distributorId){
+
+        $distributors = $request->input('distributors');
+
+        /** @var Order $order */
+        $order = Order::find($request->input('order_id'));
+
+        $today = Carbon::now();
+
+        foreach ($distributors as $distributorItem){
+
+            /** @var Distributor $distributor */
+            $distributor = Distributor::find($distributorItem['id']);
+
+            foreach ($distributor->accumulatedPointsHistory as $point)
+            {
+                $begin = Carbon::parse($point->begin_period);
+                $end = Carbon::parse($point->end_period);
+                if ($today->between($begin,$end))
+                {
+                    $point->accumulated_points = $point->accumulated_points+$distributorItem['points'];
+                    $point->accumulated_money = $point->accumulated_money+$distributorItem['money'];
+                    $point->save();
+                    $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
+                    $point->save();
+
+                    $externalPoints = new ExternalGainedPoint();
+                    if($distributor->fk_id_country == Country::MEX){
+                        $externalPoints->points = $distributorItem['points'];
+                    }else {
+                        $externalPoints->money = $distributorItem['money'];
+                    }
+                    $externalPoints->fk_id_point_history = $point->id;
+                    $externalPoints->fk_id_order = $order->id;
+                    $externalPoints->save();
+
+                } else{
+
+                    $day = $today->day;
+                    $month = $today->month;
+                    $year = $today->year;
+
+                    if($day < 26){
+                        $monthBefore = Carbon::now()->subMonth()->month;
+                        $beginDate = Carbon::create($year,$monthBefore,26);
+                        $endDate = Carbon::create($year,$monthBefore,25)->addMonth();
+                    } else {
+                        $beginDate = Carbon::create($year,$month,26);
+                        $endDate = Carbon::create($year,$month,25)->addMonth();
+                    }
+
+                    $point = new \App\Models\PointsHistory();
+                    $point->begin_period = $beginDate;
+                    $point->end_period = $endDate;
+                    $point->accumulated_points = $distributorItem['points'];
+                    $point->accumulated_money = $distributorItem['money'];
+                    $point->fk_id_accumulated_points_status = $distributor->fk_id_country == Country::MEX ? 1 : 2;
+                    $point->fk_id_distributor = $distributor->id;
+                    $point->save();
+
+                    $externalPoints = new ExternalGainedPoint();
+                    if($distributor->fk_id_country == Country::MEX){
+                        $externalPoints->points = $distributorItem['points'];
+                    }else {
+                        $externalPoints->money = $distributorItem['money'];
+                    }
+                    $externalPoints->fk_id_point_history = $point->id;
+                    $externalPoints->fk_id_order = $order->id;
+                    $externalPoints->save();
+                }
+            }
+
+        }
 
     }
 }
