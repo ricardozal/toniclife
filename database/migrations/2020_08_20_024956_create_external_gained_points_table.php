@@ -15,8 +15,7 @@ class CreateExternalGainedPointsTable extends Migration
     {
         Schema::create('external_gained_points', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('points')->nullable();
-            $table->double('money')->nullable();
+            $table->double('points');
             $table->unsignedInteger('fk_id_point_history');
             $table->unsignedInteger('fk_id_order')->nullable();
             $table->timestamps();
