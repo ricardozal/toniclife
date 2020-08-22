@@ -177,6 +177,17 @@ class OrderController extends Controller
             $corporate = Corporate::whereId(1)->first();
             $corporate->notify(new OrderProcessed($order, new NewDistributor()));
 
+            return response()->json([
+                'success' => true,
+                'message' => 'Compra completada',
+                'data' => [
+                    'message' => $message,
+                    'order_id' => $order->id,
+                    'current_points' => $distributor->fk_id_country == Country::MEX ? $distributor->currentPoints[0]->accumulated_points : $distributor->currentPoints[0]->accumulated_money,
+
+                ]
+            ]);
+
         } catch (\Throwable $e){
             \DB::rollBack();
             return response()->json([
@@ -189,16 +200,6 @@ class OrderController extends Controller
                 ]
             ]);
         }
-        return response()->json([
-            'success' => true,
-            'message' => 'Compra completada',
-            'data' => [
-                'message' => $message,
-                'order_id' => $order->id,
-                'current_points' => $distributor->fk_id_country == Country::MEX ? $distributor->currentPoints[0]->accumulated_points : $distributor->currentPoints[0]->accumulated_money,
-
-            ]
-        ]);
 
     }
 
