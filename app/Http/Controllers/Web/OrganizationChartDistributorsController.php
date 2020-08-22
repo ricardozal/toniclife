@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\OrgChart;
+use App\Http\Resources\WebOrgChart;
 use App\Models\Distributor;
 use Carbon\Carbon;
 
@@ -40,7 +40,7 @@ class OrganizationChartDistributorsController extends Controller
             ->get();
 
         return response()->json(
-            OrgChart::collection($distributors)
+            WebOrgChart::collection($distributors)
         );
 
     }

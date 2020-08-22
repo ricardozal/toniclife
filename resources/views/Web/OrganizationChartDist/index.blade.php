@@ -10,8 +10,8 @@
 
     @push('scripts')
         <script src="{{asset('commons/jquery-ui-1.10.4.custom.min.js')}}"></script>
-        <script src="{{asset('js/admin/org_chart/jQuery.jHTree.js')}}"></script>
-        <script src="{{asset('js/admin/org_chart/index.js')}}"></script>
+        <script src="{{asset('js/Web/org_chart/jQuery.jHTree.js')}}"></script>
+        <script src="{{asset('js/Web/org_chart/index.js')}}"></script>
     @endpush
 
     @push('css')
