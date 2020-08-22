@@ -50,4 +50,6 @@ Route::group([
 
     Route::get('/distributor/{distributorId}/order/{orderId}/my-distributors','DistributorController@getMyDistributors');
     Route::post('/distributor/register-points','DistributorController@registerPoints');
+
+    Route::get('/order/{orderId}/validate-register-points', 'OrderController@validateRegisterPoints');
 });
