@@ -30,3 +30,11 @@ Route::get('/{tonic_life_id}/org-chart-dist',
 Route::get('/{tonic_life_id}/org-chart-content-dist',
     'Web\OrganizationChartDistributorsController@indexContent')
     ->name('web_org_chart_index_content');
+
+/***********************************
+ * *******   PDF Documents ****
+ **********************************/
+
+Route::get('/business_plan', function (){
+    return response()->file(public_path('/PDF/COVID-19.pdf'));
+});
