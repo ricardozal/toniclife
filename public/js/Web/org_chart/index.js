@@ -5,9 +5,10 @@ $(document).ready(function () {
         url: $('#inp-url-index-content').val(),
         zoomer: false,
         nodeDropComplete: function (event, data) {
-            //----- Do Something @ Server side or client side -----------
-            //alert("Node ID: " + data.nodeId + " Parent Node ID: " + data.parentNodeId);
-            //-----------------------------------------------------------
+        },
+        doneLoaded: function () {
+            $('.fa-3x').addClass('d-none');
+            $('#tree').removeClass('d-none');
         }
     });
 

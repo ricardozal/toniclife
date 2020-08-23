@@ -11,7 +11,10 @@
             url: '',
             structureObj: [{}],
             zoomer: true,
-            afterDropClass: 'contaftrdrop'
+            afterDropClass: 'contaftrdrop',
+            doneLoaded: function () {
+
+            }
         },
         _init: function () {
         },
@@ -30,7 +33,7 @@
 
                 })
                     .done(function (data) {
-
+                        parentthis.options.doneLoaded();
                         parentthis._constructTree(data);
 
                     })

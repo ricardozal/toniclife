@@ -12,6 +12,7 @@ use App\Models\Branch;
 use App\Models\Corporate;
 use App\Models\Country;
 use App\Models\Distributor;
+use App\Models\ExternalGainedPoint;
 use App\Models\Movement;
 use App\Models\NewDistributor;
 use App\Models\Order;
@@ -177,6 +178,17 @@ class OrderController extends Controller
             $corporate = Corporate::whereId(1)->first();
             $corporate->notify(new OrderProcessed($order, new NewDistributor()));
 
+            return response()->json([
+                'success' => true,
+                'message' => 'Compra completada',
+                'data' => [
+                    'message' => $message,
+                    'order_id' => $order->id,
+                    'current_points' => $distributor->fk_id_country == Country::MEX ? $distributor->currentPoints[0]->accumulated_points : $distributor->currentPoints[0]->accumulated_money,
+
+                ]
+            ]);
+
         } catch (\Throwable $e){
             \DB::rollBack();
             return response()->json([
@@ -189,16 +201,6 @@ class OrderController extends Controller
                 ]
             ]);
         }
-        return response()->json([
-            'success' => true,
-            'message' => 'Compra completada',
-            'data' => [
-                'message' => $message,
-                'order_id' => $order->id,
-                'current_points' => $distributor->fk_id_country == Country::MEX ? $distributor->currentPoints[0]->accumulated_points : $distributor->currentPoints[0]->accumulated_money,
-
-            ]
-        ]);
 
     }
 
@@ -378,6 +380,65 @@ class OrderController extends Controller
             'success' => true,
             'message' => 'Todo bien',
             'data' => OrderWS::make($order)
+        ]);
+
+    }
+
+    public function validateRegisterPoints($orderId){
+
+        /** @var Order $order */
+        $order = Order::find($orderId);
+
+        $dateOrder = Carbon::parse($order->created_at);
+
+        $orderUsed = ExternalGainedPoint::whereFkIdOrder($order->id)->get()->count();
+
+        $today = Carbon::now();
+        $day = $today->day;
+        $month = $today->month;
+        $year = $today->year;
+
+        if($day < 26){
+            $monthBefore = Carbon::now()->subMonth()->month;
+            $beginDate = Carbon::create($year,$monthBefore,26);
+            $endDate = Carbon::create($year,$monthBefore,25)->addMonth();
+        } else {
+            $beginDate = Carbon::create($year,$month,26);
+            $endDate = Carbon::create($year,$month,25)->addMonth();
+        }
+
+        if(!$dateOrder->isBetween($beginDate, $endDate)){
+            return response()->json([
+                'success' => false,
+                'message' => 'La orden de compra no se encuentra en el periodo actual',
+                'data' => null
+            ]);
+        }
+
+        if($orderUsed > 0){
+
+            return response()->json([
+                'success' => false,
+                'message' => 'La orden de compra ya ha sido utilizada para repartir puntos anteriormente',
+                'data' => null
+            ]);
+
+        }
+
+        if($order->total_accumulated_points == 0){
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Esta orden de compra no generó puntos',
+                'data' => null
+            ]);
+
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Proceder con registro de puntos',
+            'data' => null
         ]);
 
     }

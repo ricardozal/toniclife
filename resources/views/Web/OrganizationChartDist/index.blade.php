@@ -38,7 +38,10 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div id="tree">
+                <div class="fa-3x text-center">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <div id="tree" class="d-none">
                 </div>
             </div>
         </div>
