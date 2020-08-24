@@ -18,6 +18,7 @@ use App\Models\Distributor;
 use App\Models\ExternalGainedPoint;
 use App\Models\NewDistributor;
 use App\Models\Order;
+use App\Models\PointsHistory;
 use App\Notifications\OrderProcessed;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -325,13 +326,42 @@ class DistributorController extends Controller
 
         $today = Carbon::now();
 
+        /** @var Distributor $distributorParent */
+        $distributorParent = Distributor::find($order->fk_id_distributor);
+
+        $currentDistPointsId = $distributorParent->currentPoints[0]->id;
+        /** @var PointsHistory $distPointsHistory */
+        $distPointsHistory = PointsHistory::find($currentDistPointsId);
+
+        $count = 0;
+        $toniIdsRejected = "";
+
+        foreach ($distributors as $distributorItem){
+            foreach ($distributorParent->distributors()->where('fk_id_country', $order->branch->address->fk_id_country)->get() as $childDist) {
+                if($childDist->tonic_life_id == $distributorItem['id']){
+                    $count++;
+                    $toniIdsRejected .= $distributorItem['id'].", ";
+                } else {
+                    break;
+                }
+            }
+        }
+
+        if($count != count($distributors)){
+            return response()->json([
+                'success' => false,
+                'message' => $count == 0 ? 'Ningún ID Tonic Life ingresado puede ser procesado' : ($count == 1 ? 'Solo el ID Tonic Life '.$toniIdsRejected. ' podrá ser procesado, verifique los demás.' : 'Solo los ID Tonic Life '.$toniIdsRejected. ' podrán ser procesados, verifique los demás.'),
+                'data' => null
+            ]);
+        }
+
         try{
             \DB::beginTransaction();
 
             foreach ($distributors as $distributorItem){
 
                 /** @var Distributor $distributor */
-                $distributor = Distributor::find($distributorItem['id']);
+                $distributor = Distributor::whereTonicLifeId($distributorItem['id'])->first();
 
                 foreach ($distributor->accumulatedPointsHistory as $point)
                 {
@@ -350,6 +380,12 @@ class DistributorController extends Controller
                         $externalPoints->fk_id_point_history = $point->id;
                         $externalPoints->fk_id_order = $order->id;
                         $externalPoints->save();
+
+                        $distPointsHistory->accumulated_points = $distributorParent->fk_id_country == Country::MEX ? $distPointsHistory->accumulated_points-$distributorItem['points'] : $distPointsHistory->accumulated_points;
+                        $distPointsHistory->accumulated_money = $distributorParent->fk_id_country == Country::USA ? $distPointsHistory->accumulated_money-$distributorItem['points'] : $distPointsHistory->accumulated_money;
+                        $distPointsHistory->save();
+                        $distPointsHistory->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributorParent->id);
+                        $distPointsHistory->save();
 
                     } else{
 
@@ -380,6 +416,12 @@ class DistributorController extends Controller
                         $externalPoints->fk_id_point_history = $point->id;
                         $externalPoints->fk_id_order = $order->id;
                         $externalPoints->save();
+
+                        $distPointsHistory->accumulated_points = $distributorParent->fk_id_country == Country::MEX ? $distPointsHistory->accumulated_points-$distributorItem['points'] : $distPointsHistory->accumulated_points;
+                        $distPointsHistory->accumulated_money = $distributorParent->fk_id_country == Country::USA ? $distPointsHistory->accumulated_money-$distributorItem['points'] : $distPointsHistory->accumulated_money;
+                        $distPointsHistory->save();
+                        $distPointsHistory->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributorParent->id);
+                        $distPointsHistory->save();
                     }
                 }
 
