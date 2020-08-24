@@ -7,8 +7,8 @@ Route::get('/',
         return redirect('/home');
     });
 
-Route::get('/home',
-    'HomeController@index')
+Route::get('/home/{locale}',
+    'HomeController@indexHome')
     ->name('branch_home');
 
 /** Inventory **/

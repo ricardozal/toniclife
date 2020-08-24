@@ -117,31 +117,30 @@
         <span>
             <i class="fas fa-boxes"></i>
         </span>
-            <span class="sidebar-text">Inventario</span>
+            <span class="sidebar-text">{{ trans('español.inventario') }}</span>
         </a>
         <a class="nav-link {{$routeName == 'branch_shipping_index' ? 'active' : ''}}"
            href="{{route('branch_shipping_index')}}">
         <span>
             <i class="fas fa-paper-plane"></i>
         </span>
-            <span class="sidebar-text">Envíos</span>
+            <span class="sidebar-text">{{ trans('español.envios') }}</span>
         </a>
         <a class="nav-link {{$routeName == 'branch_pickup_index' ? 'active' : ''}}"
            href="{{route('branch_pickup_index')}}">
             <span>
                 <i class="fas fa-store"></i>
             </span>
-            <span class="sidebar-text">Entregas</span>
+            <span class="sidebar-text">{{ trans('español.entregas') }}</span>
         </a>
-        <div class="text-center m-md-auto">
+
+        <div class="text-center m-md-auto ">
             <span class="sidebar-text " style="color: white">Seleccione un idioma</span>
-            <a class="nav-link "
-               href="">
+            <br>
 
-                <img src="{{asset('img/icons/mexico.png')}}" style="height: 30px">
-                <img src="{{asset('img/icons/eu2.png')}} " style="height: 30px" >
+            <a href="{{ route('branch_home',['locale'=>'es'])}}"><img src="{{asset('img/icons/mexico.png')}}" style="height: 30px"></a>
+            <a href="{{ route('branch_home',['locale'=>'en'])}}"><img src="{{asset('img/icons/eu2.png')}}" style="height: 30px"></a>
 
-            </a>
         </div>
 
     @endif
