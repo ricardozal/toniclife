@@ -124,14 +124,14 @@
         <span>
             <i class="fas fa-paper-plane"></i>
         </span>
-            <span class="sidebar-text">{{ trans('español.envios') }}</span>
+            <span class="sidebar-text">{{ trans('ingles.envios') }}</span>
         </a>
         <a class="nav-link {{$routeName == 'branch_pickup_index' ? 'active' : ''}}"
            href="{{route('branch_pickup_index')}}">
             <span>
                 <i class="fas fa-store"></i>
             </span>
-            <span class="sidebar-text">{{ trans('español.entregas') }}</span>
+            <span class="sidebar-text">{{ trans('ingles.entregas') }}</span>
         </a>
 
         <div class="text-center m-md-auto ">
