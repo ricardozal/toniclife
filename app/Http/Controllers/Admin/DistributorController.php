@@ -24,6 +24,13 @@ class DistributorController extends Controller
     public function indexContent(Request $request)
     {
 
+        $distributors = Distributor::all();
+        $dists = [];
+
+        foreach ($distributors as $dist){
+            $dists[] = $dist->currentPoints[0]->fk_id_distributor;
+        }
+
         $query = Distributor::with(['distributor','currentPoints','country'])->get();
 
         return response()->json([
