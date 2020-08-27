@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\PointsHistory;
 use Carbon\Carbon;
 use \Illuminate\Database\Seeder;
 use \Illuminate\Support\Facades\DB;
@@ -61,36 +62,12 @@ class OrderSeeder extends Seeder
             'created_at'=>Carbon::now()->toDateString()
         ]);
 
-        $today = Carbon::now();
-
-        foreach ($distributor->accumulatedPointsHistory as $point)
-        {
-            $begin = Carbon::parse($point->begin_period);
-            $end = Carbon::parse($point->end_period);
-            if ($today->between($begin,$end))
-            {
-                $point->accumulated_points = $point->accumulated_points+$points;
-                $point->accumulated_money = $point->accumulated_money+$totalPrice;
-                $point->save();
-                $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
-                $point->save();
-            } else{
-
-                $month = $today->month;
-                $year = $today->year;
-                $beginDate = Carbon::create($year,$month,25);
-                $endDate = $beginDate->addMonth()->addDay();
-
-                $point = new \App\Models\PointsHistory();
-                $point->begin_period = $beginDate;
-                $point->end_period = $endDate;
-                $point->accumulated_points = $points;
-                $point->accumulated_money = $totalPrice;
-                $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
-                $point->fk_id_distributor = $distributor->id;
-                $point->save();
-            }
-        }
+        $point = PointsHistory::find($distributor->currentPoints->first()->id);
+        $point->accumulated_points = $point->accumulated_points+$points;
+        $point->accumulated_money = $point->accumulated_money+$totalPrice;
+        $point->save();
+        $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
+        $point->save();
 
         DB::table('order_product')->insert([
             'price' => (($product1->distributor_price*2)+(($product1->country->tax_percentage*0.01)*($product1->distributor_price*2))),
@@ -141,37 +118,12 @@ class OrderSeeder extends Seeder
             'created_at'=>Carbon::now()->toDateString()
         ]);
 
-        $today = Carbon::now();
-
-        foreach ($distributor->accumulatedPointsHistory as $point)
-        {
-            $begin = Carbon::parse($point->begin_period);
-            $end = Carbon::parse($point->end_period);
-            if ($today->between($begin,$end))
-            {
-                $point->accumulated_points = $point->accumulated_points+$pointsKit;
-                $point->accumulated_money = $point->accumulated_money+$totalKitPrice;
-                $point->save();
-                $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
-                $point->save();
-            } else{
-
-                $month = $today->month;
-                $year = $today->year;
-                $beginDate = Carbon::create($year,$month,25);
-                $endDate = $beginDate->addMonth()->addDay();
-
-                $point = new \App\Models\PointsHistory();
-                $point->begin_period = $beginDate;
-                $point->end_period = $endDate;
-                $point->accumulated_points = $points;
-                $point->accumulated_money = $totalPrice;
-                $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
-                $point->fk_id_distributor = $distributor->id;
-                $point->save();
-            }
-        }
-
+        $point = PointsHistory::find($distributor->currentPoints->first()->id);
+        $point->accumulated_points = $point->accumulated_points+$pointsKit;
+        $point->accumulated_money = $point->accumulated_money+$totalKitPrice;
+        $point->save();
+        $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
+        $point->save();
 
         DB::table('order_product')->insert([
             'price' => (($product4->distributor_price)+(($product4->country->tax_percentage*0.01)*($product4->distributor_price))),

@@ -146,12 +146,46 @@ class Distributor extends Authenticatable
 
     public function currentPoints()
     {
-        return $this->hasMany(
+        $currentPoints = $this->hasMany(
             PointsHistory::class,
             'fk_id_distributor',
             'id'
         )->whereDate('begin_period', '<=', Carbon::now())
          ->whereDate('end_period', '>=', Carbon::now());
+
+        if($currentPoints->get()->count() == 0){
+            $today = Carbon::now();
+            $day = $today->day;
+            $month = $today->month;
+            $year = $today->year;
+
+            if($day < 26){
+                $monthBefore = Carbon::now()->subMonth()->month;
+                $beginDate = Carbon::create($year,$monthBefore,26);
+                $endDate = Carbon::create($year,$monthBefore,25)->addMonth();
+            } else {
+                $beginDate = Carbon::create($year,$month,26);
+                $endDate = Carbon::create($year,$month,25)->addMonth();
+            }
+
+            $point = new \App\Models\PointsHistory();
+            $point->begin_period = $beginDate;
+            $point->end_period = $endDate;
+            $point->accumulated_points = 0;
+            $point->accumulated_money = 0;
+            $point->fk_id_accumulated_points_status = $this->fk_id_country == Country::MEX ? 1 : 2;
+            $point->fk_id_distributor = $this->id;
+            $point->save();
+
+            $currentPoints = $this->hasMany(
+                PointsHistory::class,
+                'fk_id_distributor',
+                'id'
+            )->whereDate('begin_period', '<=', Carbon::now())
+                ->whereDate('end_period', '>=', Carbon::now());
+        }
+
+        return $currentPoints;
     }
 
     public function country()
