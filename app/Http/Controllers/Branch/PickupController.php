@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Auth;
 class PickupController extends Controller
 {
     public  function index()
+
     {
+        $locale= session()->get('branch.home.index');
+        app()->setLocale($locale);
         return view('admin.shipping.shippingToBranch.index');
     }
 

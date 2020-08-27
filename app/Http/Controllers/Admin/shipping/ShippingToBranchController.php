@@ -17,6 +17,8 @@ class ShippingToBranchController extends Controller
 {
     public  function indexShipping()
     {
+
+
         return view('admin.shipping.shippingToBranch.index');
     }
 

@@ -1,5 +1,5 @@
 <div class="d-flex flex-column align-items-center mb-5">
-    <h4 class="text-header mt-2">Modificar stock de {{$product->name}}</h4>
+    <h4 class="text-header mt-2">{{trans('index.ms')}} {{$product->name}}</h4>
 </div>
 <div class="row">
     <form id="form-update" action="{{route('branch_inventory_update_post')}}"

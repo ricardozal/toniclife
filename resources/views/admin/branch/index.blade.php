@@ -35,6 +35,10 @@
         </div>
     </div>
 
+    @php
+        $language = app()->getLocale();
+    @endphp
+
     <input id="inp-url-index-content" type="hidden"
            value="{{route('admin_branch_index_content')}}">
     <input id="inp-url-active" type="hidden"

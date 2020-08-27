@@ -1,5 +1,5 @@
 <div class="d-flex flex-column align-items-center mb-5">
-    <h4 class="text-header mt-2">Agregar producto</h4>
+    <h4 class="text-header mt-2">{{trans('index.agregar')}}</h4>
 </div>
 <div class="row">
     <form id="form-upsert" action="{{route('branch_inventory_create_post')}}"
@@ -9,7 +9,7 @@
         <div class="row w-75">
             <div class="col-12">
                 <div class="form-group focused">
-                    <label for="name" class="focused form-label">Nombre del producto</label>
+                    <label for="name" class="focused form-label">{{trans('index.nomp')}}</label>
                     <input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" value="" autocomplete="off">
                     <span class="invalid-feedback">{{ $errors->first('name') }}</span>
                 </div>
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group text-center w-75">
             <button type="submit" class="btn btn-primary">
-                Agregar producto
+                {{trans('index.agregar')}}
             </button>
         </div>
     </form>

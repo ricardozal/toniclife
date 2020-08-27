@@ -117,25 +117,25 @@
         <span>
             <i class="fas fa-boxes"></i>
         </span>
-            <span class="sidebar-text">{{ trans('español.inventario') }}</span>
+            <span class="sidebar-text">{{ trans('index.inv') }}</span>
         </a>
         <a class="nav-link {{$routeName == 'branch_shipping_index' ? 'active' : ''}}"
            href="{{route('branch_shipping_index')}}">
         <span>
             <i class="fas fa-paper-plane"></i>
         </span>
-            <span class="sidebar-text">{{ trans('ingles.envios') }}</span>
+            <span class="sidebar-text">{{ trans('index.env') }}</span>
         </a>
         <a class="nav-link {{$routeName == 'branch_pickup_index' ? 'active' : ''}}"
            href="{{route('branch_pickup_index')}}">
             <span>
                 <i class="fas fa-store"></i>
             </span>
-            <span class="sidebar-text">{{ trans('ingles.entregas') }}</span>
+            <span class="sidebar-text">{{ trans('index.ent') }}</span>
         </a>
 
         <div class="text-center m-md-auto ">
-            <span class="sidebar-text " style="color: white">Seleccione un idioma</span>
+            <span class="sidebar-text " style="color: white">{{ trans('index.idioma') }}</span>
             <br>
 
             <a href="{{ route('branch_home',['locale'=>'es'])}}"><img src="{{asset('img/icons/mexico.png')}}" style="height: 30px"></a>
@@ -149,7 +149,7 @@
         <span>
             <i class="fas fa-sign-out-alt"></i>
         </span>
-        <span class="sidebar-text">Cerrar Sesión</span>
+        <span class="sidebar-text">{{ trans('index.cerrar') }}</span>
     </a>
 </nav>
 

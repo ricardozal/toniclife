@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12 justify-content-center d-flex align-items-center">
-                    <strong class="text-color-primary" style="font-size: 150%">Recoger en sucursal</strong>
+                    <strong class="text-color-primary" style="font-size: 150%">{{trans('index.rs')}}</strong>
                 </div>
             </div>
 
@@ -16,10 +16,10 @@
                     <table id="table-data" class="table table-striped table-bordered dt-responsive text-center" style="width:100%">
                         <thead>
                         <tr>
-                            <th>Sucursal</th>
-                            <th>Distribuidor</th>
-                            <th>No. orden</th>
-                            <th>Fecha compra</th>
+                            <th>{{trans('index.suc')}}</th>
+                            <th>{{trans('index.dis')}}</th>
+                            <th>{{trans('index.no')}}</th>
+                            <th>{{trans('index.date')}}</th>
                             <th>Status</th>
                             <th>Ticket</th>
                             <th>Status</th>

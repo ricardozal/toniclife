@@ -9,13 +9,13 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12 justify-content-center d-flex align-items-center">
-                    <strong class="text-color-primary" style="font-size: 150%">Inventario de {{$branch->name}}</strong>
+                    <strong class="text-color-primary" style="font-size: 150%">{{trans('index.invmetepec')}} {{$branch->name}}</strong>
                 </div>
             </div>
             <div class="row my-4">
                 <div class="col-12 justify-content-end d-flex align-items-center">
                     <a id="create-btn" class="btn btn-primary" href="{{route('branch_inventory_create')}}">
-                        Agregar producto
+                        {{trans('index.agregar')}}
                     </a>
                 </div>
             </div>
@@ -24,10 +24,10 @@
                     <table id="table-data" class="table table-striped table-bordered dt-responsive text-center" style="width:100%">
                         <thead>
                         <tr>
-                            <th>Código</th>
-                            <th>Producto</th>
-                            <th>Stock</th>
-                            <th>Opciones</th>
+                            <th>{{trans('index.cod')}}</th>
+                            <th>{{trans('index.prod')}}</th>
+                            <th>{{trans('index.st')}}</th>
+                            <th>{{trans('index.opc')}}</th>
                         </tr>
                         </thead>
                     </table>

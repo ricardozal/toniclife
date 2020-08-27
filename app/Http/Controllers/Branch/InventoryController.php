@@ -18,6 +18,10 @@ class InventoryController extends Controller
     public function index()
     {
         $branch = Branch::find(Auth::user()->branch->id);
+
+        $locale= session()->get('branch.home.index');
+        app()->setLocale($locale);
+
         return view('branch.inventory.index',[
             'branch' => $branch
         ]);
@@ -41,6 +45,7 @@ class InventoryController extends Controller
 
     public function updatePost(InventoryLocalUpdateRequest $request)
     {
+
         $productId = $request->input('productId');
         $stock = $request->input('stock');
         $type = $request->input('type');
@@ -84,6 +89,11 @@ class InventoryController extends Controller
             ]);
         } catch (\Throwable $e){
             \DB::rollBack();
+
+//            $language = app()->getLocale();
+//
+//            session()->put('branch.home.index',$language);
+
             return response()->json([
                 'success' => false,
                 'message' => 'Error durante el proceso',
@@ -95,6 +105,8 @@ class InventoryController extends Controller
 
     public function create()
     {
+        $locale= session()->get('branch.home.index');
+        app()->setLocale($locale);
         return view('branch.inventory.create');
     }
 

@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12 justify-content-center d-flex align-items-center">
-                    <strong class="text-color-primary" style="font-size: 150%">Envíos</strong>
+                    <strong class="text-color-primary" style="font-size: 150%">{{trans('index.env')}}</strong>
                 </div>
             </div>
 
@@ -16,14 +16,14 @@
                     <table id="table-data" class="table table-striped table-bordered dt-responsive text-center" style="width:100%">
                         <thead>
                         <tr>
-                            <th>Sucursal</th>
-                            <th>Origen</th>
-                            <th>Destino</th>
-                            <th>Folio orden de compra</th>
-                            <th>Fecha compra</th>
-                            <th>Número de guía</th>
+                            <th>{{trans('index.suc')}}</th>
+                            <th>{{trans('index.org')}}</th>
+                            <th>{{trans('index.des')}}</th>
+                            <th>{{trans('index.fol')}}a</th>
+                            <th>{{trans('index.date')}}</th>
+                            <th>{{trans('index.ng')}}</th>
                             <th>Status</th>
-                            <th>Opciones</th>
+                            <th>{{trans('index.opc')}}</th>
                         </tr>
                         </thead>
                     </table>
@@ -31,6 +31,7 @@
             </div>
         </div>
     </div>
+
 
     <input id="inp-url-index-content" type="hidden"
            value="{{Auth::user()->isBranch() ? route('branch_shipping_index_content') : route('admin_shipping_index_content')}}">

@@ -14,7 +14,7 @@ class HomeController extends Controller
 
         $language = app()->getLocale();
 
-//        session()->put('idioma',$language);
+        session()->put('branch.home.index',$language);
 
         return view('branch.home.index');
     }

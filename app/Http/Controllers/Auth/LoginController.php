@@ -58,7 +58,7 @@ class LoginController extends Controller
             if (Auth::user()->hasRole('Administrador')) {
                 return redirect(route('admin_home'));
             } elseif (Auth::user()->hasRole('Sucursal')) {
-                return redirect(route('branch_home'));
+                return redirect(route('branch_home',['locale'=>'es']));
             }
         }
 

@@ -18,6 +18,8 @@ class ShippingController extends Controller
 {
     public function index()
     {
+        $locale= session()->get('branch.home.index');
+        app()->setLocale($locale);
         return view('admin.shipping.shipping.index');
     }
 
