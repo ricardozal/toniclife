@@ -176,7 +176,7 @@ class Distributor extends Authenticatable
             $point->fk_id_accumulated_points_status = $this->fk_id_country == Country::MEX ? 1 : 2;
             $point->fk_id_distributor = $this->id;
             $point->save();
-        } else {
+
             $currentPoints = $this->hasMany(
                 PointsHistory::class,
                 'fk_id_distributor',

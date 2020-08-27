@@ -18,6 +18,7 @@ use App\Models\NewDistributor;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\PaymentMethod;
+use App\Models\PointsHistory;
 use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\ReorderRequest;
@@ -83,44 +84,12 @@ class OrderController extends Controller
 
             $order->saveOrFail();
 
-            $today = Carbon::now();
-
-            foreach ($distributor->accumulatedPointsHistory as $point)
-            {
-                $begin = Carbon::parse($point->begin_period);
-                $end = Carbon::parse($point->end_period);
-                if ($today->between($begin,$end))
-                {
-                    $point->accumulated_points = $point->accumulated_points+$points;
-                    $point->accumulated_money = $point->accumulated_money+$totalPrice;
-                    $point->save();
-                    $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
-                    $point->save();
-                } else{
-
-                    $day = $today->day;
-                    $month = $today->month;
-                    $year = $today->year;
-
-                    if($day < 26){
-                        $monthBefore = Carbon::now()->subMonth()->month;
-                        $beginDate = Carbon::create($year,$monthBefore,26);
-                        $endDate = Carbon::create($year,$monthBefore,25)->addMonth();
-                    } else {
-                        $beginDate = Carbon::create($year,$month,26);
-                        $endDate = Carbon::create($year,$month,25)->addMonth();
-                    }
-
-                    $point = new \App\Models\PointsHistory();
-                    $point->begin_period = $beginDate;
-                    $point->end_period = $endDate;
-                    $point->accumulated_points = $points;
-                    $point->accumulated_money = $totalPrice;
-                    $point->fk_id_accumulated_points_status = $distributor->fk_id_country == Country::MEX ? 1 : 2;
-                    $point->fk_id_distributor = $distributor->id;
-                    $point->save();
-                }
-            }
+            $point = PointsHistory::find($distributor->currentPoints->first()->id);
+            $point->accumulated_points = $point->accumulated_points+$points;
+            $point->accumulated_money = $point->accumulated_money+$totalPrice;
+            $point->save();
+            $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
+            $point->save();
 
             $reorder = new ReorderRequest();
             $reorder->fk_id_distributor = $distributor->id;
@@ -162,15 +131,15 @@ class OrderController extends Controller
             $amount = 0;
 
             if($countryId == Country::USA){
-                $amount = $distributor->currentPoints[0]->accumulated_money;
+                $amount = $distributor->fresh()->currentPoints[0]->accumulated_money;
             } elseif ($countryId == Country::MEX){
-                $amount = $distributor->currentPoints[0]->accumulated_points;
+                $amount = $distributor->fresh()->currentPoints[0]->accumulated_points;
             }
 
-            $message = "La compra con el folio ".$order->id." fue realizada con éxito. ".
-                $distributor->name.", alcanzaste un puntaje de ".$amount.". ".
-                "Periodo: ".DateFormatterService::fullDatetime(Carbon::parse($distributor->currentPoints[0]->begin_period))." al ".DateFormatterService::fullDatetime(Carbon::parse($distributor->currentPoints[0]->end_period)).". ".
-                "Semáforo: ".$distributor->currentPoints[0]->accumulatedPointsStatus->trafficLight->name.". ".
+            $message = "La compra con el folio ".$order->id." fue realizada con éxito. \n".
+                $distributor->name.", alcanzaste un puntaje de ".$amount.". \n".
+                "Periodo: ".DateFormatterService::fullDatetime(Carbon::parse($distributor->fresh()->currentPoints[0]->begin_period))." al ".DateFormatterService::fullDatetime(Carbon::parse($distributor->fresh()->currentPoints[0]->end_period)).". \n".
+                "Semáforo: ".$distributor->fresh()->currentPoints[0]->accumulatedPointsStatus->trafficLight->name.". \n".
                 $indication;
 
             \DB::commit();
@@ -184,7 +153,7 @@ class OrderController extends Controller
                 'data' => [
                     'message' => $message,
                     'order_id' => $order->id,
-                    'current_points' => $distributor->fk_id_country == Country::MEX ? $distributor->currentPoints[0]->accumulated_points : $distributor->currentPoints[0]->accumulated_money,
+                    'current_points' => $distributor->fresh()->fk_id_country == Country::MEX ? $distributor->fresh()->currentPoints[0]->accumulated_points : $distributor->fresh()->currentPoints[0]->accumulated_money,
 
                 ]
             ]);
