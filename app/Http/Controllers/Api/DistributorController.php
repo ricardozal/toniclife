@@ -350,8 +350,8 @@ class DistributorController extends Controller
         if($count != count($distributors)){
             return response()->json([
                 'success' => false,
-                'message' => $count == 0 ? 'Ningún ID Tonic Life ingresado puede ser procesado' : ($count == 1 ? 'Solo el ID Tonic Life '.$toniIdsRejected. ' podrá ser procesado, verifique los demás.' : 'Solo los ID Tonic Life '.$toniIdsRejected. ' podrán ser procesados, verifique los demás.'),
-                'data' => null
+                'message' => 'Atención',
+                'data' => $count == 0 ? 'Ningún ID Tonic Life ingresado puede ser procesado' : ($count == 1 ? 'Solo el ID Tonic Life '.$toniIdsRejected. ' podrá ser procesado, verifique los demás.' : 'Solo los ID Tonic Life '.$toniIdsRejected. ' podrán ser procesados, verifique los demás.')
             ]);
         }
 
@@ -432,7 +432,7 @@ class DistributorController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Todo bien',
-                'data' => null
+                'data' => 'Registro de puntos exitoso'
             ]);
 
         } catch (\Throwable $e){
@@ -440,7 +440,7 @@ class DistributorController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error durante el proceso',
-                'data' => null
+                'data' => 'Intentelo más tarde'
             ]);
         }
 
