@@ -10,7 +10,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'8784',
             'name'=>'ABY LIFE 500 ML',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>244.83,
             'points'=>245,
             'fk_id_country'=>1
@@ -19,7 +19,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'8692',
             'name'=>'ABY LIFE 200 G TE',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>180.00,
             'points'=>180,
             'fk_id_country'=>1
@@ -28,7 +28,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'8623',
             'name'=>'ABY LIFE 60 CAPS',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>180.17,
             'points'=>180,
             'fk_id_country'=>1
@@ -37,7 +37,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'9385',
             'name'=>'AMARANTO 200 G',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>36.00,
             'points'=>0,
             'fk_id_country'=>1
@@ -46,7 +46,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'9439',
             'name'=>'AVENA 300 G',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>36.00,
             'points'=>0,
             'fk_id_country'=>1
@@ -55,7 +55,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'9378',
             'name'=>'AZUCAR MASCABADO 500 G',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>36.00,
             'points'=>0,
             'fk_id_country'=>1
@@ -64,7 +64,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'8166',
             'name'=>'BABA DE CARACOL 150 G',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>231.03,
             'points'=>231,
             'fk_id_country'=>1
@@ -73,7 +73,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'9200',
             'name'=>'BP & S0 30 CAPS',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>405.17,
             'points'=>405,
             'fk_id_country'=>1
@@ -82,7 +82,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'8340',
             'name'=>'BRONIX REFORZADO CON JENGIBRE 240 ML',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>180.17,
             'points'=>180,
             'fk_id_country'=>1
@@ -91,7 +91,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'8760',
             'name'=>'CINERARIA MARITIMA 20 ML',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>90.52,
             'points'=>91,
             'fk_id_country'=>1
@@ -100,7 +100,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'9224BB',
             'name'=>'COLAGENO BLUE BERRY 400 G',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>332.76,
             'points'=>333,
             'fk_id_country'=>1
@@ -109,7 +109,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'9224FT',
             'name'=>'COLAGENO FRUTAS TROPICALES 400 G',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>332.76,
             'points'=>333,
             'fk_id_country'=>1
@@ -118,7 +118,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'9194',
             'name'=>'COLAGENO 30 CAPS',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>167.24,
             'points'=>167,
             'fk_id_country'=>1
@@ -127,7 +127,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'8661M',
             'name'=>'COURE TONIC - SOBRE C/3 CAPS',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>10.34,
             'points'=>10,
             'fk_id_country'=>1
@@ -136,7 +136,7 @@ class ProductsMexSeeder extends Seeder
         DB::table('product')->insert([
             'code'=>'8661',
             'name'=>'COURE TONIC 60 CAPS',
-            'image_url'=>'https://picsum.photos/id/' . rand(200, 300) . '/500/500',
+            'image_url'=>'products/8142.jpg',
             'distributor_price'=>180.17,
             'points'=>180,
             'fk_id_country'=>1

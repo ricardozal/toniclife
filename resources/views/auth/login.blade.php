@@ -53,28 +53,11 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-12 text-center">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                                        <label class="custom-control-label" for="remember">Recordar mi sesión</label>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="row text-center my-3">
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary">
                                         Iniciar sesión
                                     </button>
-                                </div>
-                            </div>
-
-                            <div class="row my-3 text-center">
-                                <div class="col-12">
-                                    <a class="btn btn-link" href="#">
-                                        ¿Has olvidado tu contraseña?
-                                    </a>
                                 </div>
                             </div>
 

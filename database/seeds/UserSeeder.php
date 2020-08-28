@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
 
         DB::table('corporate_data')->insert([
             'name' => 'Corporativo',
-            'phone' => '+5217223490089',
+            'email' => 'bigtechsolutions.mx@gmail.com',
         ]);
 
     }
@@ -129,7 +129,7 @@ class UserSeeder extends Seeder
     {
         DB::table('user')->insert([
             [
-                'email' => 'admin@fenix.com.mx',
+                'email' => 'admin@gjana.com.mx',
                 'password' => bcrypt('70nic1if3'),
                 'name' => 'Alejandra',
                 'fk_id_role' => 1,

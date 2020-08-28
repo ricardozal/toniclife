@@ -413,7 +413,8 @@ class CreateToniclifeSchema extends Migration
         Schema::create('corporate_data', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('phone');
+            $table->string('phone')->nullable();
+            $table->string('email');
         });
     }
 
