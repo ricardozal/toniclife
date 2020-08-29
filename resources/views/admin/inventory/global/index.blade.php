@@ -1,6 +1,6 @@
 @extends('template.main')
 @push('scripts')
-    <script src="{{asset('js/admin/inventory/Global/index.js')}}"></script>
+    <script src="{{asset('js/admin/inventory/Global/index.js?v=2')}}"></script>
 @endpush
 @section('content')
 

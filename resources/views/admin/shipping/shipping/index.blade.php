@@ -1,6 +1,6 @@
 @extends('template.main')
 @push('scripts')
-    <script src="{{asset('js/admin/shipping/index.js')}}"></script>
+    <script src="{{asset('js/admin/shipping/index.js?v=2')}}"></script>
 @endpush
 @section('content')
     <div class="row mt-5 mx-0">
@@ -19,7 +19,7 @@
                             <th>{{trans('index.suc')}}</th>
                             <th>{{trans('index.org')}}</th>
                             <th>{{trans('index.des')}}</th>
-                            <th>{{trans('index.fol')}}a</th>
+                            <th>{{trans('index.fol')}}</th>
                             <th>{{trans('index.date')}}</th>
                             <th>{{trans('index.ng')}}</th>
                             <th>Status</th>

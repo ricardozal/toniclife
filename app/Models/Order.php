@@ -4,6 +4,8 @@
 namespace App\Models;
 
 
+use App\Services\DateFormatterService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -67,6 +69,13 @@ class Order extends Model
         'fk_id_branch',
         'fk_id_payment_method'
     ];
+
+    protected  $appends = ['format_date'];
+
+    public function getFormatDateAttribute()
+    {
+        return DateFormatterService::fullDatetime(Carbon::parse($this->created_at));
+    }
 
     public function distributor()
     {

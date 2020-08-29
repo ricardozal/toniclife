@@ -10,7 +10,7 @@ $(document).ready(function () {
             {"data": "branch.address.FullAddress"},
             {"data": "shipping_address.FullAddress"},
             {"data": "id"},
-            {"data": "created_at"},
+            {"data": "format_date"},
             {
                 "data": null,
                 render:function(data, type, row )
@@ -59,7 +59,8 @@ $(document).ready(function () {
                 "next": "Siguiente",
                 "previous": "Anterior"
             },
-            "lengthMenu": "Mostrar _MENU_ envíos"
+            "lengthMenu": "Mostrar _MENU_ envíos",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)"
         },
         "ordering": false
     });

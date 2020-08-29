@@ -42,4 +42,9 @@ class Category extends Model
         );
     }
 
+    public static function asMap()
+    {
+        return self::whereActive(true)->pluck('name', 'id');
+    }
+
 }

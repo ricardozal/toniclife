@@ -8,8 +8,14 @@ $(document).ready(function () {
         "columns": [
             {"data": "distributor.name"},
             {"data": "payment_method.name"},
-            { "data": "created_at" },
-            { "data": "total_price" },
+            { "data": "format_date" },
+            {
+                "data": null,
+                render:function(data)
+                {
+                    return formatterMoney.format(data.total_price);
+                },
+            },
             { "data": "status.name" },
             {
                 "data": null,
@@ -48,7 +54,8 @@ $(document).ready(function () {
                 "next": "Siguiente",
                 "previous": "Anterior"
             },
-            "lengthMenu": "Mostrar _MENU_order"
+            "lengthMenu": "Mostrar _MENU_order",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)"
         },
         "ordering": false
 
@@ -61,6 +68,12 @@ $(document).ready(function () {
         modalTools.renderView('modal-upsert', url, true,function () {
 
         });
+    });
+
+    const formatterMoney = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
     });
 
 });

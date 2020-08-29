@@ -53,7 +53,8 @@ $(document).ready(function () {
                 "next": "Siguiente",
                 "previous": "Anterior"
             },
-            "lengthMenu": "Mostrar _MENU_ paqueterías"
+            "lengthMenu": "Mostrar _MENU_ paqueterías",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)"
         },
         "ordering": false
     });

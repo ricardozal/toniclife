@@ -70,7 +70,8 @@ $(document).ready(function () {
                 "next": "Siguiente",
                 "previous": "Anterior"
             },
-            "lengthMenu": "Mostrar _MENU_ distribuidores"
+            "lengthMenu": "Mostrar _MENU_ distribuidores",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)"
         },
         "ordering": false
     });
@@ -171,6 +172,8 @@ $(document).ready(function () {
 
         $inpItem.autocomplete({
             serviceUrl: url,
+            showNoSuggestionNotice: true,
+            noSuggestionNotice: "<h5><strong>No se encontraron coincidencias</strong></h5>",
             onSelect: function (suggestion) {
                 $('#fk_id_distributor').val(suggestion.id);
                 $inpItem.val(suggestion.value);

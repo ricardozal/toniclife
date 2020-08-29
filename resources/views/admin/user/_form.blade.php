@@ -56,6 +56,7 @@
         <div class="form-group form-select focused">
             <label for="fk_id_branch" class="focused form-label">Sucursal</label>
             <select class="form-control" id="fk_id_branch" name="fk_id_branch">
+                <option value="0">-- Elegir sucursal --</option>
                 @foreach(\App\Models\Branch::asMap() as $id => $name)
                     <option value="{{$id}}" {{isset($user) ? ($user->fk_id_branch == $id ? 'selected' : '') : ''}}>{{$name}}</option>
                 @endforeach

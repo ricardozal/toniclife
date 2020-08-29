@@ -41,6 +41,16 @@
 <div class="row w-75">
     <div class="col-12">
         <div class="form-group focused">
+            <label for="int_num" class="focused form-label">Número Interior</label>
+            <input type="text" class="form-control" autocomplete="off" id="int_num" name="int_num" value="{{ isset($branch) ? $branch->address->int_num : null}}">
+            <span class="invalid-feedback">{{ $errors->first('int_num') }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row w-75">
+    <div class="col-12">
+        <div class="form-group focused">
             <label for="colony" class="focused form-label">Colonia</label>
             <input type="text" class="form-control" autocomplete="off" id="colony" name="colony" value="{{ isset($branch) ? $branch->address->colony : null}}">
             <span class="invalid-feedback">{{ $errors->first('colony') }}</span>

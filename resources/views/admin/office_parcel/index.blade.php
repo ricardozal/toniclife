@@ -1,7 +1,7 @@
 @extends('template.main')
 @push('scripts')
 
-    <script src="{{asset('js/admin/office_parcel/index.js')}}"></script>
+    <script src="{{asset('js/admin/office_parcel/index.js?v=2')}}"></script>
 @endpush
 @section('content')
 

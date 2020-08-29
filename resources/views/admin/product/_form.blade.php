@@ -69,6 +69,20 @@
     </div>
 </div>
 
+<div class="row w-75">
+    <div class="col-12">
+        <div class="form-group form-select focused">
+            <label for="fk_id_category" class="focused form-label">Categoría</label>
+            <select class="form-control" id="fk_id_category" name="fk_id_category">
+                <option value="0">-- Elegir categoría --</option>
+                @foreach(\App\Models\Category::asMap() as $id => $name)
+                    <option value="{{$id}}" {{isset($product) ? ($product->fk_id_category == $id ? 'selected' : '') : ''}}>{{$name}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+</div>
+
 <div class="row w-75 mb-3">
     <div class="col-12">
         <div class="custom-control custom-checkbox">

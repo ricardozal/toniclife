@@ -1,7 +1,7 @@
 @extends('template.main')
 @push('scripts')
 
-    <script src="{{asset('js/admin/category/index.js')}}"></script>
+    <script src="{{asset('js/admin/category/index.js?v=2')}}"></script>
 @endpush
 @section('content')
 
@@ -10,14 +10,14 @@
 
             <div class="row">
                 <div class="col-12 justify-content-center d-flex align-items-center">
-                    <strong class="text-color-primary" style="font-size: 150%">Categorias</strong>
+                    <strong class="text-color-primary" style="font-size: 150%">Categorías</strong>
                 </div>
             </div>
 
             <div class="row my-4">
                 <div class="col-12 justify-content-end d-flex align-items-center">
                     <a id="create-btn" class="btn btn-primary" href="{{route('admin_category_create')}}">
-                        Agregar Categoria
+                        Agregar Categoría
                     </a>
                 </div>
             </div>

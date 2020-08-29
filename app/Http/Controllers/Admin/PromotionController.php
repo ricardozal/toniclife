@@ -104,29 +104,6 @@ class PromotionController extends Controller
 
         $promotion->fill($request->all());
 
-        $withPoints = $request->input('with_points');
-        $isAccumulative =$request->input('is_accumulative');
-
-        if($request->input('fk_id_country') == Country::USA && $withPoints == 1){
-            return response()->json([
-                'errors' => ['name' => ['Promociones de Estados Unidos serán con monto mínimo monetario (No puntaje)'] ]
-            ],422);
-        }
-
-        if($withPoints != null){
-            $promotion->with_points=$withPoints;
-        }else{
-            $promotion->with_points=0;
-
-        }
-
-        if($isAccumulative != null){
-            $promotion->is_accumulative=$isAccumulative;
-        }else{
-            $promotion->is_accumulative=0;
-
-        }
-
         $promotion->save();
 
         return response()->json([
@@ -140,21 +117,6 @@ class PromotionController extends Controller
         $promotion = Promotion::find($promotionId);
         $promotion->active = !$promotion->active;
         if (!$promotion->save()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'no se puede modificar el estatus en este momento'
-            ]);
-        }
-        return response()->json([
-            'success' => true,
-        ]);
-    }
-
-    public function delete($promotionId)
-    {
-        $promotion = Promotion::find($promotionId);
-
-        if (!$promotion->delete()) {
             return response()->json([
                 'success' => false,
                 'message' => 'no se puede modificar el estatus en este momento'

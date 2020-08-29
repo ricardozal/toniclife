@@ -1,8 +1,8 @@
 @extends('template.main')
 @push('scripts')
     <script src="{{asset('commons/jquery-ui-1.10.4.custom.min.js')}}"></script>
-    <script src="{{asset('js/admin/org_chart/jQuery.jHTree.js')}}"></script>
-    <script src="{{asset('js/admin/org_chart/index.js')}}"></script>
+    <script src="{{asset('js/admin/org_chart/jQuery.jHTree.js?v=2')}}"></script>
+    <script src="{{asset('js/admin/org_chart/index.js?v=2')}}"></script>
 @endpush
 @push('css')
     <link rel="stylesheet" href="{{asset('commons/tree_maker/jquery-ui.min.css')}}">
@@ -24,7 +24,10 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div id="tree">
+                    <div class="fa-3x text-center">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                    <div id="tree" class="d-none">
                     </div>
                 </div>
             </div>

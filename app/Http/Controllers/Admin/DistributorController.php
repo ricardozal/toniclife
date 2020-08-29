@@ -126,7 +126,11 @@ class DistributorController extends Controller
                 ],422);
             }
 
-            $distributor->fk_id_distributor = $request->input('fk_id_distributor');
+            if($request->input('distributor_leader_name') == null){
+                $distributor->fk_id_distributor = null;
+            } else {
+                $distributor->fk_id_distributor = $request->input('fk_id_distributor');
+            }
         }
 
 

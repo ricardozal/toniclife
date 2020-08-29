@@ -22,7 +22,7 @@ $(document).ready(function () {
                     return data !== null ? data.name : 'Sistema';
                 }
             },
-            { "data": "created_at" },
+            { "data": "format_date" },
         ],
         "language": {
             "search": "Buscar: ",
@@ -37,7 +37,8 @@ $(document).ready(function () {
                 "next": "Siguiente",
                 "previous": "Anterior"
             },
-            "lengthMenu": "Mostrar _MENU_ movimientos"
+            "lengthMenu": "Mostrar _MENU_ movimientos",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)"
         },
         "ordering": false
 

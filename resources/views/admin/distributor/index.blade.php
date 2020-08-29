@@ -1,7 +1,7 @@
 @extends('template.main')
 @push('scripts')
     <script src="{{asset('commons/jquery.autocomplete.min.js')}}"></script>
-    <script src="{{asset('js/admin/distributor/index.js')}}"></script>
+    <script src="{{asset('js/admin/distributor/index.js?v=2')}}"></script>
 @endpush
 @section('content')
 

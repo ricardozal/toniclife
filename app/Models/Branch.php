@@ -61,7 +61,7 @@ class Branch extends Model
 
     public static function asMap()
     {
-        return self::pluck('name', 'id');
+        return self::whereActive(true)->pluck('name', 'id');
     }
 
 }

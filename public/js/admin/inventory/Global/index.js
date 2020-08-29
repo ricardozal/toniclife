@@ -75,7 +75,8 @@ $(document).ready(function () {
                 "next": "Siguiente",
                 "previous": "Anterior"
             },
-            "lengthMenu": "Mostrar _MENU_ productos"
+            "lengthMenu": "Mostrar _MENU_ productos",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)"
         },
         "ordering": false
 

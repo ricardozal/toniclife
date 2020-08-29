@@ -45,7 +45,15 @@ class UserController extends Controller
 
         if($request->input('fk_id_branch') != null)
         {
-            $user->fk_id_branch = $request->input('fk_id_branch');
+            if($request->input('fk_id_branch') == '0'){
+
+                return response()->json([
+                    'errors' => ['fk_id_branch' => ['Debe elegir una sucursal'] ]
+                ],422);
+
+            } else {
+                $user->fk_id_branch = $request->input('fk_id_branch');
+            }
         }
 
         if (!$user->save()) {
@@ -97,21 +105,6 @@ class UserController extends Controller
         $user = User::find($userId);
         $user->active = !$user->active;
         if (!$user->save()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'no se puede modificar el estatus en este momento'
-            ]);
-        }
-        return response()->json([
-            'success' => true,
-        ]);
-    }
-
-    public function delete($userId)
-    {
-        $user = User::find($userId);
-
-        if (!$user->delete()) {
             return response()->json([
                 'success' => false,
                 'message' => 'no se puede modificar el estatus en este momento'

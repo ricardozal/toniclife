@@ -17,13 +17,9 @@ class UpdatePromotionRequest extends FormRequest
     public function rules()
     {
 
-        $promotionId = $this->route('promotionId');
-
         return [
             'name' => 'required',
             'description' => 'required',
-            'min_amount' => 'required',
-            'expiration_date' => 'required'
         ];
     }
 
@@ -32,8 +28,6 @@ class UpdatePromotionRequest extends FormRequest
         return [
             'name.required' => 'Nombre necesario',
             'description.required' => 'Descripción necesario',
-            'min_amount.required' => 'Monto minímo necesario',
-            'expiration_date.required' => 'Ingrese una fecha de expiración'
         ];
     }
 }

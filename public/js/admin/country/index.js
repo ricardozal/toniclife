@@ -52,7 +52,7 @@ $(document).ready(function () {
         "language": {
             "search": "Buscar: ",
             "zeroRecords": "No se encontró ningún registro.",
-            "info": "Total de sucursales: <strong>_TOTAL_</strong>",
+            "info": "Total de paises: <strong>_TOTAL_</strong>",
             infoEmpty: "Sin datos disponibles",
             emptyTable: "No se ha encontrado ningún registro.",
             processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> ',
@@ -62,7 +62,8 @@ $(document).ready(function () {
                 "next": "Siguiente",
                 "previous": "Anterior"
             },
-            "lengthMenu": "Mostrar _MENU_ usuarios"
+            "lengthMenu": "Mostrar _MENU_ paises",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)"
         },
         "ordering": false
     });

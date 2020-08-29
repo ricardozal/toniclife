@@ -59,9 +59,15 @@ class ProductController extends Controller
         $product->fill($request->all());
 
         if($isKit != null){
-            $product->with_points=$isKit;
+            $product->is_kit=$isKit;
         }else{
-            $product->with_points=0;
+            $product->is_kit=0;
+        }
+
+        if($request->input('fk_id_category') != '0'){
+            $product->fk_id_category = $request->input('fk_id_category');
+        } else {
+            $product->fk_id_category = null;
         }
 
         $image = $request->file('file');
@@ -104,9 +110,15 @@ class ProductController extends Controller
         $product->fill($request->all());
 
         if($isKit != null){
-            $product->with_points=$isKit;
+            $product->is_kit=$isKit;
         }else{
-            $product->with_points=0;
+            $product->is_kit=0;
+        }
+
+        if($request->input('fk_id_category') != '0'){
+            $product->fk_id_category = $request->input('fk_id_category');
+        } else {
+            $product->fk_id_category = null;
         }
 
         $image = $request->file('file');

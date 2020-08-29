@@ -8,7 +8,7 @@ return [
     'inv'=>'Inventario',
     'env'=> 'Envíos',
     'ent'=> 'Entregas',
-    'idioma'=> 'Selecciona  idioma',
+    'idioma'=> 'Selecciona idioma',
     //Inventory
     'invmetepec'=>'Inventario de',
     'agregar'=>'Agregar producto',
@@ -31,6 +31,8 @@ return [
     'rs'=>'Recoger en sucursal',
     'dis'=>'Distribuidor',
     'no'=>'No. orden',
+
+    'footer' => 'Todos los derechos reservados'
 
 
 ];

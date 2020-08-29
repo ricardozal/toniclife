@@ -8,7 +8,7 @@ $(document).ready(function () {
         "columns": [
             {"data": "distributor.name"},
             {"data": "distributor.tonic_life_id"},
-            {"data": "created_at"},
+            {"data": "format_date"},
             {"data": "status.name"},
             {
                 "data": "id",
@@ -40,7 +40,8 @@ $(document).ready(function () {
                 "next": "Siguiente",
                 "previous": "Anterior"
             },
-            "lengthMenu": "Mostrar _MENU_reorder"
+            "lengthMenu": "Mostrar _MENU_reorder",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)"
         },
         "ordering": false
 

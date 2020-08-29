@@ -5,7 +5,7 @@ return [
 
 
     'inv'=>'Inventory',
-    'env'=> 'shipping',
+    'env'=> 'Shipping',
     'ent'=> 'Deliveries',
     'idioma'=> 'Select language',
     'invmetepec'=>'Inventory',
@@ -16,20 +16,22 @@ return [
     'st'=>'Stock',
     'opc'=>'Options',
         'nomp'=>'Product name',
-    'ms'=>'modify stock of',
+    'ms'=>'Modify stock of',
 
     //Shipping
-    'suc'=>'branch office',
+    'suc'=>'Branch office',
     'org'=>'Origin',
-    'des'=>'destination',
-    'fol'=>'Folio buy',
-    'date'=>'Date buy',
+    'des'=>'Destination',
+    'fol'=>'Purchase ID',
+    'date'=>'Purchase Date',
     'ng'=>'Guide number',
 
 
     'rs'=>'Pick up at branch',
     'dis'=>'Distributor',
     'no'=>'No. order',
+
+    'footer' => 'All rights reserved'
 
 
 ];

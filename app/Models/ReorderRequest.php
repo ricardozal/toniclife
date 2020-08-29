@@ -4,6 +4,8 @@
 namespace App\Models;
 
 
+use App\Services\DateFormatterService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -39,6 +41,13 @@ class ReorderRequest extends Model
         'created_at',
         'updated_at'
     ];
+
+    protected  $appends = ['format_date'];
+
+    public function getFormatDateAttribute()
+    {
+        return DateFormatterService::fullDatetime(Carbon::parse($this->created_at));
+    }
 
     public function products()
     {

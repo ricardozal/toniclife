@@ -1,6 +1,6 @@
 @extends('template.main')
 @push('scripts')
-    <script src="{{asset('js/admin/branch/index.js')}}"></script>
+    <script src="{{asset('js/admin/branch/index.js?v=2')}}"></script>
 @endpush
 @section('content')
     <div class="row mt-5 mx-0">
