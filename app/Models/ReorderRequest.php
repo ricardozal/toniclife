@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ReorderRequest whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ReorderRequest whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read mixed $format_date
  */
 class ReorderRequest extends Model
 {

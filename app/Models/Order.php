@@ -51,6 +51,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $fk_id_shipping_guide_number
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFkIdShippingGuideNumber($value)
  * @property-read \App\Models\ShippingGuideNumber|null $guideNumber
+ * @property-read mixed $format_date
  */
 class Order extends Model
 {

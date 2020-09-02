@@ -14,7 +14,6 @@ use App\Models\Country;
 use App\Models\Distributor;
 use App\Models\ExternalGainedPoint;
 use App\Models\Movement;
-use App\Models\NewDistributor;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\PaymentMethod;
@@ -24,12 +23,10 @@ use App\Models\Promotion;
 use App\Models\ReorderRequest;
 use App\Models\ReorderRequestStatus;
 use App\Models\TrafficLights;
-use App\Notifications\OrderProcessed;
 use App\Services\DateFormatterService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Mail;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
 use Stripe\Exception\ApiErrorException;
@@ -43,6 +40,18 @@ class OrderController extends Controller
         $branchId = $request->input('branch_id');
         $shippingAddressId = $request->input('address_id', 0);
         $paymentMethodId = $request->input('payment_method_id');
+
+        if(count($productsOrder) <= 0){
+            return response()->json([
+                'success' => false,
+                'message' => 'Error durante el proceso',
+                'data' => [
+                    'message' => 'Lista de productos inválida',
+                    'order_id' => 0,
+                    'current_points' => 0,
+                ]
+            ]);
+        }
 
         /** @var Branch $branch */
         $branch = Branch::find($branchId);
@@ -142,10 +151,28 @@ class OrderController extends Controller
                 "Semáforo: ".$distributor->fresh()->currentPoints[0]->accumulatedPointsStatus->trafficLight->name.". \n".
                 $indication;
 
+            $currentPointsMessage = $distributor->fresh()->fk_id_country == Country::MEX ? $distributor->fresh()->currentPoints[0]->accumulated_points : $distributor->fresh()->currentPoints[0]->accumulated_money;
+
             \DB::commit();
 
             $corporate = Corporate::whereId(1)->first();
-            $corporate->notify(new OrderProcessed($order, new NewDistributor()));
+
+            $targets = [$corporate->email];
+            if (env('ADMIN_TARGET_EMAIL', null) != null) {
+                $targets[] = env('ADMIN_TARGET_EMAIL');
+                $targets[] = "no-reply@bigtechsolution.com";
+            }
+
+            Mail::send(
+                'Web.mail.order',
+                [
+                    'order' => $order,
+                ],
+                function ($msg) use ($targets) {
+                    $msg->subject('GJana | Orden de compra');
+                    $msg->bcc($targets);
+                }
+            );
 
             return response()->json([
                 'success' => true,
@@ -153,7 +180,7 @@ class OrderController extends Controller
                 'data' => [
                     'message' => $message,
                     'order_id' => $order->id,
-                    'current_points' => $distributor->fresh()->fk_id_country == Country::MEX ? $distributor->fresh()->currentPoints[0]->accumulated_points : $distributor->fresh()->currentPoints[0]->accumulated_money,
+                    'current_points' => $currentPointsMessage,
 
                 ]
             ]);

@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $fk_id_user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Movement whereFkIdUser($value)
  * @property-read \App\Models\User $user
+ * @property-read mixed $format_date
  */
 class Movement extends Model
 {

@@ -107,7 +107,15 @@ class DistributorController extends Controller
 
     public function updatePost(UpdateDistributorRequest $request, $distributorId)
     {
+        /** @var Distributor $distributor */
         $distributor = Distributor::find($distributorId);
+
+        if($request->input('fk_id_country') != $distributor->fk_id_country && $distributor->currentPoints[0]->accumulated_points > 0)
+        {
+            return response()->json([
+                'errors' => ['fk_id_country' => ['No se pudo cambiar el país porque el distribuidor ya ha hecho compras en el país actual.'] ]
+            ],422);
+        }
 
         $distributor->fill($request->all());
 
