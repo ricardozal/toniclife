@@ -206,7 +206,7 @@ class OrderController extends Controller
             $targets = [$corporate->email];
             if (env('ADMIN_TARGET_EMAIL', null) != null) {
                 $targets[] = env('ADMIN_TARGET_EMAIL');
-                $targets[] = "no-reply@bigtechsolution.com";
+                $targets[] = env('SECOND_MAIL');
             }
 
             Mail::send(
