@@ -33,6 +33,220 @@ use Stripe\Exception\ApiErrorException;
 
 class OrderController extends Controller
 {
+    public function saveOrderWithExternalPoints(Request $request){
+
+        $productsOrder = $request->input('products');
+        $distributorId = $request->input('distributor_id');
+        $branchId = $request->input('branch_id');
+        $shippingAddressId = $request->input('address_id', 0);
+
+        $distributors = $request->input('distributors');
+        $pointsForDistributor = $request->input('points_for_dist');
+        $leftover = $request->input('leftover',0);
+
+        if(count($productsOrder) <= 0){
+            return response()->json([
+                'success' => false,
+                'message' => 'Error durante el proceso',
+                'data' => [
+                    'message' => 'Lista de productos inválida',
+                    'order_id' => 0,
+                    'current_points' => 0,
+                ]
+            ]);
+        }
+
+        /** @var Branch $branch */
+        $branch = Branch::find($branchId);
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+
+
+        $totalPrice = 0;
+        $totalTaxes = 0;
+        $points = 0;
+
+        foreach ($productsOrder as $productItem){
+
+            /** @var Product $product */
+            $product = Product::find($productItem['id']);
+
+            $totalPrice += ((($product->distributor_price*$productItem['quantity'])+(($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))));
+            $totalTaxes += (((($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))));
+            $points += ($product->points*$productItem['quantity']);
+
+        }
+
+        try{
+            \DB::beginTransaction();
+
+            $order = new Order();
+            $order->total_price = $totalPrice;
+            $order->total_taxes = $totalTaxes;
+            $order->total_accumulated_points = $points;
+            $order->shipping_price = $shippingAddressId == 0 ? 0 : 50;
+            $order->fk_id_distributor = $distributor->id;
+            $order->fk_id_order_status = OrderStatus::PAID;
+            $order->fk_id_branch = $branch->id;
+            $order->fk_id_payment_method = PaymentMethod::CART;
+            if($shippingAddressId != 0){
+                $order->fk_id_shipping_address = $shippingAddressId;
+            }
+
+            $order->saveOrFail();
+
+            $reorder = new ReorderRequest();
+            $reorder->fk_id_distributor = $distributor->id;
+            $reorder->fk_id_reorder_request_status = ReorderRequestStatus::SENT_REQUEST;
+            $reorder->saveOrFail();
+
+            foreach ($productsOrder as $productItem){
+
+                /** @var Product $product */
+                $product = Product::find($productItem['id']);
+
+                $order->products()->attach($product->id, [
+                    'price' => (($product->distributor_price*$productItem['quantity'])+(($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))),
+                    'quantity' => $productItem['quantity'],
+                ]);
+                $order->saveOrFail();
+
+                $reorder->products()->attach($product->id, [
+                    'quantity' => $productItem['quantity'],
+                ]);
+
+                $currentStock = $branch->products()->where('product.id', $product->id)->first()->pivot->stock;
+                $newStock = $currentStock - $productItem['quantity'];
+
+                $branch->products()->updateExistingPivot($product->id,['stock'=> $newStock]);
+                $branch->saveOrFail();
+
+                $movement = new Movement();
+                $movement->comment = 'Venta de producto, orden con folio '.$order->id;
+                $movement->type = 0;
+                $movement->quantity = $productItem['quantity'];
+                $movement->fk_id_product = $product->id;
+                $movement->saveOrFail();
+
+            }
+
+            /*** AQUI EMPIEZA DISTRIBUCIÓN DE PUNTOS
+             *  */
+
+            $longFinalMessage = "";
+
+            $countryId = $order->branch->address->country->id;
+
+            $amount = 0;
+
+            $distributorsMail = collect(new Distributor);
+
+            foreach ($distributors as $distributorItem){
+
+                /** @var Distributor $distributorTemp */
+                $distributorTemp = Distributor::whereId($distributorItem['id'])->first();
+
+                $distributorsMail->add($distributorTemp);
+
+                $point = PointsHistory::find($distributorTemp->currentPoints->first()->id);
+                $point->accumulated_points = $distributorTemp->fk_id_country == Country::MEX ? $point->accumulated_points+$distributorItem['points'] : $point->accumulated_points;
+                $point->accumulated_money = $distributorTemp->fk_id_country == Country::USA ? $point->accumulated_money+$distributorItem['points'] : $point->accumulated_money;
+                $point->save();
+                $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributorTemp->id);
+                $point->save();
+
+                $externalPoints = new ExternalGainedPoint();
+                $externalPoints->points = $distributorItem['points'];
+                $externalPoints->fk_id_point_history = $point->id;
+                $externalPoints->fk_id_order = $order->id;
+                $externalPoints->save();
+
+                $indication = $this::getPromos($order->id, $distributorTemp->id);
+
+                if($countryId == Country::USA){
+                    $amount = $distributorTemp->fresh()->currentPoints[0]->accumulated_money;
+                } elseif ($countryId == Country::MEX){
+                    $amount = $distributorTemp->fresh()->currentPoints[0]->accumulated_points;
+                }
+
+                $longFinalMessage .= $distributorTemp->name.", alcanzaste un puntaje de ".$amount.". \n".
+                                     $indication."\n\n";
+
+            }
+
+            $point = PointsHistory::find($distributor->currentPoints->first()->id);
+            $point->accumulated_points = $distributorTemp->fk_id_country == Country::MEX ? $point->accumulated_points+($pointsForDistributor+$leftover) : $points;
+            $point->accumulated_money = $distributorTemp->fk_id_country == Country::USA ? $point->accumulated_money+($pointsForDistributor+$leftover) : $totalPrice;
+            $point->save();
+            $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
+            $point->save();
+
+            $indication = $this::getPromos($order->id, $distributor->id);
+            $longFinalMessage .= $indication."\n\n";
+
+            if($countryId == Country::USA){
+                $amount = $distributor->fresh()->currentPoints[0]->accumulated_money;
+            } elseif ($countryId == Country::MEX){
+                $amount = $distributor->fresh()->currentPoints[0]->accumulated_points;
+            }
+
+            $message = "La compra con el folio ".$order->id." fue realizada con éxito. \n".
+                $distributor->name.", alcanzaste un puntaje de ".$amount.". \n".
+                "Periodo: ".DateFormatterService::fullDatetime(Carbon::parse($distributor->fresh()->currentPoints[0]->begin_period))." al ".DateFormatterService::fullDatetime(Carbon::parse($distributor->fresh()->currentPoints[0]->end_period)).". \n".
+                "Semáforo: ".$distributor->fresh()->currentPoints[0]->accumulatedPointsStatus->trafficLight->name.". \n\n".
+                $longFinalMessage;
+
+            $currentPointsMessage = $distributor->fresh()->fk_id_country == Country::MEX ? $distributor->fresh()->currentPoints[0]->accumulated_points : $distributor->fresh()->currentPoints[0]->accumulated_money;
+
+            \DB::commit();
+
+            $corporate = Corporate::whereId(1)->first();
+
+            $targets = [$corporate->email];
+            if (env('ADMIN_TARGET_EMAIL', null) != null) {
+                $targets[] = env('ADMIN_TARGET_EMAIL');
+                $targets[] = "no-reply@bigtechsolution.com";
+            }
+
+            Mail::send(
+                'Web.mail.order',
+                [
+                    'order' => $order,
+                    'distributors' => $distributorsMail,
+                    'pointsForDistributor' => ($pointsForDistributor+$leftover)
+                ],
+                function ($msg) use ($targets) {
+                    $msg->subject('GJana | Orden de compra');
+                    $msg->bcc($targets);
+                }
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Compra completada',
+                'data' => [
+                    'message' => $message,
+                    'order_id' => $order->id,
+                    'current_points' => $currentPointsMessage,
+
+                ]
+            ]);
+
+        } catch (\Throwable $e){
+            \DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Error durante el proceso',
+                'data' => [
+                    'message' => $e->getMessage(),
+                    'order_id' => 0,
+                    'current_points' => 0,
+                ]
+            ]);
+        }
+    }
+
     public function saveOrder(Request $request){
 
         $productsOrder = $request->input('products');
@@ -135,7 +349,7 @@ class OrderController extends Controller
 
             }
 
-            $indication = $this::getPromos($order->id);
+            $indication = $this::getPromos($order->id, $distributor->id);
             $countryId = $order->branch->address->country->id;
             $amount = 0;
 
@@ -200,7 +414,7 @@ class OrderController extends Controller
 
     }
 
-    private function getPromos($orderId){
+    private function getPromos($orderId, $distributorId){
 
         $message = "";
 
@@ -208,7 +422,7 @@ class OrderController extends Controller
         $order = Order::find($orderId);
 
         /** @var Distributor $distributor */
-        $distributor = Distributor::find($order->distributor->id);
+        $distributor = Distributor::find($distributorId);
 
         $currentPointsPeriod = $distributor->currentPoints[0];
         $countryId = $order->branch->address->country->id;
@@ -239,7 +453,7 @@ class OrderController extends Controller
                         if($promoAssigned == null){
                             $distributor->promotions()->attach($promotion->id);
                             $distributor->save();
-                            $promosAccumulative[] = 'Obtuviste la promoción '.$promotion->name. '. Detalles: '.$promotion->description.'. ';
+                            $promosAccumulative[] = $distributor->name.', obtuviste la promoción '.$promotion->name. '. Detalles: '.$promotion->description.'. ';
                         }
                     }
 
@@ -258,7 +472,7 @@ class OrderController extends Controller
                         if($promoAssigned == null){
                             $distributor->promotions()->attach($promotion->id);
                             $distributor->save();
-                            $promosSingleOrder[] = 'Obtuviste la promoción '.$promotion->name. '. Detalles: '.$promotion->description.'. ';
+                            $promosSingleOrder[] = $distributor->name.', obtuviste la promoción '.$promotion->name. '. Detalles: '.$promotion->description.'. ';
                         }
                     }
 
@@ -285,7 +499,7 @@ class OrderController extends Controller
 
                 if($amount < $limit){
                     $points = $limit - $amount;
-                    $message .= "Atención: Te falta ".$points." para alcanzar la cuota. ";
+                    $message .= "Atención ".$distributor->name.": Te falta ".$points." para alcanzar la cuota. ";
                 }
 
             }
@@ -314,7 +528,7 @@ class OrderController extends Controller
 
             if($amount < $limit){
                 $points = $limit - $amount;
-                $message .= "Atención: Te falta ".$points." para alcanzar la cuota. ";
+                $message .= "Atención ".$distributor->name.": Te falta ".$points." para alcanzar la cuota. ";
             }
 
         }

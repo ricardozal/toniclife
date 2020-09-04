@@ -52,4 +52,8 @@ Route::group([
     Route::post('/distributor/register-points','DistributorController@registerPoints');
 
     Route::get('/order/{orderId}/validate-register-points', 'OrderController@validateRegisterPoints');
+
+    Route::post('/distributor/share-points', 'SharePointsController@getCandidates');
+
+    Route::post('/save-order-external-points', 'OrderController@saveOrderWithExternalPoints');
 });

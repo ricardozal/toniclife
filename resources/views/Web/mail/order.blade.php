@@ -73,7 +73,37 @@
                 </p>
             </td>
         </tr>
-        </table>
+    </table>
+    @isset($distributors)
+    <table style="width: 100%; margin-top: 30px;">
+        @foreach($distributors as $distributor)
+        <tr>
+            <td>
+                <p>
+                    Nombre: <b>{{$distributor->name }}</b>
+                </p>
+            </td>
+            <td>
+                <p>
+                    Puntos acumulados: <b>{{ \App\Models\ExternalGainedPoint::whereFkIdPointHistory($distributor->currentPoints->first()->id)->where('fk_id_order',$order->id)->first()->points }}</b>
+                </p>
+            </td>
+        </tr>
+        @endforeach
+        <tr>
+            <td>
+                <p>
+                    Distribuidor que realizó compra: <b>{{$order->distributor->name }}</b>
+                </p>
+            </td>
+            <td>
+                <p>
+                    Puntos acumulados: <b>{{$pointsForDistributor}}</b>
+                </p>
+            </td>
+        </tr>
+    </table>
+    @endif
     <table style="width: 100%; text-align: right;">
         <tr>
             <td>
@@ -84,7 +114,7 @@
                     <b>Impuestos: </b> <span>${{number_format($order->total_taxes,2)}}</span>
                 </p>
                 <h4><b>Total: </b>${{number_format($order->total_price,2)}}</h4>
-                <h6><b>Puntos acumulados: </b>{{$order->total_accumulated_points}}</h6>
+                <h4><b>Puntos acumulados: </b>{{$order->total_accumulated_points}}</h4>
             </td>
         </tr>
     </table>
