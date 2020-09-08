@@ -42,6 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product wherePoints($value)
  * @mixin \Eloquent
  * @property-read mixed $absolute_image_url
+ * @property-read mixed $available_inventory
  * @property int $is_kit
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereIsKit($value)
  */
@@ -51,7 +52,8 @@ class Product extends Model
     public $timestamps = false;
 
     public $appends = [
-        'absolute_image_url'
+        'absolute_image_url',
+        'available_inventory'
     ];
 
     protected $fillable = [
@@ -121,6 +123,24 @@ class Product extends Model
 
     public function getAbsoluteImageUrlAttribute(){
         return asset($this->image_url);
+    }
+
+    public function getAvailableInventoryAttribute(){
+
+        $inventory ="";
+
+        if($this->branches->count() > 0){
+            foreach ($this->branches as $branch){
+
+                $inventory .= $branch->name.": ".$branch->pivot->stock." pieza(s). \n";
+
+            }
+        } else {
+            $inventory = "Sin inventario disponible";
+        }
+
+        return $inventory;
+
     }
 
 }
