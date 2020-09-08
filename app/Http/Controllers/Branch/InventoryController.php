@@ -61,9 +61,9 @@ class InventoryController extends Controller
             if (!$type)
             {
                 $totalStock = $stockBP - $stock;
-                if($totalStock<1){
+                if($totalStock<0){
                     return response()->json([
-                        'errors' => ['stock' => ['El stock no puede ser menor a 1'] ]
+                        'errors' => ['stock' => ['El stock no puede ser menor a 0'] ]
                     ],422);
                 }else{
                     $branchFormId->products()->updateExistingPivot($productId,['stock'=> $totalStock]);

@@ -56,4 +56,6 @@ Route::group([
     Route::post('/distributor/share-points', 'SharePointsController@getCandidates');
 
     Route::post('/save-order-external-points', 'OrderController@saveOrderWithExternalPoints');
+
+    Route::get('/content-app-mobile', 'AppContentController@content');
 });

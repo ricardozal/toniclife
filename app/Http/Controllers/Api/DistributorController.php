@@ -169,9 +169,6 @@ class DistributorController extends Controller
 
             \DB::commit();
 
-            $corporate = Corporate::whereId(1)->first();
-            $corporate->notify(new OrderProcessed(new Order(), $newDistributor));
-
         } catch (\Throwable $e){
             \DB::rollBack();
             return response()->json([

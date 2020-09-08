@@ -480,4 +480,21 @@ Route::get('/office-parcel/{officeParcelId}/active',
     'OfficeParcelController@active')
     ->name('admin_office_parcel_active');
 
+/** Mobile App Content **/
+
+Route::get('/mobile-app-content',
+    'MobileAppContentController@index')
+    ->name('admin_app_mobile_content_index');
+
+Route::get('/mobile-app-content-data',
+    'MobileAppContentController@indexContent')
+    ->name('admin_app_mobile_content_index_content');
+
+Route::get('/mobile-app-content/{contentId}/update',
+    'MobileAppContentController@update')
+    ->name('admin_app_mobile_content_update');
+
+Route::post('/mobile-app-content/{contentId}/update',
+    'MobileAppContentController@updatePost')
+    ->name('admin_app_mobile_content_update_post');
 

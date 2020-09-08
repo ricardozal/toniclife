@@ -110,6 +110,13 @@
                 </span>
         <span class="sidebar-text">Paqueterías</span>
     </a>
+    <a class="nav-link {{$routeName == 'admin_app_mobile_content_index' ? 'active' : ''}}"
+       href="{{route('admin_app_mobile_content_index')}}">
+            <span>
+                <i class="fas fa-mobile-alt"></i>
+            </span>
+        <span class="sidebar-text">Enlaces de app móvil</span>
+    </a>
     @endif
     @if(Auth::user()->isBranch())
         <a class="nav-link {{$routeName == 'branch_inventory_index' ? 'active' : ''}}"
