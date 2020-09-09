@@ -64,6 +64,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string|null $firebase_token
  * @property-read \App\Models\Country $country
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereFirebaseToken($value)
+ * @property string|null $bank_name
+ * @property string|null $bank_account_number
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereBankAccountNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereBankName($value)
  */
 class Distributor extends Authenticatable
 {
@@ -76,7 +80,9 @@ class Distributor extends Authenticatable
         'name',
         'tonic_life_id',
         'email',
-        'fk_id_country'
+        'fk_id_country',
+        'bank_name',
+        'bank_account_number'
     ];
 
     public function addresses()
@@ -195,6 +201,17 @@ class Distributor extends Authenticatable
             'fk_id_country',
             'id'
         );
+    }
+
+    public static function getPointsExternalOrder($orderId){
+
+        /** @var Order $order */
+        $order = Order::find($orderId);
+
+        $pointHistoryId = $order->distributor->currentPoints->first()->id;
+
+        return ExternalGainedPoint::whereFkIdOrder($order->id)->where('fk_id_point_history',$pointHistoryId)->first()->points;
+
     }
 
 }

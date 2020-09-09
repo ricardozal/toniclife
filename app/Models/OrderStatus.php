@@ -26,6 +26,8 @@ class OrderStatus extends Model
     const SENT = 2;
     const DELIVERED = 3;
     const CANCELED = 4;
+    const PENDING = 5;
+    const AUTHORIZED = 6;
 
     protected $fillable = [
         'name'
@@ -34,6 +36,12 @@ class OrderStatus extends Model
     public static function asMap()
     {
         return self::pluck('name', 'id');
+    }
+
+    public static function asMapAuthorize(){
+
+        return self::whereIn('id', [self::CANCELED,self::AUTHORIZED])->get()->pluck('name', 'id');
+
     }
 
 

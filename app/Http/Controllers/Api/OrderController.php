@@ -85,9 +85,9 @@ class OrderController extends Controller
             $order->total_price = $totalPrice;
             $order->total_taxes = $totalTaxes;
             $order->total_accumulated_points = $points;
-            $order->shipping_price = $shippingAddressId == 0 ? 0 : 50;
+            $order->shipping_price = 0;
             $order->fk_id_distributor = $distributor->id;
-            $order->fk_id_order_status = OrderStatus::PAID;
+            $order->fk_id_order_status = OrderStatus::PENDING;
             $order->fk_id_branch = $branch->id;
             $order->fk_id_payment_method = PaymentMethod::CART;
             if($shippingAddressId != 0){

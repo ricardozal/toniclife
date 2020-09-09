@@ -27,8 +27,20 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property float $money
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ExternalGainedPoint whereMoney($value)
+ * @property-read \App\Models\PointsHistory $pointHistory
  */
 class ExternalGainedPoint extends Model
 {
     protected $table = 'external_gained_points';
+
+    public function pointHistory(){
+
+        return $this->belongsTo(
+            PointsHistory::class,
+            'fk_id_point_history',
+            'id'
+        );
+
+    }
+
 }

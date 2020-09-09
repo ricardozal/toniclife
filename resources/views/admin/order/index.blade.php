@@ -1,6 +1,6 @@
 @extends('template.main')
 @push('scripts')
-    <script src="{{asset('js/admin/order/index.js?v=2')}}"></script>
+    <script src="{{asset('js/admin/order/index.js?v=3')}}"></script>
 @endpush
 @section('content')
     <div class="row mt-5 mx-0">
@@ -17,13 +17,12 @@
                         <thead>
                         <tr>
                             <th>Distribuidor </th>
-                            <th>Método de pago </th>
                             <th>Fecha de compra </th>
                             <th>Precio total</th>
-                            <th>Status de la compra</th>
                             <th>Dirección de envio</th>
                             <th>Ticket</th>
-
+                            <th>Status de la compra</th>
+                            <th>Acciones</th>
                         </tr>
                         </thead>
                     </table>
@@ -35,6 +34,7 @@
     <input id="inp-url-index-content" type="hidden"
            value="{{route('admin_order_index_content')}}">
     <input type="hidden" value="{{route('admin_order_show',['orderId' => 'FAKE_ID'])}}" id="inp-url-show">
+    <input type="hidden" value="{{route('admin_order_authorize',['orderId' => 'FAKE_ID'])}}" id="inp-url-authorize">
 
 
     <div id='modal-upsert' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

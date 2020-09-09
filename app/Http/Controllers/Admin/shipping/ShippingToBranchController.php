@@ -26,6 +26,7 @@ class ShippingToBranchController extends Controller
     {
         $order = Order::with(['distributor','status','shippingAddress','branch.address', 'branch'])
             ->where('fk_id_shipping_address', '=', null)
+            ->whereIn('fk_id_order_status', [OrderStatus::AUTHORIZED, OrderStatus::DELIVERED])
             ->get();
 
         $query = $order;

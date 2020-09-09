@@ -147,6 +147,14 @@ Route::get('/order/{orderId}/show',
     'OrderController@show')
     ->name('admin_order_show');
 
+Route::get('/order/{orderId}/authorize',
+    'OrderController@authorizePurchase')
+    ->name('admin_order_authorize');
+
+Route::post('/order/{orderId}/authorize',
+    'OrderController@authorizePost')
+    ->name('admin_order_authorize_post');
+
 
 
 /***********************************

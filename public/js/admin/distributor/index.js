@@ -20,7 +20,7 @@ $(document).ready(function () {
                 "data": null,
                 render:function(data, type, row )
                 {
-                    return data.current_points[0].accumulated_points;
+                    return data.fk_id_country === 1 ? data.current_points[0].accumulated_points : data.current_points[0].accumulated_money;
                 },
             },
             { "data": "country.name" },

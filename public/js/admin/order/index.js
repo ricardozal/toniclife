@@ -7,7 +7,6 @@ $(document).ready(function () {
         "processing": true,
         "columns": [
             {"data": "distributor.name"},
-            {"data": "payment_method.name"},
             { "data": "format_date" },
             {
                 "data": null,
@@ -16,7 +15,6 @@ $(document).ready(function () {
                     return formatterMoney.format(data.total_price);
                 },
             },
-            { "data": "status.name" },
             {
                 "data": null,
                 render:function(data, type, row )
@@ -37,6 +35,37 @@ $(document).ready(function () {
                     url = url.replace('FAKE_ID', data);
 
                     return "<a href='"+url+"' title='Ver ticket' data-toggle='tooltip' class='show-btn' style='color: #2B6699'><span class='far fa-eye'></span></a>";
+                },
+                "targets": -1
+            },
+            { "data": "status.name" },
+            {
+                "data": null,
+                render:function(data, type, row )
+                {
+                    var $inpUrlShowUpdateStatus = $('#inp-url-authorize');
+                    if ($inpUrlShowUpdateStatus.length === 0) {
+                        return '';
+                    }
+
+                    var url = $inpUrlShowUpdateStatus.val();
+                    url = url.replace('FAKE_ID', data.id);
+
+                    var ret = "<a href='"+url+"' title='Pendiente' data-toggle='tooltip' class='pending-btn' style='color: #2B6699'><span class='far fa-clock'></span></a>";
+                    var check = "<span title='"+data.status.name+"' data-toggle='tooltip' style='color: #2B6699'><i class='fas fa-check'></i></span>";
+                    var canceled = "<span title='Cancelado' data-toggle='tooltip' style='color: #2B6699'><i class='fas fa-times'></i></span>";
+
+                    var statusIcon;
+
+                    if(data.fk_id_order_status === 5){
+                        statusIcon = ret;
+                    } else if(data.fk_id_order_status === 4){
+                        statusIcon = canceled;
+                    } else {
+                        statusIcon = check;
+                    }
+
+                    return statusIcon;
                 },
                 "targets": -1
             },
@@ -67,6 +96,18 @@ $(document).ready(function () {
 
         modalTools.renderView('modal-upsert', url, true,function () {
 
+        });
+    });
+
+    $(document).on('click', '.pending-btn', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+
+        modalTools.renderView('modal-upsert', url, true,function () {
+            formTools.useAjaxOnSubmit('form-upsert', function () {
+                $('#modal-upsert').modal('hide');
+                table.ajax.reload();
+            });
         });
     });
 

@@ -69,7 +69,9 @@
         <tr>
             <td>
                 <p>
-                    Método de pago: <b>{{$order->paymentMethod->name }}</b>
+                    Información para pago: <br><br>
+                    Nombre de banco: {{$order->distributor->bank_name}} <br>
+                    Número de cuenta: {{$order->distributor->bank_account_number}}
                 </p>
             </td>
         </tr>
@@ -108,7 +110,7 @@
         <tr>
             <td>
                 <p class="pt-3">
-                    <b>Envio: </b> <span>${{number_format($order->shipping_price,2)}}</span>
+                    <b>Envio: </b> <span>Costo de envío variable (Pendiente)</span>
                 </p>
                 <p>
                     <b>Impuestos: </b> <span>${{number_format($order->total_taxes,2)}}</span>

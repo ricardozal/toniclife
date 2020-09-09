@@ -21,7 +21,7 @@ class OrderWS extends JsonResource
             'total_price' => number_format($this->total_price,2),
             'total_points' => number_format($this->total_accumulated_points,2),
             'total_taxes' => '$'.number_format($this->total_taxes,2),
-            'shipping_price' => '$'.number_format($this->shipping_price,2),
+            'shipping_price' => 'Costo de envío variable (Pendiente)',
             'total_products' => $this->products->count(),
             'products' => ProductOrderWS::collection($this->products),
             'status' => $this->status->name,

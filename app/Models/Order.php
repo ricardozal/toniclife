@@ -52,6 +52,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Order whereFkIdShippingGuideNumber($value)
  * @property-read \App\Models\ShippingGuideNumber|null $guideNumber
  * @property-read mixed $format_date
+ * @property-read mixed $external_dist
  */
 class Order extends Model
 {
@@ -71,7 +72,7 @@ class Order extends Model
         'fk_id_payment_method'
     ];
 
-    protected  $appends = ['format_date'];
+    protected  $appends = ['format_date', 'external_dist'];
 
     public function getFormatDateAttribute()
     {
@@ -141,6 +142,22 @@ class Order extends Model
             'fk_id_shipping_guide_number',
             'id'
         );
+
+    }
+
+    public function getExternalDistAttribute(){
+
+        $externalPoints = ExternalGainedPoint::whereFkIdOrder($this->id)->get();
+
+        $distributors = collect(new Distributor);
+
+        foreach ($externalPoints as $externalPoint){
+
+            $distributors->add($externalPoint->pointHistory->distributor);
+
+        }
+
+        return $distributors;
 
     }
 

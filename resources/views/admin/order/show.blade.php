@@ -69,14 +69,16 @@
         <div class="row" >
             <div class="col-12 border-top ">
                 <p class="py-2">
-                    Método de pago: <strong>{{$order->paymentMethod->name }}</strong>
+                    Información para pago: <br><br>
+                    Nombre de banco: {{$order->distributor->bank_name}} <br>
+                    Número de cuenta: {{$order->distributor->bank_account_number}}
                 </p>
             </div>
         </div>
         <div class="row">
             <div class="col-12 border-top text-right">
                 <p class="pt-3">
-                    <strong>Envio: </strong> <span>${{number_format($order->shipping_price,2)}}</span>
+                    <strong>Envio: </strong> <span>Costo de envío variable (Pendiente)</span>
                 </p>
                 <p>
                     <strong>Impuestos: </strong> <span>${{number_format($order->total_taxes,2)}}</span>

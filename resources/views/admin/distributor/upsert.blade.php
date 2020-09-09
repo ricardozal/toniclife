@@ -9,7 +9,7 @@
         @include('admin.distributor._form')
         <div class="form-group text-center w-75">
             <button type="submit" class="btn btn-primary">
-                {{isset($user) ? 'Guardar' : 'Agregar distribuidor'}}
+                {{isset($distributor) ? 'Guardar' : 'Agregar distribuidor'}}
             </button>
         </div>
     </form>

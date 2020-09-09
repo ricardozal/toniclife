@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MobileAppContent whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MobileAppContent whereUrl($value)
  * @mixin \Eloquent
+ * @property-read mixed $absolute_url
  */
 class MobileAppContent extends Model
 {
