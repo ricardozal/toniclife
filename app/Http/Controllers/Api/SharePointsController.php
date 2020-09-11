@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CandidatePromoWS;
 use App\Http\Resources\CandidateWS;
+use App\Http\Resources\DistWSCantidate;
 use App\Models\AccumulatedPointsStatus;
 use App\Models\Country;
 use App\Models\Distributor;
@@ -49,8 +50,16 @@ class SharePointsController extends Controller
 
         }
 
-        $candidates = Distributor::whereFkIdDistributor($distributor->id)
+        $candidatesTemp = Distributor::whereFkIdDistributor($distributor->id)
             ->where('fk_id_country',$distributor->fk_id_country)->get();
+
+        $json = DistWSCantidate::collection($candidatesTemp)->toJson();
+
+        $result = $this->flatten(json_decode($json));
+
+        $candidates = Distributor::whereIn('id',$result)
+            ->where('fk_id_country',$distributor->fk_id_country)
+            ->get();
 
         $candidatesArray = collect(new Distributor);
         $candidatesPromosArray = collect(new Distributor);
@@ -113,5 +122,22 @@ class SharePointsController extends Controller
             'candidates' => $newTotalPoints == 0 ? null : CandidateWS::collection($candidatesArray),
             'candidates_promos' => $newTotalPoints == 0 ? null :  CandidatePromoWS::collection($candidatesPromosArray)
         ]);
+    }
+
+    private function flatten($ar) {
+        $toflat = array($ar);
+        $res = array();
+
+        while (($r = array_shift($toflat)) !== null) {
+            foreach ($r as $v) {
+                if (is_array($v)) {
+                    $toflat[] = $v;
+                } else {
+                    $res[] = $v;
+                }
+            }
+        }
+
+        return $res;
     }
 }
