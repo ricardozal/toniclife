@@ -62,6 +62,18 @@ class OrderController extends Controller
         /** @var Distributor $distributor */
         $distributor = Distributor::find($distributorId);
 
+        if($distributor->bank_account_number == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Atención',
+                'data' => [
+                    'message' => 'El pedido no pudo finalizarse por que no cuenta con datos bancarios registrados, consulte con su administrador.',
+                    'order_id' => 0,
+                    'current_points' => 0,
+                ]
+            ]);
+        }
+
 
         $totalPrice = 0;
         $totalTaxes = 0;
@@ -149,6 +161,7 @@ class OrderController extends Controller
 
                 $distributorsMail->add($distributorTemp);
 
+                /** @var PointsHistory $point */
                 $point = PointsHistory::find($distributorTemp->currentPoints->first()->id);
                 $point->accumulated_points = $distributorTemp->fk_id_country == Country::MEX ? $point->accumulated_points+$distributorItem['points'] : $point->accumulated_points;
                 $point->accumulated_money = $distributorTemp->fk_id_country == Country::USA ? $point->accumulated_money+$distributorItem['points'] : $point->accumulated_money;
@@ -175,12 +188,19 @@ class OrderController extends Controller
 
             }
 
+            /** @var PointsHistory $point */
             $point = PointsHistory::find($distributor->currentPoints->first()->id);
             $point->accumulated_points = $distributorTemp->fk_id_country == Country::MEX ? $point->accumulated_points+($pointsForDistributor+$leftover) : $points;
             $point->accumulated_money = $distributorTemp->fk_id_country == Country::USA ? $point->accumulated_money+($pointsForDistributor+$leftover) : $totalPrice;
             $point->save();
             $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
             $point->save();
+
+            $externalPoints = new ExternalGainedPoint();
+            $externalPoints->points = $pointsForDistributor+$leftover;
+            $externalPoints->fk_id_point_history = $point->id;
+            $externalPoints->fk_id_order = $order->id;
+            $externalPoints->save();
 
             $indication = $this::getPromos($order->id, $distributor->id);
             $longFinalMessage .= $indication."\n\n";
@@ -267,6 +287,18 @@ class OrderController extends Controller
         /** @var Distributor $distributor */
         $distributor = Distributor::find($distributorId);
 
+
+        if($distributor->bank_account_number == null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Atención',
+                'data' => [
+                    'message' => 'El pedido no pudo finalizarse por que no cuenta con datos bancarios registrados, consulte con su administrador.',
+                    'order_id' => 0,
+                    'current_points' => 0,
+                ]
+            ]);
+        }
 
         $totalPrice = 0;
         $totalTaxes = 0;

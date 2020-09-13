@@ -210,7 +210,13 @@ class Distributor extends Authenticatable
 
         $pointHistoryId = $order->distributor->currentPoints->first()->id;
 
-        return ExternalGainedPoint::whereFkIdOrder($order->id)->where('fk_id_point_history',$pointHistoryId)->first()->points;
+        $externalPoints = ExternalGainedPoint::whereFkIdOrder($order->id)->where('fk_id_point_history',$pointHistoryId)->first();
+
+        if($externalPoints != null) {
+            return $externalPoints->points;
+        } else {
+            return 0;
+        }
 
     }
 

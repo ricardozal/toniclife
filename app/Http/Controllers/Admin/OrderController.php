@@ -3,14 +3,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\AccumulatedPointsStatus;
 use App\Models\Branch;
 use App\Models\Corporate;
+use App\Models\Country;
+use App\Models\ExternalGainedPoint;
 use App\Models\Movement;
 use App\Models\Order;
 use App\Models\Distributor;
 use App\Models\PaymentMethod;
 use App\Models\OrderStatus;
 use App\Models\Address;
+use App\Models\PointsHistory;
 use Illuminate\Http\Request;
 use App\Http\Request\OrderRequest;
 
@@ -130,6 +134,36 @@ class OrderController extends Controller
                     $movement->saveOrFail();
 
                 }
+
+                if($order->external_dist->count() > 0){
+
+                    foreach ($order->external_dist as $distributor){
+
+                        /** @var PointsHistory $point */
+                        $point = PointsHistory::find($distributor->currentPoints->first()->id);
+
+                        $externalPoints = ExternalGainedPoint::whereFkIdOrder($order->id)->where('fk_id_point_history',$point->id)->first();
+
+                        $point->accumulated_points = $point->accumulated_points-($distributor->fk_id_country == Country::MEX ? $externalPoints->points : 0);
+                        $point->accumulated_money = $point->accumulated_money-($distributor->fk_id_country == Country::USA ? $externalPoints->points : 0);
+                        $point->save();
+                        $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
+                        $point->save();
+
+                    }
+
+                } else {
+
+                    /** @var PointsHistory $point */
+                    $point = PointsHistory::find($order->distributor->currentPoints->first()->id);
+                    $point->accumulated_points = $point->accumulated_points-$order->total_accumulated_points;
+                    $point->accumulated_money = $point->accumulated_money-$order->total_price;
+                    $point->save();
+                    $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($order->distributor->id);
+                    $point->save();
+
+                }
+
             }
 
             $recipients = Distributor::whereActive(true)
@@ -156,7 +190,7 @@ class OrderController extends Controller
             \DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => 'Error durante el proceso',
+                'message' => $e->getMessage(),
             ]);
         }
     }
