@@ -82,10 +82,6 @@ class OrderController extends Controller
                 $corporate = Corporate::whereId(1)->first();
 
                 $targets = [$corporate->email];
-                if (env('ADMIN_TARGET_EMAIL', null) != null) {
-                    $targets[] = env('ADMIN_TARGET_EMAIL');
-                    $targets[] = env('SECOND_MAIL');
-                }
 
                 if($order->external_dist->count() > 0){
                     Mail::send(

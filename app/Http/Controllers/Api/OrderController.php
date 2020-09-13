@@ -201,13 +201,7 @@ class OrderController extends Controller
 
             \DB::commit();
 
-            $corporate = Corporate::whereId(1)->first();
-
-            $targets = [$corporate->email];
-            if (env('ADMIN_TARGET_EMAIL', null) != null) {
-                $targets[] = env('ADMIN_TARGET_EMAIL');
-                $targets[] = env('SECOND_MAIL');
-            }
+            $targets = [env('GJANA_PERSONAL_MAIL')];
 
             Mail::send(
                 'Web.mail.order',
@@ -298,9 +292,9 @@ class OrderController extends Controller
             $order->total_accumulated_points = $points;
             $order->shipping_price = $shippingAddressId == 0 ? 0 : 50;
             $order->fk_id_distributor = $distributor->id;
-            $order->fk_id_order_status = OrderStatus::PAID;
+            $order->fk_id_order_status = OrderStatus::PENDING;
             $order->fk_id_branch = $branch->id;
-            $order->fk_id_payment_method = $paymentMethodId;
+            $order->fk_id_payment_method = PaymentMethod::CART;
             if($shippingAddressId != 0){
                 $order->fk_id_shipping_address = $shippingAddressId;
             }
@@ -369,13 +363,7 @@ class OrderController extends Controller
 
             \DB::commit();
 
-            $corporate = Corporate::whereId(1)->first();
-
-            $targets = [$corporate->email];
-            if (env('ADMIN_TARGET_EMAIL', null) != null) {
-                $targets[] = env('ADMIN_TARGET_EMAIL');
-                $targets[] = "no-reply@bigtechsolution.com";
-            }
+            $targets = [env('GJANA_PERSONAL_MAIL')];
 
             Mail::send(
                 'Web.mail.order',
