@@ -7,6 +7,7 @@ $(document).ready(function () {
     var table = $('#table-data').DataTable( {
         "ajax": $('#inp-url-index-content').val(),
         "processing": true,
+        "pagingType": "listbox",
         "columns": [
             { "data": "code" },
             { "data": "name" },
