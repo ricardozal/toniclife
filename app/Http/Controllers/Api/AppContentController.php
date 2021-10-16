@@ -13,7 +13,11 @@ class AppContentController extends Controller
 
         $query = MobileAppContent::all();
 
-        return response()->json($query);
+        return response()->json([
+            'success' => true,
+            'message' => 'Todo bien',
+            'data' => $query
+        ]);
 
     }
 }
