@@ -37,6 +37,7 @@ class OrganizationChartDistributorsController extends Controller
     {
         $distributors = Distributor::with('distributors')
             ->where('tonic_life_id', $tonic_life_id)
+            ->where('active', true)
             ->get();
 
         return response()->json(

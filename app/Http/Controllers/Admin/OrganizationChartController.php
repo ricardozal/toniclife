@@ -36,6 +36,7 @@ class OrganizationChartController extends Controller
     {
         $distributors = Distributor::with('distributors')
             ->where('fk_id_distributor', null)
+            ->where('active', true)
             ->get();
 
         return response()->json([
