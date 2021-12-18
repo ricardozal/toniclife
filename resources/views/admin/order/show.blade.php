@@ -78,12 +78,12 @@
         <div class="row">
             <div class="col-12 border-top text-right">
                 <p class="pt-3">
-                    <strong>Envio: </strong> <span>Costo de envío variable (Pendiente)</span>
+                    <strong>Envio: </strong> <span>${{number_format($order->shipping_price,2)}}</span>
                 </p>
                 <p>
                     <strong>Impuestos: </strong> <span>${{number_format($order->total_taxes,2)}}</span>
                 </p>
-                <h4><strong>Total: </strong>${{number_format($order->total_price,2)}}</h4>
+                <h4><strong>Total: </strong>${{number_format($order->total_price + $order->total_taxes,2)}}</h4>
                 <h6><strong>Puntos acumulados: </strong>{{$order->total_accumulated_points}}</h6>
             </div>
         </div>

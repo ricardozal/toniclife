@@ -78,15 +78,17 @@ class OrderController extends Controller
         $totalPrice = 0;
         $totalTaxes = 0;
         $points = 0;
+        $countProducts = 0;
 
         foreach ($productsOrder as $productItem){
 
             /** @var Product $product */
             $product = Product::find($productItem['id']);
 
-            $totalPrice += ((($product->distributor_price*$productItem['quantity'])+(($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))));
+            $totalPrice += $product->distributor_price*$productItem['quantity'];
             $totalTaxes += (((($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))));
             $points += ($product->points*$productItem['quantity']);
+            $countProducts += $productItem['quantity'];
 
         }
 
@@ -97,7 +99,7 @@ class OrderController extends Controller
             $order->total_price = $totalPrice;
             $order->total_taxes = $totalTaxes;
             $order->total_accumulated_points = $points;
-            $order->shipping_price = 0;
+            $order->shipping_price = $countProducts * 0.90;
             $order->fk_id_distributor = $distributor->id;
             $order->fk_id_order_status = OrderStatus::PENDING;
             $order->fk_id_branch = $branch->id;
@@ -303,15 +305,17 @@ class OrderController extends Controller
         $totalPrice = 0;
         $totalTaxes = 0;
         $points = 0;
+        $countProducts = 0;
 
         foreach ($productsOrder as $productItem){
 
             /** @var Product $product */
             $product = Product::find($productItem['id']);
 
-            $totalPrice += ((($product->distributor_price*$productItem['quantity'])+(($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))));
+            $totalPrice += $product->distributor_price*$productItem['quantity'];
             $totalTaxes += (((($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))));
             $points += ($product->points*$productItem['quantity']);
+            $countProducts += $productItem['quantity'];
 
         }
 
@@ -322,7 +326,7 @@ class OrderController extends Controller
             $order->total_price = $totalPrice;
             $order->total_taxes = $totalTaxes;
             $order->total_accumulated_points = $points;
-            $order->shipping_price = $shippingAddressId == 0 ? 0 : 50;
+            $order->shipping_price = $countProducts * 0.90;
             $order->fk_id_distributor = $distributor->id;
             $order->fk_id_order_status = OrderStatus::PENDING;
             $order->fk_id_branch = $branch->id;

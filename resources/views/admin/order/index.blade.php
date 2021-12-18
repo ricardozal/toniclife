@@ -1,6 +1,6 @@
 @extends('template.main')
 @push('scripts')
-    <script src="{{asset('js/admin/order/index.js?v=3')}}"></script>
+    <script src="{{asset('js/admin/order/index.js?v=4')}}"></script>
 @endpush
 @section('content')
     <div class="row mt-5 mx-0">

@@ -12,7 +12,7 @@ $(document).ready(function () {
                 "data": null,
                 render:function(data)
                 {
-                    return formatterMoney.format(data.total_price);
+                    return formatterMoney.format(data.total_price + data.total_taxes);
                 },
             },
             {

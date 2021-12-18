@@ -110,12 +110,12 @@
         <tr>
             <td>
                 <p class="pt-3">
-                    <b>Envio: </b> <span>Costo de envío variable (Pendiente)</span>
+                    <b>Envio: </b> <span>${{number_format($order->shipping_price,2)}}</span>
                 </p>
                 <p>
                     <b>Impuestos: </b> <span>${{number_format($order->total_taxes,2)}}</span>
                 </p>
-                <h4><b>Total: </b>${{number_format($order->total_price,2)}}</h4>
+                <h4><b>Total: </b>${{number_format($order->total_price + $order->total_taxes,2)}}</h4>
                 <h4><b>Puntos acumulados: </b>{{$order->total_accumulated_points}}</h4>
             </td>
         </tr>
