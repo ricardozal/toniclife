@@ -45,7 +45,7 @@ class SharePointsController extends Controller
             /** @var Product $product */
             $product = Product::find($productItem['id']);
 
-            $totalPrice += ((($product->distributor_price*$productItem['quantity'])+(($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))));
+            $totalPrice += ($product->distributor_price * $productItem['quantity']);
             $points += ($product->points*$productItem['quantity']);
 
         }
@@ -73,7 +73,8 @@ class SharePointsController extends Controller
                $candidatesArray->add($candidate);
 
            } elseif ($candidate->currentPoints->first()->accumulatedPointsStatus->trafficLight->id == TrafficLights::GREEN ||
-               $candidate->currentPoints->first()->accumulatedPointsStatus->trafficLight->id == TrafficLights::LIGHT_BLUE){
+               $candidate->currentPoints->first()->accumulatedPointsStatus->trafficLight->id == TrafficLights::LIGHT_BLUE ||
+               $candidate->currentPoints->first()->accumulatedPointsStatus->trafficLight->id == TrafficLights::STRONG_BLUE){
 
                $candidatesPromosArray->add($candidate);
 

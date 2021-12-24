@@ -121,7 +121,7 @@ class OrderController extends Controller
                 $product = Product::find($productItem['id']);
 
                 $order->products()->attach($product->id, [
-                    'price' => (($product->distributor_price*$productItem['quantity'])+(($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))),
+                    'price' => ($product->distributor_price * $productItem['quantity']),
                     'quantity' => $productItem['quantity'],
                 ]);
                 $order->saveOrFail();
@@ -355,7 +355,7 @@ class OrderController extends Controller
                 $product = Product::find($productItem['id']);
 
                 $order->products()->attach($product->id, [
-                    'price' => (($product->distributor_price*$productItem['quantity'])+(($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))),
+                    'price' => ($product->distributor_price * $productItem['quantity']),
                     'quantity' => $productItem['quantity'],
                 ]);
                 $order->saveOrFail();
