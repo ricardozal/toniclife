@@ -18,7 +18,7 @@ class OrderWS extends JsonResource
         return [
             'id' => $this->id,
             'date' => DateFormatterService::fullDatetime(Carbon::parse($this->created_at)),
-            'total_price' => number_format($this->total_price + $this->total_taxes,2),
+            'total_price' => number_format($this->total_price + $this->shipping_price,2),
             'total_points' => number_format($this->total_accumulated_points,2),
             'total_taxes' => '$'.number_format($this->total_taxes,2),
             'shipping_price' => '$'.number_format($this->shipping_price,2),

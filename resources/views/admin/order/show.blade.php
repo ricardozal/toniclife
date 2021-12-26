@@ -42,7 +42,7 @@
                             {{$product->points}}
                         </th>
                         <th class="text-center">
-                            ${{number_format(($product->country->tax_percentage*0.01)*($product->distributor_price)+$product->distributor_price,2)}}
+                            ${{number_format($product->pivot->price/$product->pivot->quantity,2)}}
                         </th>
                         <th class="text-center">
                             {{$product->pivot->quantity}}
@@ -84,7 +84,7 @@
                 <p>
                     <strong>Impuestos: </strong> <span>${{number_format($order->total_taxes,2)}}</span>
                 </p>
-                <h4><strong>Total: </strong>${{number_format($order->total_price + $order->total_taxes,2)}}</h4>
+                <h4><strong>Total: </strong>${{number_format($order->total_price + $order->shipping_price,2)}}</h4>
                 <h6><strong>Puntos acumulados: </strong>{{$order->total_accumulated_points}}</h6>
             </div>
         </div>

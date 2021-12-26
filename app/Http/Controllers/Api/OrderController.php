@@ -79,13 +79,15 @@ class OrderController extends Controller
         $totalTaxes = 0;
         $points = 0;
         $countProducts = 0;
+        $totalDistributorPrice = 0;
 
         foreach ($productsOrder as $productItem){
 
             /** @var Product $product */
             $product = Product::find($productItem['id']);
 
-            $totalPrice += $product->distributor_price*$productItem['quantity'];
+            $totalDistributorPrice += $product->distributor_price*$productItem['quantity'];
+            $totalPrice += $product->price_with_tax*$productItem['quantity'];
             $totalTaxes += (((($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))));
             $points += ($product->points*$productItem['quantity']);
             $countProducts += $productItem['quantity'];
@@ -121,7 +123,7 @@ class OrderController extends Controller
                 $product = Product::find($productItem['id']);
 
                 $order->products()->attach($product->id, [
-                    'price' => ($product->distributor_price * $productItem['quantity']),
+                    'price' => ($product->price_with_tax * $productItem['quantity']),
                     'quantity' => $productItem['quantity'],
                 ]);
                 $order->saveOrFail();
@@ -193,7 +195,7 @@ class OrderController extends Controller
             /** @var PointsHistory $point */
             $point = PointsHistory::find($distributor->currentPoints->first()->id);
             $point->accumulated_points = $distributorTemp->fk_id_country == Country::MEX ? $point->accumulated_points+($pointsForDistributor+$leftover) : $points;
-            $point->accumulated_money = $distributorTemp->fk_id_country == Country::USA ? $point->accumulated_money+($pointsForDistributor+$leftover) : $totalPrice;
+            $point->accumulated_money = $distributorTemp->fk_id_country == Country::USA ? $point->accumulated_money+($pointsForDistributor+$leftover) : $totalDistributorPrice;
             $point->save();
             $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
             $point->save();
@@ -303,6 +305,7 @@ class OrderController extends Controller
         }
 
         $totalPrice = 0;
+        $totalDistributorPrice = 0;
         $totalTaxes = 0;
         $points = 0;
         $countProducts = 0;
@@ -312,7 +315,8 @@ class OrderController extends Controller
             /** @var Product $product */
             $product = Product::find($productItem['id']);
 
-            $totalPrice += $product->distributor_price*$productItem['quantity'];
+            $totalDistributorPrice += $product->distributor_price*$productItem['quantity'];
+            $totalPrice += $product->price_with_tax*$productItem['quantity'];
             $totalTaxes += (((($product->country->tax_percentage*0.01)*($product->distributor_price*$productItem['quantity']))));
             $points += ($product->points*$productItem['quantity']);
             $countProducts += $productItem['quantity'];
@@ -339,7 +343,7 @@ class OrderController extends Controller
 
             $point = PointsHistory::find($distributor->currentPoints->first()->id);
             $point->accumulated_points = $point->accumulated_points+$points;
-            $point->accumulated_money = $point->accumulated_money+$totalPrice;
+            $point->accumulated_money = $point->accumulated_money+$totalDistributorPrice;
             $point->save();
             $point->fk_id_accumulated_points_status = AccumulatedPointsStatus::getPointHistoryStatus($distributor->id);
             $point->save();
@@ -355,7 +359,7 @@ class OrderController extends Controller
                 $product = Product::find($productItem['id']);
 
                 $order->products()->attach($product->id, [
-                    'price' => ($product->distributor_price * $productItem['quantity']),
+                    'price' => ($product->price_with_tax * $productItem['quantity']),
                     'quantity' => $productItem['quantity'],
                 ]);
                 $order->saveOrFail();
@@ -486,9 +490,9 @@ class OrderController extends Controller
                     $amount = 0;
 
                     if($countryId == Country::USA){
-                        $amount = $order->total_price;
+                        $amount = $order->total_price - $order->total_taxes;
                     } elseif ($countryId == Country::MEX){
-                        $amount = $promotion->with_points ? $order->total_accumulated_points : $order->total_price;
+                        $amount = $promotion->with_points ? $order->total_accumulated_points : ($order->total_price - $order->total_taxes);
                     }
 
                     if($amount >= $promotion->min_amount ){

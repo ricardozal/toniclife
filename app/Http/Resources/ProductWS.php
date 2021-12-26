@@ -19,7 +19,7 @@ class ProductWS extends JsonResource
             'image_url' => $this->absolute_image_url,
             'distributor_price' => $this->distributor_price,
             'tax' => round(($this->country->tax_percentage*0.01)*($this->distributor_price), 2),
-            'total' => round(($this->country->tax_percentage*0.01)*($this->distributor_price) + $this->distributor_price, 2),
+            'total' => round($this->price_with_tax, 2),
             'points' => $this->points,
             'is_kit' => $this->is_kit == 1,
             'inventory' => $this->available_inventory

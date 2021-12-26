@@ -45,6 +45,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read mixed $available_inventory
  * @property int $is_kit
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereIsKit($value)
+ * @property-read mixed $price_with_tax
  */
 class Product extends Model
 {
@@ -53,7 +54,8 @@ class Product extends Model
 
     public $appends = [
         'absolute_image_url',
-        'available_inventory'
+        'available_inventory',
+        'price_with_tax'
     ];
 
     protected $fillable = [
@@ -141,6 +143,10 @@ class Product extends Model
 
         return $inventory;
 
+    }
+
+    public function getPriceWithTaxAttribute() {
+        return $this->distributor_price + (($this->country->tax_percentage*0.01)*($this->distributor_price));
     }
 
 }

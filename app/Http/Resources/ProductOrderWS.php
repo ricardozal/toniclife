@@ -16,7 +16,7 @@ class ProductOrderWS extends JsonResource
         return [
             'name' => $this->name,
             'points' => $this->points,
-            'price' => '$'.number_format(($this->country->tax_percentage*0.01)*($this->distributor_price)+$this->distributor_price,2),
+            'price' => '$'.number_format($this->price_with_tax,2),
             'quantity' => $this->pivot->quantity,
             'total' => '$'.number_format($this->pivot->price,2),
             'accumulated_points' => $this->points*$this->pivot->quantity
