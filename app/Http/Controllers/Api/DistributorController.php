@@ -429,7 +429,7 @@ class DistributorController extends Controller
             $validator = Validator::make($request->all(), [
                 'bank_name' => 'required',
                 'bank_owner_name' => 'required',
-                'bank_account_number' => 'required|numeric|size:16'
+                'bank_account_number' => 'required|regex:/^[0-9]{16}$/'
             ]);
 
             if ($validator->fails()) {
@@ -458,7 +458,7 @@ class DistributorController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Bien hecho',
-            'data' => 'Dirección guardada'
+            'data' => 'Datos guardados'
         ]);
     }
 }
