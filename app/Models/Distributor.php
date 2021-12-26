@@ -84,6 +84,7 @@ class Distributor extends Authenticatable
         'email',
         'fk_id_country',
         'bank_name',
+        'bank_owner_name',
         'bank_account_number'
     ];
 

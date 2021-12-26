@@ -62,12 +62,12 @@ class OrderController extends Controller
         /** @var Distributor $distributor */
         $distributor = Distributor::find($distributorId);
 
-        if($distributor->bank_account_number == null) {
+        if($distributor->bank_account_number == null || $distributor->bank_owner_name == null || $distributor->bank_name == null) {
             return response()->json([
                 'success' => false,
                 'message' => 'Atención',
                 'data' => [
-                    'message' => 'El pedido no pudo finalizarse por que no cuenta con datos bancarios registrados, consulte con su administrador.',
+                    'message' => 'El pedido no pudo finalizarse por que no cuenta con datos bancarios registrados.',
                     'order_id' => 0,
                     'current_points' => 0,
                 ]
@@ -290,12 +290,12 @@ class OrderController extends Controller
         $distributor = Distributor::find($distributorId);
 
 
-        if($distributor->bank_account_number == null) {
+        if($distributor->bank_account_number == null || $distributor->bank_owner_name == null || $distributor->bank_name == null) {
             return response()->json([
                 'success' => false,
                 'message' => 'Atención',
                 'data' => [
-                    'message' => 'El pedido no pudo finalizarse por que no cuenta con datos bancarios registrados, consulte con su administrador.',
+                    'message' => 'El pedido no pudo finalizarse por que no cuenta con datos bancarios registrados.',
                     'order_id' => 0,
                     'current_points' => 0,
                 ]

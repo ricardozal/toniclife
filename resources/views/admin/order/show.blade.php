@@ -71,6 +71,7 @@
                 <p class="py-2">
                     Información para pago: <br><br>
                     Nombre de banco: {{$order->distributor->bank_name}} <br>
+                    Nombre de propietario: {{$order->distributor->bank_owner_name}} <br>
                     Número de cuenta: {{$order->distributor->bank_account_number}}
                 </p>
             </div>

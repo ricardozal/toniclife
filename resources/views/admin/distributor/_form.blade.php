@@ -85,6 +85,16 @@
 <div class="row w-75">
     <div class="col-12">
         <div class="form-group focused">
+            <label for="bank_owner_name" class="focused form-label">Nombre del propietario de cuenta</label>
+            <input type="text" class="form-control" autocomplete="off" id="bank_owner_name" name="bank_owner_name" value="{{ isset($distributor) ? $distributor->bank_owner_name : null}}">
+            <span class="invalid-feedback">{{ $errors->first('bank_owner_name') }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row w-75">
+    <div class="col-12">
+        <div class="form-group focused">
             <label for="bank_account_number" class="focused form-label">Número de cuenta bancaria</label>
             <input type="text" class="form-control" autocomplete="off" id="bank_account_number" name="bank_account_number" value="{{ isset($distributor) ? $distributor->bank_account_number : null}}">
             <span class="invalid-feedback">{{ $errors->first('bank_account_number') }}</span>
