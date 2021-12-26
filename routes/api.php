@@ -46,6 +46,9 @@ Route::group([
     Route::get('/distributor/{distributorId}/address/{addressId}/show', 'DistributorController@getAddress');
     Route::post('/distributor/{distributorId}/save-address', 'DistributorController@saveAddress');
 
+    Route::get('/distributor/{distributorId}/bank-data/show', 'DistributorController@getBankData');
+    Route::post('/distributor/{distributorId}/save-bank-data', 'DistributorController@saveBankData');
+
     Route::post('/distributor/{distributorId}/save-firebase-token', 'DistributorController@saveFirebaseToken');
 
     Route::get('/distributor/{distributorId}/order/{orderId}/my-distributors','DistributorController@getMyDistributors');

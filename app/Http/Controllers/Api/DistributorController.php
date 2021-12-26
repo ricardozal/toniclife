@@ -22,6 +22,8 @@ use App\Models\PointsHistory;
 use App\Notifications\OrderProcessed;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class DistributorController extends Controller
 {
@@ -399,5 +401,64 @@ class DistributorController extends Controller
             ]);
         }
 
+    }
+
+    public function getBankData($distributorId) {
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+
+        return response()->json([
+            'bank_name' => $distributor->bank_name ?? "",
+            'bank_owner_name' => $distributor->bank_owner_name ?? "",
+            'bank_account_number' => $distributor->bank_account_number ?? ""
+        ]);
+    }
+
+    public function saveBankData(Request $request, $distributorId) {
+
+        $bankName = $request->get('bank_name');
+        $bankOwnerName = $request->get('bank_owner_name');
+        $bankAccountNumber = $request->get('bank_account_number');
+
+        /** @var Distributor $distributor */
+        $distributor = Distributor::find($distributorId);
+
+        try {
+            \DB::beginTransaction();
+
+            $validator = Validator::make($request->all(), [
+                'bank_name' => 'required',
+                'bank_owner_name' => 'required',
+                'bank_account_number' => 'required|numeric|size:16'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validar que los datos sean correctos. Debe ingresar el nombre del banco, nombre del propietario y los 16 dígitos de su cuenta bancaria',
+                    'data' => null
+                ]);
+            }
+
+            $distributor->bank_name = $bankName;
+            $distributor->bank_owner_name = $bankOwnerName;
+            $distributor->bank_account_number = $bankAccountNumber;
+            $distributor->saveOrFail();
+
+            \DB::commit();
+
+        } catch (\Throwable $e){
+            \DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Error durante el proceso',
+                'data' => null
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Bien hecho',
+            'data' => 'Dirección guardada'
+        ]);
     }
 }

@@ -68,6 +68,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string|null $bank_account_number
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereBankAccountNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereBankName($value)
+ * @property string|null $bank_owner_name
+ * @method static \Illuminate\Database\Eloquent\Builder|Distributor whereBankOwnerName($value)
  */
 class Distributor extends Authenticatable
 {
